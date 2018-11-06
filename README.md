@@ -27,4 +27,4 @@ See !Guildstone help
 
 **Puppy : Random puppy XDXD**
 ```Contact me if you have any question or suggestion!\n
-*IOU_BOT made by Coldsewoo (차가운새우#2410)*
+CnC_Discord_Bot made by Coldsewoo (차가운새우#2410)
