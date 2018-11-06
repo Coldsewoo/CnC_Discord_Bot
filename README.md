@@ -19,7 +19,7 @@ See !Guildstone help
 
 **Update : Update guild information**
 
-**Updated Information is from CnC Guild's Mining Depth Sheet**
+*Updated Information is from CnC Guild's Mining Depth Sheet*
 
 **Guides : Useful Sheets & Guides on IOU**
 
