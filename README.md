@@ -29,5 +29,4 @@ See !Guildstone help
 
 ```Contact me if you have any question or suggestion!
 
-IOU_BOT made by Coldsewoo (차가운새우#2410)```
-          `
+IOU_BOT made by Coldsewoo (차가운새우#2410)
