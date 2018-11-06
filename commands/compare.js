@@ -49,7 +49,7 @@ exports.run = (client, message, args) => {
       day =  day + 1;
     }
 
-    if (content[0] === 'pet' ) {
+    if (content[0] === 'pet' || content[0] === 'stable' ) {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -120,7 +120,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'gold' ) {
+    if (content[0] === 'gold' || content[0] === 'bank') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -162,7 +162,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'exp' ) {
+    if (content[0] === 'exp' || content[0] === 'experience' || content[0] === 'altar') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -204,7 +204,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'wood' ) {
+    if (content[0] === 'wood' || content[0] === 'sawmill') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -256,7 +256,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'stone' ) {
+    if (content[0] === 'stone' || content[0] === 'warehouse') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -308,7 +308,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'points' ) {
+    if (content[0] === 'points' || content[0] === 'fortress') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -360,7 +360,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'tower' ) {
+    if (content[0] === 'tower' || content[0] === 'sacrifical' || content[0] === 'offering' || content[0] === 'offerings') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -402,7 +402,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'fish' ) {
+    if (content[0] === 'fish' || content[0] === 'aquatic') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -444,7 +444,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'cards' ) {
+    if (content[0] === 'cards' || content[0] === 'card' || content[0] === 'library') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -516,7 +516,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'space' ) {
+    if (content[0] === 'space' || content[0] === 'academy') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -582,7 +582,7 @@ exports.run = (client, message, args) => {
 
 ***Points*** - Fortress Level, Asc Points, Legendary Points
 
-***Sac*** - Sacrifical Tower Level, Sacrifical Offering EXP
+***Tower*** - Sacrifical Tower Level, Sacrifical Offering EXP
 
 ***Fish*** - Aquatic Research Level, Fish Value
 

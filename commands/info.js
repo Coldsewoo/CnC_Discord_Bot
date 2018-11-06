@@ -31,7 +31,7 @@ exports.run = (client, message, args) => {
       return;
     }
     var guildname = args.shift().toLowerCase();
-    if (guildname === 'br' || guildname === 'burningrage' || guildname === 'br') {
+    if (guildname === 'br' || guildname === 'burningrage' || guildname === 'burning') {
       guildname = 0;
     } else
     if (guildname === 'cs' || guildname === 'comingsoon' || guildname === 'coming') {
