@@ -26,7 +26,5 @@ See !Guildstone help
 **Cat : Random cat XD**
 
 **Puppy : Random puppy XDXD**
-
-```Contact me if you have any question or suggestion!
-
-IOU_BOT made by Coldsewoo (차가운새우#2410)
+```Contact me if you have any question or suggestion!\n
+*IOU_BOT made by Coldsewoo (차가운새우#2410)*
