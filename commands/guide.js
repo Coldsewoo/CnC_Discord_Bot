@@ -70,7 +70,7 @@ exports.run = (client, message, args) => {
         ],
 
         footer: {
-          icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+          icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
           text: `IOU_BOT made by Coldsewoo (차가운새우#2410)`
 
         }

@@ -73,7 +73,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)`
 
           }
@@ -115,25 +115,25 @@ exports.run = (client, message, args) => {
           title: `**${guildinfo[guildname][0]['guild_name']} guild information**`,
           fields: [
             {
-              name: "+---------------------------------------------------------------------------------------+",
+              name: "+-------------------------------------------+",
               value: `\`\`\`prolog
-|  Building   |  Level  |  Building   |  Level  |\`\`\`\`\`\`css
-| Guild Level |   ${guildsheet[guildname][2]}   | Wising Well |   ${guildsheet[guildname][3]}   |
-| Stable      |   ${guildsheet[guildname][4]}   | Warehouse   |   ${guildsheet[guildname][9]}   |
-| Fortress    |   ${guildsheet[guildname][5]}   | Altar       |   ${guildsheet[guildname][10]}   |
-| Bank        |   ${guildsheet[guildname][6]}   | Library     |   ${guildsheet[guildname][11]}   |
-| Sawmill     |   ${guildsheet[guildname][7]}   | Sac Tower   |   ${guildsheet[guildname][8]}   |
-| Aquatic     |   ${guildsheet[guildname][12]}   | Space Aca.  |   ${guildsheet[guildname][13]}   |\`\`\`\`\`\`prolog\n| Total Stone - ${guildsheet[guildname][31]}\`\`\``
+    Building       Level  \`\`\`\`\`\`css
+   Guild Level  -   ${guildsheet[guildname][2]}    \n   Wising Well  -   ${guildsheet[guildname][3]}
+   Stable       -   ${guildsheet[guildname][4]}    \n   Warehouse    -   ${guildsheet[guildname][9]}
+   Fortress     -   ${guildsheet[guildname][5]}    \n   Altar        -   ${guildsheet[guildname][10]}
+   Bank         -   ${guildsheet[guildname][6]}    \n   Library      -   ${guildsheet[guildname][11]}
+   Sawmill      -   ${guildsheet[guildname][7]}    \n   Sac Tower    -   ${guildsheet[guildname][8]}
+   Aquatic      -   ${guildsheet[guildname][12]}    \n   Space Aca.   -   ${guildsheet[guildname][13]}   \`\`\`\`\`\`prolog\n   Total Stone - ${guildsheet[guildname][31]}\`\`\``
             },
             {
-                    name: "+---------------------------------------------------------------------------------------+",
+                    name: "+-------------------------------------------+",
                     value: `**${guildinfo[guildname][0]['guild_name']} guild information**`
             }
 
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }

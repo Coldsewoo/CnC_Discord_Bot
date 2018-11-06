@@ -73,7 +73,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)`
 
           }
@@ -115,36 +115,36 @@ if (guildname === 'help')
       title: `**${guildinfo[guildname][0]['guild_name']} Guild Information**`,
       fields: [
         {
-          name: "+---------------------------------------------------------------------------------------+",
+          name: "+-------------------------------------------+",
           value: `\`\`\`prolog
-|     Name     |  Bonus      \`\`\`\`\`\`java
-| Sac. Exp     |  ${guildsheet[guildname][14]}
-| Pet Dmg      |  ${guildsheet[guildname][15]}
-| Gold Rate    |  ${guildsheet[guildname][16]}
-| XP Rate      |  ${guildsheet[guildname][17]}
-| Wood Damage  |  ${guildsheet[guildname][18]}
-| Wood Yield   |  ${guildsheet[guildname][19]}
-| Stone Chance |  ${guildsheet[guildname][20]}
-| Stone Yield  |  ${guildsheet[guildname][21]}
-| Fish Value   |  ${guildsheet[guildname][22]}
-| PetArenaDmg  |  ${guildsheet[guildname][23]}
-| Pet Training |  ${guildsheet[guildname][24]}
-| Asc Points   |  ${guildsheet[guildname][25]}
-| Leg Points   |  ${guildsheet[guildname][26]}
-| ChallengeDmg |  ${guildsheet[guildname][27]}
-| ShipArenaDmg |  ${guildsheet[guildname][28]}
-| Beast Dmg    |  ${guildsheet[guildname][29]}
+      Name        Bonus      \`\`\`\`\`\`java
+  Sac. Exp     -  ${guildsheet[guildname][14]}
+  Pet Dmg      -  ${guildsheet[guildname][15]}
+  Gold Rate    -  ${guildsheet[guildname][16]}
+  XP Rate      -  ${guildsheet[guildname][17]}
+  Wood Damage  -  ${guildsheet[guildname][18]}
+  Wood Yield   -  ${guildsheet[guildname][19]}
+  Stone Chance -  ${guildsheet[guildname][20]}
+  Stone Yield  -  ${guildsheet[guildname][21]}
+  Fish Value   -  ${guildsheet[guildname][22]}
+  PetArenaDmg  -  ${guildsheet[guildname][23]}
+  Pet Training -  ${guildsheet[guildname][24]}
+  Asc Points   -  ${guildsheet[guildname][25]}
+  Leg Points   -  ${guildsheet[guildname][26]}
+  ChallengeDmg -  ${guildsheet[guildname][27]}
+  ShipArenaDmg -  ${guildsheet[guildname][28]}
+  Beast Dmg    -  ${guildsheet[guildname][29]}
 \`\`\``
         },
         {
-                name: "+---------------------------------------------------------------------------------------+",
+                name: "+-------------------------------------------+",
                 value: `**${guildinfo[guildname][0]['guild_name']} guild information**`
         }
 
       ],
 
       footer: {
-        icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+        icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
         text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
       }
