@@ -93,9 +93,9 @@ if (guildname === 'help')
 } else
 {
 
-  var month = guildsheet[7].substring(5,7);
-  var day = guildsheet[7].substring(8,10);
-  var hourstr1 = guildsheet[7].split('T');
+  var month = guildsheet[8].substring(5,7);
+  var day = guildsheet[8].substring(8,10);
+  var hourstr1 = guildsheet[8].split('T');
   var hourstr2 = hourstr1[1].substring(0,9);
   var hourstr3 = hourstr2.split(':');
   hourstr3[0] = parseInt(hourstr3[0],10);

@@ -21,7 +21,7 @@ exports.run = (client, message, args) => {
           **Guildstone : Calculate stone required for guild level from and to**
                              *See !Guildstone help*
           **Update : Update guild information**
-          *Updated Information is from CnC Guild's Mining Depth Sheet*
+          *Updated Information is from CnC Guild's Utility Sheet*
           **Guides : Useful Sheets & Guides on IOU**
           **Cat : Random cat XD**
           **Puppy : Random puppy XDXD**
