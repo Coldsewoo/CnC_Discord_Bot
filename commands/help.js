@@ -26,7 +26,8 @@ exports.run = (client, message, args) => {
           **Cat : Random cat XD**
           **Puppy : Random puppy XDXD**
 
-          ***Contact me if you have any question or suggestion!***\n\n\n
+          **Contact me if you have any question or suggestion!
+          https://github.com/Coldsewoo/CnC_Discord_Bot**\n\n\n
           `
         }
       ],
