@@ -115,32 +115,26 @@ if (guildname === 'help')
       title: `**${guildinfo[guildname][0]['guild_name']} Guild Information**`,
       fields: [
         {
-          name: "+-------------------------------------------+",
-          value: `\`\`\`prolog
-      Name        Bonus      \`\`\`\`\`\`java
-  Sac. Exp     -  ${guildsheet[guildname][14]}
-  Pet Dmg      -  ${guildsheet[guildname][15]}
-  Gold Rate    -  ${guildsheet[guildname][16]}
-  XP Rate      -  ${guildsheet[guildname][17]}
-  Wood Damage  -  ${guildsheet[guildname][18]}
-  Wood Yield   -  ${guildsheet[guildname][19]}
-  Stone Chance -  ${guildsheet[guildname][20]}
-  Stone Yield  -  ${guildsheet[guildname][21]}
-  Fish Value   -  ${guildsheet[guildname][22]}
-  PetArenaDmg  -  ${guildsheet[guildname][23]}
-  Pet Training -  ${guildsheet[guildname][24]}
-  Asc Points   -  ${guildsheet[guildname][25]}
-  Leg Points   -  ${guildsheet[guildname][26]}
-  ChallengeDmg -  ${guildsheet[guildname][27]}
-  ShipArenaDmg -  ${guildsheet[guildname][28]}
-  Beast Dmg    -  ${guildsheet[guildname][29]}
+          name: "**              Name                           Bonus**",
+          value: `\`\`\`java
+Sac. Exp      -  ${guildsheet[guildname][14]}
+Pet Damage    -  ${guildsheet[guildname][15]}
+Gold Rate     -  ${guildsheet[guildname][16]}
+XP Rate       -  ${guildsheet[guildname][17]}
+Wood Damage   -  ${guildsheet[guildname][18]}
+Wood Yield    -  ${guildsheet[guildname][19]}
+Stone Chance  -  ${guildsheet[guildname][20]}
+Stone Yield   -  ${guildsheet[guildname][21]}
+Fish Value    -  ${guildsheet[guildname][22]}
+PetArena Dmg  -  ${guildsheet[guildname][23]}
+Pet Training  -  ${guildsheet[guildname][24]}
+Asc Points    -  ${guildsheet[guildname][25]}
+Leg Points    -  ${guildsheet[guildname][26]}
+Challenge Dmg -  ${guildsheet[guildname][27]}
+ShipArena Dmg -  ${guildsheet[guildname][28]}
+Beast Dmg     -  ${guildsheet[guildname][29]}
 \`\`\``
         },
-        {
-                name: "+-------------------------------------------+",
-                value: `**${guildinfo[guildname][0]['guild_name']} guild information**`
-        }
-
       ],
 
       footer: {

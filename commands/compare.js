@@ -161,7 +161,47 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
+    if (content[0] === 'level' || content[0] === 'lv') {
+      message.reply({embed: {
+          color: `${guildinfo[5][0]['guild_color']}`,
+          author: {
+            name: "Cows 'n' Chaos",
 
+                  },
+          title: `**Guild Level comparison**`,
+          fields: [
+            {
+              name: "Guild Level",
+              value: `\`\`\`prolog
+   Burning Rage    -  ${guildsheet[0][2]}
+   Coming Soon     -  ${guildsheet[1][2]}
+   The Collectives -  ${guildsheet[2][2]}
+   Imaginarium     -  ${guildsheet[3][2]}
+   Fresh Air       -  ${guildsheet[4][2]}
+   Always Online   -  ${guildsheet[5][2]}\`\`\``
+            },
+            {
+              name: "Wishing Well",
+              value: `\`\`\`prolog
+   Burning Rage    -  ${guildsheet[0][3]}
+   Coming Soon     -  ${guildsheet[1][3]}
+   The Collectives -  ${guildsheet[2][3]}
+   Imaginarium     -  ${guildsheet[3][3]}
+   Fresh Air       -  ${guildsheet[4][3]}
+   Always Online   -  ${guildsheet[5][3]}\`\`\``
+            }
+          ],
+
+          footer: {
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
+            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+
+          }
+        }
+      }).catch(function (err) {
+        console.error(err);
+      });
+    } else
     if (content[0] === 'exp' || content[0] === 'experience' || content[0] === 'altar') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
@@ -569,6 +609,7 @@ exports.run = (client, message, args) => {
             {
               name: "Available Contents\n",
               value: `\n\r
+***Level*** - Guild Level, Wising Well
 
 ***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage
 
