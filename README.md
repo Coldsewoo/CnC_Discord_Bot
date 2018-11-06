@@ -2,22 +2,23 @@
 
 Available Commands
 
-Info : Guild Level info
+Info : Guild Level info - 
 See !info help
 
-Bonus : Guild Bonus 
+Bonus : Guild Bonus - 
 See !Bonus help
 
-Compare : Compare level & bonus information on each guild
+Compare : Compare level & bonus information on each guild -
 See !Compare help
 
-Personal : Calculate stone required for guild personal from and to
+Personal : Calculate stone required for guild personal from and to -
 See !Personal help
 
-Guildstone : Calculate stone required for guild level from and to
+Guildstone : Calculate stone required for guild level from and to -
 See !Guildstone help
 
 Update : Update guild information
+
 Updated Information is from CnC Guild's Mining Depth Sheet
 
 Guides : Useful Sheets & Guides on IOU
