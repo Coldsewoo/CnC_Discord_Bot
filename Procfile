@@ -1,2 +1,1 @@
-worker: npm start
-worker: node coldsewoobot.js
+worker: node ./coldsewoobot.js
