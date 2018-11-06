@@ -31,7 +31,7 @@ exports.run = (client, message, args) => {
       return;
     }
     var guildname = args.shift().toLowerCase();
-    if (guildname === 'br' || guildname === 'burningrage' || guildname === 'br') {
+    if (guildname === 'br' || guildname === 'burningrage' || guildname === 'burning') {
       guildname = 0;
     } else
     if (guildname === 'cs' || guildname === 'comingsoon' || guildname === 'coming') {
@@ -73,7 +73,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)`
 
           }
@@ -93,9 +93,9 @@ if (guildname === 'help')
 } else
 {
 
-  var month = guildsheet[7].substring(5,7);
-  var day = guildsheet[7].substring(8,10);
-  var hourstr1 = guildsheet[7].split('T');
+  var month = guildsheet[8].substring(5,7);
+  var day = guildsheet[8].substring(8,10);
+  var hourstr1 = guildsheet[8].split('T');
   var hourstr2 = hourstr1[1].substring(0,9);
   var hourstr3 = hourstr2.split(':');
   hourstr3[0] = parseInt(hourstr3[0],10);
@@ -115,36 +115,36 @@ if (guildname === 'help')
       title: `**${guildinfo[guildname][0]['guild_name']} Guild Information**`,
       fields: [
         {
-          name: "+---------------------------------------------------------------------------------------+",
+          name: "+-------------------------------------------+",
           value: `\`\`\`prolog
-|     Name     |  Bonus      \`\`\`\`\`\`java
-| Sac. Exp     |  ${guildsheet[guildname][14]}
-| Pet Dmg      |  ${guildsheet[guildname][15]}
-| Gold Rate    |  ${guildsheet[guildname][16]}
-| XP Rate      |  ${guildsheet[guildname][17]}
-| Wood Damage  |  ${guildsheet[guildname][18]}
-| Wood Yield   |  ${guildsheet[guildname][19]}
-| Stone Chance |  ${guildsheet[guildname][20]}
-| Stone Yield  |  ${guildsheet[guildname][21]}
-| Fish Value   |  ${guildsheet[guildname][22]}
-| PetArenaDmg  |  ${guildsheet[guildname][23]}
-| Pet Training |  ${guildsheet[guildname][24]}
-| Asc Points   |  ${guildsheet[guildname][25]}
-| Leg Points   |  ${guildsheet[guildname][26]}
-| ChallengeDmg |  ${guildsheet[guildname][27]}
-| ShipArenaDmg |  ${guildsheet[guildname][28]}
-| Beast Dmg    |  ${guildsheet[guildname][29]}
+      Name        Bonus      \`\`\`\`\`\`java
+  Sac. Exp     -  ${guildsheet[guildname][14]}
+  Pet Dmg      -  ${guildsheet[guildname][15]}
+  Gold Rate    -  ${guildsheet[guildname][16]}
+  XP Rate      -  ${guildsheet[guildname][17]}
+  Wood Damage  -  ${guildsheet[guildname][18]}
+  Wood Yield   -  ${guildsheet[guildname][19]}
+  Stone Chance -  ${guildsheet[guildname][20]}
+  Stone Yield  -  ${guildsheet[guildname][21]}
+  Fish Value   -  ${guildsheet[guildname][22]}
+  PetArenaDmg  -  ${guildsheet[guildname][23]}
+  Pet Training -  ${guildsheet[guildname][24]}
+  Asc Points   -  ${guildsheet[guildname][25]}
+  Leg Points   -  ${guildsheet[guildname][26]}
+  ChallengeDmg -  ${guildsheet[guildname][27]}
+  ShipArenaDmg -  ${guildsheet[guildname][28]}
+  Beast Dmg    -  ${guildsheet[guildname][29]}
 \`\`\``
         },
         {
-                name: "+---------------------------------------------------------------------------------------+",
+                name: "+-------------------------------------------+",
                 value: `**${guildinfo[guildname][0]['guild_name']} guild information**`
         }
 
       ],
 
       footer: {
-        icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+        icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
         text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
       }

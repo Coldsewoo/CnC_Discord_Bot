@@ -21,18 +21,19 @@ exports.run = (client, message, args) => {
           **Guildstone : Calculate stone required for guild level from and to**
                              *See !Guildstone help*
           **Update : Update guild information**
-          *Updated Information is from CnC Guild's Mining Depth Sheet*
+          *Updated Information is from CnC Guild's Utility Sheet*
           **Guides : Useful Sheets & Guides on IOU**
           **Cat : Random cat XD**
           **Puppy : Random puppy XDXD**
 
-          ***Contact me if you have any question or suggestion!***\n\n\n
+          **Contact me if you have any question or suggestion!
+          https://github.com/Coldsewoo/CnC_Discord_Bot**\n\n\n
           `
         }
       ],
 
       footer: {
-        icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+        icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
         text: `IOU_BOT made by Coldsewoo (차가운새우#2410)`
 
       }

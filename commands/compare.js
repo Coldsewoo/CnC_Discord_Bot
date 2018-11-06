@@ -35,9 +35,9 @@ exports.run = (client, message, args) => {
       content.push(args[i].toLowerCase());
     }
     content.sort();
-    var month = guildsheet[7].substring(5,7);
-    var day = guildsheet[7].substring(8,10);
-    var hourstr1 = guildsheet[7].split('T');
+    var month = guildsheet[8].substring(5,7);
+    var day = guildsheet[8].substring(8,10);
+    var hourstr1 = guildsheet[8].split('T');
     var hourstr2 = hourstr1[1].substring(0,9);
     var hourstr3 = hourstr2.split(':');
     hourstr3[0] = parseInt(hourstr3[0],10);
@@ -49,7 +49,7 @@ exports.run = (client, message, args) => {
       day =  day + 1;
     }
 
-    if (content[0] === 'pet' ) {
+    if (content[0] === 'pet' || content[0] === 'stable' ) {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -111,7 +111,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -120,7 +120,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'gold' ) {
+    if (content[0] === 'gold' || content[0] === 'bank') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -152,7 +152,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -162,7 +162,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'exp' ) {
+    if (content[0] === 'exp' || content[0] === 'experience' || content[0] === 'altar') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -194,7 +194,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -204,7 +204,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'wood' ) {
+    if (content[0] === 'wood' || content[0] === 'sawmill') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -246,7 +246,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -256,7 +256,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'stone' ) {
+    if (content[0] === 'stone' || content[0] === 'warehouse') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -298,7 +298,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -308,7 +308,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'points' ) {
+    if (content[0] === 'points' || content[0] === 'fortress') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -350,7 +350,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -360,7 +360,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'sac' ) {
+    if (content[0] === 'tower' || content[0] === 'sacrifical' || content[0] === 'offering' || content[0] === 'offerings') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -392,7 +392,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -402,7 +402,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'fish' ) {
+    if (content[0] === 'fish' || content[0] === 'aquatic') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -434,7 +434,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -444,7 +444,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'cards' ) {
+    if (content[0] === 'cards' || content[0] === 'card' || content[0] === 'library') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -476,7 +476,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -507,7 +507,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -516,7 +516,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'space' ) {
+    if (content[0] === 'space' || content[0] === 'academy') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -548,7 +548,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
 
           }
@@ -582,7 +582,7 @@ exports.run = (client, message, args) => {
 
 ***Points*** - Fortress Level, Asc Points, Legendary Points
 
-***Sac*** - Sacrifical Tower Level, Sacrifical Offering EXP
+***Tower*** - Sacrifical Tower Level, Sacrifical Offering EXP
 
 ***Fish*** - Aquatic Research Level, Fish Value
 
@@ -598,7 +598,7 @@ exports.run = (client, message, args) => {
           ],
 
           footer: {
-            icon_url:"https://cdn.discordapp.com/avatars/220499331344498688/28b6a51943316647b14adf1a3e84189f.png?size=128",
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
             text: `\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)`
 
           }
