@@ -119,10 +119,10 @@ exports.run = (client, message, args) => {
               value: `\`\`\`prolog
     Building       Level  \`\`\`\`\`\`css
    Guild Level  -   ${guildsheet[guildname][2]}    \n   Wising Well  -   ${guildsheet[guildname][3]}
-   Stable       -   ${guildsheet[guildname][4]}    \n   Warehouse    -   ${guildsheet[guildname][9]}
-   Fortress     -   ${guildsheet[guildname][5]}    \n   Altar        -   ${guildsheet[guildname][10]}
-   Bank         -   ${guildsheet[guildname][6]}    \n   Library      -   ${guildsheet[guildname][11]}
-   Sawmill      -   ${guildsheet[guildname][7]}    \n   Sac Tower    -   ${guildsheet[guildname][8]}
+   Stable       -   ${guildsheet[guildname][4]}    \n   Fortress     -   ${guildsheet[guildname][5]}
+   Bank         -   ${guildsheet[guildname][6]}    \n   Sawmill      -   ${guildsheet[guildname][7]}
+   Sac Tower    -   ${guildsheet[guildname][8]}    \n   Warehouse    -   ${guildsheet[guildname][9]}
+   Altar        -   ${guildsheet[guildname][10]}    \n   Library      -   ${guildsheet[guildname][11]}
    Aquatic      -   ${guildsheet[guildname][12]}    \n   Space Aca.   -   ${guildsheet[guildname][13]}   \`\`\`\`\`\`prolog\n   Total Stone - ${guildsheet[guildname][31]}\`\`\``
             },
             {
