@@ -26,5 +26,7 @@ See !Guildstone help
 **Cat : Random cat XD**
 
 **Puppy : Random puppy XDXD**
-```Contact me if you have any question or suggestion!\n
-CnC_Discord_Bot made by Coldsewoo (차가운새우#2410)
+
+***Contact me if you have any question or suggestion!***
+
+*CnC_Discord_Bot made by Coldsewoo (차가운새우#2410)*
