@@ -1,0 +1,182 @@
+{
+  "0": [
+    {
+      "guild_name": "Burning Rage",
+      "guild_color": "15508005",
+      "guild_level": "200",
+      "guild_wishing_well": "300",
+      "stable_current_GL": "191",
+      "fortress_current_GL": "190",
+      "bank_current_GL": "160",
+      "sawmill_current_GL": "218",
+      "sacrifical_tower_current_GL": "200",
+      "warehouse_current_GL": "282",
+      "altar_current_GL": "201",
+      "library_current_GL": "190",
+      "aquatic_research_current_GL": "200",
+      "space_academy_current_GL": "198"
+    },
+    {
+      "stable_objective_GL": "190",
+      "fortress_objective_GL": "189",
+      "bank_objective_GL": "160",
+      "sawmill_objective_GL": "217",
+      "sacrifical_tower_objective_GL": "200",
+      "warehouse_objective_GL": "282",
+      "altar_objective_GL": "201",
+      "library_objective_GL": "190",
+      "aquatic_research_objective_GL": "200",
+      "space_academy_objective_GL": "570"
+    }
+  ],
+  "1": [
+    {
+      "guild_name": "Comming Soon",
+      "guild_color": "1397735",
+      "guild_level": "200",
+      "guild_wishing_well": "10",
+      "stable_current_GL": "190",
+      "fortress_current_GL": "189",
+      "bank_current_GL": "160",
+      "sawmill_current_GL": "217",
+      "sacrifical_tower_current_GL": "200",
+      "warehouse_current_GL": "282",
+      "altar_current_GL": "201",
+      "library_current_GL": "190",
+      "aquatic_research_current_GL": "200",
+      "space_academy_current_GL": "198"
+    },
+    {
+      "stable_objective_GL": "190",
+      "fortress_objective_GL": "189",
+      "bank_objective_GL": "160",
+      "sawmill_objective_GL": "217",
+      "sacrifical_tower_objective_GL": "200",
+      "warehouse_objective_GL": "282",
+      "altar_objective_GL": "201",
+      "library_objective_GL": "190",
+      "aquatic_research_objective_GL": "200",
+      "space_academy_objective_GL": "198"
+    }
+  ],
+  "2": [
+    {
+      "guild_name": "The Collectives",
+      "guild_color": "4555521",
+      "guild_level": "284",
+      "guild_wishing_well": "120",
+      "stable_current_GL": "190",
+      "fortress_current_GL": "189",
+      "bank_current_GL": "160",
+      "sawmill_current_GL": "217",
+      "sacrifical_tower_current_GL": "200",
+      "warehouse_current_GL": "282",
+      "altar_current_GL": "201",
+      "library_current_GL": "190",
+      "aquatic_research_current_GL": "200",
+      "space_academy_current_GL": "198"
+    },
+    {
+      "stable_objective_GL": "190",
+      "fortress_objective_GL": "189",
+      "bank_objective_GL": "160",
+      "sawmill_objective_GL": "217",
+      "sacrifical_tower_objective_GL": "200",
+      "warehouse_objective_GL": "282",
+      "altar_objective_GL": "201",
+      "library_objective_GL": "190",
+      "aquatic_research_objective_GL": "200",
+      "space_academy_objective_GL": "198"
+    }
+  ],
+  "3": [
+    {
+      "guild_name": "Imaginarium",
+      "guild_color": "7538897",
+      "guild_level": "284",
+      "guild_wishing_well": "120",
+      "stable_current_GL": "190",
+      "fortress_current_GL": "189",
+      "bank_current_GL": "160",
+      "sawmill_current_GL": "217",
+      "sacrifical_tower_current_GL": "200",
+      "warehouse_current_GL": "282",
+      "altar_current_GL": "201",
+      "library_current_GL": "190",
+      "aquatic_research_current_GL": "200",
+      "space_academy_current_GL": "198"
+    },
+    {
+      "stable_objective_GL": "190",
+      "fortress_objective_GL": "189",
+      "bank_objective_GL": "160",
+      "sawmill_objective_GL": "217",
+      "sacrifical_tower_objective_GL": "200",
+      "warehouse_objective_GL": "282",
+      "altar_objective_GL": "201",
+      "library_objective_GL": "190",
+      "aquatic_research_objective_GL": "200",
+      "space_academy_objective_GL": "198"
+    }
+  ],
+  "4": [
+    {
+      "guild_name": "Fresh Air",
+      "guild_color": "7582717",
+      "guild_level": "284",
+      "guild_wishing_well": "120",
+      "stable_current_GL": "191",
+      "fortress_current_GL": "190",
+      "bank_current_GL": "160",
+      "sawmill_current_GL": "218",
+      "sacrifical_tower_current_GL": "200",
+      "warehouse_current_GL": "282",
+      "altar_current_GL": "201",
+      "library_current_GL": "190",
+      "aquatic_research_current_GL": "200",
+      "space_academy_current_GL": "198"
+    },
+    {
+      "stable_objective_GL": "190",
+      "fortress_objective_GL": "189",
+      "bank_objective_GL": "160",
+      "sawmill_objective_GL": "217",
+      "sacrifical_tower_objective_GL": "200",
+      "warehouse_objective_GL": "282",
+      "altar_objective_GL": "201",
+      "library_objective_GL": "190",
+      "aquatic_research_objective_GL": "200",
+      "space_academy_objective_GL": "198"
+    }
+  ],
+  "5": [
+    {
+      "guild_name": "Always Online",
+      "guild_color": "14616095",
+      "guild_level": "284",
+      "guild_wishing_well": "120",
+      "stable_current_GL": "190",
+      "fortress_current_GL": "189",
+      "bank_current_GL": "160",
+      "sawmill_current_GL": "217",
+      "sacrifical_tower_current_GL": "200",
+      "warehouse_current_GL": "282",
+      "altar_current_GL": "201",
+      "library_current_GL": "190",
+      "aquatic_research_current_GL": "200",
+      "space_academy_current_GL": "198"
+    },
+    {
+      "stable_objective_GL": "190",
+      "fortress_objective_GL": "189",
+      "bank_objective_GL": "160",
+      "sawmill_objective_GL": "217",
+      "sacrifical_tower_objective_GL": "200",
+      "warehouse_objective_GL": "282",
+      "altar_objective_GL": "201",
+      "library_objective_GL": "190",
+      "aquatic_research_objective_GL": "200",
+      "space_academy_objective_GL": "198"
+    }
+  ]
+}
