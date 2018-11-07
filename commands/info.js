@@ -27,7 +27,37 @@ exports.run = (client, message, args) => {
     guildsheet = JSON.parse(JSONBuffers[2]);
 
     if (!args[0]) {
-      message.reply(`You must type guild name (See !info help)`);
+      message.reply({embed: {
+          color: `${guildinfo[5][0]['guild_color']}`,
+          author: {
+            name: `Info`,
+
+                  },
+          title: `Shows Guild Level Information`,
+          fields: [
+            {
+              name: "Available Contents",
+              value: `
+              **Burning Rage** - *BR, Burningrage*
+              **Coming Soon** - *CS, Comingsoon*
+              **The Collectives** - *TC, Thecollectives*
+              **Imaginarium** - *IM, Imaginarium*
+              **Fresh Air** - *FA, Freshair*
+              **Always Online** - *AO, Alwaysonline*
+              ex) !info AO, !info Alwaysonline
+    `
+            }
+          ],
+
+          footer: {
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
+            text: `\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)`
+
+          }
+        }
+      }).catch(function (err) {
+        console.error(err);
+      });
       return;
     }
     var guildname = args.shift().toLowerCase();
@@ -49,7 +79,7 @@ exports.run = (client, message, args) => {
     if (guildname === 'ao' || guildname === 'alwaysonline' || guildname === 'always') {
       guildname = 5;
     } else
-    if (guildname === 'help' ) {
+    if (guildname === 'help') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -93,18 +123,24 @@ exports.run = (client, message, args) => {
     {
       //今日 午後9時45分
       //2018-11-01T13:35:28.550Z
-      var month = guildsheet[8].substring(5,7);
-      var day = guildsheet[8].substring(8,10);
-      var hourstr1 = guildsheet[8].split('T');
-      var hourstr2 = hourstr1[1].substring(0,9);
-      var hourstr3 = hourstr2.split(':');
-      hourstr3[0] = parseInt(hourstr3[0],10);
-      hourstr3[0] = hourstr3[0] + 9 ;
-      day = parseInt(day,10);
+      if(!guildsheet[8]) {
+        message.reply(" *Please* **!UPDATE** *first*");
+        return;
+      } else {
+        var month = guildsheet[8].substring(5,7);
+        var day = guildsheet[8].substring(8,10);
+        var hourstr1 = guildsheet[8].split('T');
+        var hourstr2 = hourstr1[1].substring(0,9);
+        var hourstr3 = hourstr2.split(':');
+        hourstr3[0] = parseInt(hourstr3[0],10);
+        hourstr3[0] = hourstr3[0] + 9 ;
+        day = parseInt(day,10);
 
-      if (hourstr3[0] > 24) {
-        hourstr3[0] = hourstr3[0] - 24;
-        day =  day + 1;
+        if (hourstr3[0] > 24) {
+          hourstr3[0] = hourstr3[0] - 24;
+          day =  day + 1;
+      };
+
       }
       message.reply({embed: {
           color: `${guildinfo[guildname][0]['guild_color']}`,
@@ -115,21 +151,15 @@ exports.run = (client, message, args) => {
           title: `**${guildinfo[guildname][0]['guild_name']} guild information**`,
           fields: [
             {
-              name: "+-------------------------------------------+",
-              value: `\`\`\`prolog
-    Building       Level  \`\`\`\`\`\`css
-   Guild Level  -   ${guildsheet[guildname][2]}    \n   Wising Well  -   ${guildsheet[guildname][3]}
-   Stable       -   ${guildsheet[guildname][4]}    \n   Fortress     -   ${guildsheet[guildname][5]}
-   Bank         -   ${guildsheet[guildname][6]}    \n   Sawmill      -   ${guildsheet[guildname][7]}
-   Sac Tower    -   ${guildsheet[guildname][8]}    \n   Warehouse    -   ${guildsheet[guildname][9]}
-   Altar        -   ${guildsheet[guildname][10]}    \n   Library      -   ${guildsheet[guildname][11]}
-   Aquatic      -   ${guildsheet[guildname][12]}    \n   Space Aca.   -   ${guildsheet[guildname][13]}   \`\`\`\`\`\`prolog\n   Total Stone - ${guildsheet[guildname][31]}\`\`\``
-            },
-            {
-                    name: "+-------------------------------------------+",
-                    value: `**${guildinfo[guildname][0]['guild_name']} guild information**`
+              name: "**              Building                          Level**",
+              value: `\`\`\`css
+  Guild Level  -   ${guildsheet[guildname][2]}    \n  Wising Well  -   ${guildsheet[guildname][3]}
+  Stable       -   ${guildsheet[guildname][4]}    \n  Fortress     -   ${guildsheet[guildname][5]}
+  Bank         -   ${guildsheet[guildname][6]}    \n  Sawmill      -   ${guildsheet[guildname][7]}
+  Sac Tower    -   ${guildsheet[guildname][8]}    \n  Warehouse    -   ${guildsheet[guildname][9]}
+  Altar        -   ${guildsheet[guildname][10]}    \n  Library      -   ${guildsheet[guildname][11]}
+  Aquatic      -   ${guildsheet[guildname][12]}    \n  Space Aca.   -   ${guildsheet[guildname][13]}     \`\`\`\`\`\`prolog\n   Total Stone - ${guildsheet[guildname][31]}\`\`\``
             }
-
           ],
 
           footer: {

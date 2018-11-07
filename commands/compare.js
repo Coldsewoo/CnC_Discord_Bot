@@ -25,9 +25,93 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
+    var guildcolor;
+  /*  "guild_name": "Burning Rage",
+        "guild_color": "15508005",
+
+    "guild_name": "Coming Soon",
+        "guild_color": "1397735",
+    "guild_name": "The Collectives",
+        "guild_color": "4555521",
+  "guild_name": "Imaginarium",
+        "guild_color": "7538897",
+    "guild_name": "Fresh Air",
+        "guild_color": "7582717",
+
+        "guild_name": "Always Online",
+        "guild_color": "14616095",
+*/
+
+    if(message.member.roles.find(role => role.name === "BR"))
+    {
+    guildcolor = "14713377";
+    } else
+    if(message.member.roles.find(role => role.name === "CS"))
+    {
+    guildcolor = "7382744";
+    } else
+    if(message.member.roles.find(role => role.name === "The Collectives"))
+    {
+    guildcolor = "951659";
+    } else
+    if(message.member.roles.find(role => role.name === "Imaginarium"))
+    {
+    guildcolor = "9984690";
+    } else
+    if(message.member.roles.find(role => role.name === "Fresh Air"))
+    {
+    guildcolor = "3407751";
+    } else
+    if(message.member.roles.find(role => role.name === "Always Online"))
+    {
+    guildcolor = "16398164";
+    } else
+    {
+    guildcolor = "16312092";
+    }
+
+
 
     if (!args[0]) {
-      message.reply(`You must type contents you want to compare (See !compare help)`);
+      message.reply({embed: {
+          color: `${guildcolor}`,
+          author: {
+            name: "Cows 'n' Chaos",
+
+                  },
+          title: `**Compare**`,
+          fields: [
+            {
+              name: "Available Contents\n",
+              value: `\n\r
+  ***Level*** - Guild Level, Wising Well
+  ***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage
+  ***Gold*** - Bank Level, Gold Rate
+  ***Exp*** - Altar Level, EXP Rate
+  ***Wood*** - Sawmill Level, Woodcutting Dmg, Woodcutting Yield
+  ***Stone*** - Warehouse Level, +1 Stone Chance, Stone Yield
+  ***Points*** - Fortress Level, Asc Points, Legendary Points
+  ***Tower*** - Sacrifical Tower Level, Sacrifical Offering EXP
+  ***Fish*** - Aquatic Research Level, Fish Value
+  ***Cards*** - Library Level, Card Drop Amount
+  ***Challenge*** - Challenge Damage
+  ***Space*** - Space Academy Level, Space Arena HP/Damage
+
+  ***ex) !compare stone***
+  \n\r
+  `
+            }
+          ],
+
+          footer: {
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
+            text: `\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)`
+
+          }
+        }
+      }).catch(function (err) {
+        console.error(err);
+      });
       return;
     }
     var content = [];
@@ -35,23 +119,28 @@ exports.run = (client, message, args) => {
       content.push(args[i].toLowerCase());
     }
     content.sort();
-    var month = guildsheet[8].substring(5,7);
-    var day = guildsheet[8].substring(8,10);
-    var hourstr1 = guildsheet[8].split('T');
-    var hourstr2 = hourstr1[1].substring(0,9);
-    var hourstr3 = hourstr2.split(':');
-    hourstr3[0] = parseInt(hourstr3[0],10);
-    hourstr3[0] = hourstr3[0] + 9 ;
-    day = parseInt(day,10);
+    if(!guildsheet[8]) {
+      message.reply(" *Please* **!UPDATE** *first*");
+      return;
+    } else {
+      var month = guildsheet[8].substring(5,7);
+      var day = guildsheet[8].substring(8,10);
+      var hourstr1 = guildsheet[8].split('T');
+      var hourstr2 = hourstr1[1].substring(0,9);
+      var hourstr3 = hourstr2.split(':');
+      hourstr3[0] = parseInt(hourstr3[0],10);
+      hourstr3[0] = hourstr3[0] + 9 ;
+      day = parseInt(day,10);
 
-    if (hourstr3[0] > 24) {
-      hourstr3[0] = hourstr3[0] - 24;
-      day =  day + 1;
+      if (hourstr3[0] > 24) {
+        hourstr3[0] = hourstr3[0] - 24;
+        day =  day + 1;
+    }
     }
 
     if (content[0] === 'pet' || content[0] === 'stable' ) {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -122,7 +211,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'gold' || content[0] === 'bank') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -161,10 +250,50 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
+    if (content[0] === 'level' || content[0] === 'lv') {
+      message.reply({embed: {
+          color: `${guildcolor}`,
+          author: {
+            name: "Cows 'n' Chaos",
 
+                  },
+          title: `**Guild Level comparison**`,
+          fields: [
+            {
+              name: "Guild Level",
+              value: `\`\`\`prolog
+   Burning Rage    -  ${guildsheet[0][2]}
+   Coming Soon     -  ${guildsheet[1][2]}
+   The Collectives -  ${guildsheet[2][2]}
+   Imaginarium     -  ${guildsheet[3][2]}
+   Fresh Air       -  ${guildsheet[4][2]}
+   Always Online   -  ${guildsheet[5][2]}\`\`\``
+            },
+            {
+              name: "Wishing Well",
+              value: `\`\`\`prolog
+   Burning Rage    -  ${guildsheet[0][3]}
+   Coming Soon     -  ${guildsheet[1][3]}
+   The Collectives -  ${guildsheet[2][3]}
+   Imaginarium     -  ${guildsheet[3][3]}
+   Fresh Air       -  ${guildsheet[4][3]}
+   Always Online   -  ${guildsheet[5][3]}\`\`\``
+            }
+          ],
+
+          footer: {
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
+            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+
+          }
+        }
+      }).catch(function (err) {
+        console.error(err);
+      });
+    } else
     if (content[0] === 'exp' || content[0] === 'experience' || content[0] === 'altar') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -206,7 +335,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'wood' || content[0] === 'sawmill') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -258,7 +387,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'stone' || content[0] === 'warehouse') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -310,7 +439,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'points' || content[0] === 'fortress') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -362,7 +491,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'tower' || content[0] === 'sacrifical' || content[0] === 'offering' || content[0] === 'offerings') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -404,7 +533,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'fish' || content[0] === 'aquatic') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -446,7 +575,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'cards' || content[0] === 'card' || content[0] === 'library') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -487,7 +616,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'challenge' ) {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -518,7 +647,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'space' || content[0] === 'academy') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -557,9 +686,9 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'help' ) {
+    if (content[0] === 'help' || !content[0]) {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -569,29 +698,20 @@ exports.run = (client, message, args) => {
             {
               name: "Available Contents\n",
               value: `\n\r
-
+***Level*** - Guild Level, Wising Well
 ***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage
-
 ***Gold*** - Bank Level, Gold Rate
-
 ***Exp*** - Altar Level, EXP Rate
-
 ***Wood*** - Sawmill Level, Woodcutting Dmg, Woodcutting Yield
-
 ***Stone*** - Warehouse Level, +1 Stone Chance, Stone Yield
-
 ***Points*** - Fortress Level, Asc Points, Legendary Points
-
 ***Tower*** - Sacrifical Tower Level, Sacrifical Offering EXP
-
 ***Fish*** - Aquatic Research Level, Fish Value
-
 ***Cards*** - Library Level, Card Drop Amount
-
 ***Challenge*** - Challenge Damage
-
 ***Space*** - Space Academy Level, Space Arena HP/Damage
 
+***ex) !compare stone***
 \n\r
 `
             }
