@@ -25,10 +25,56 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
+    var guildcolor;
+  /*  "guild_name": "Burning Rage",
+        "guild_color": "15508005",
+
+    "guild_name": "Coming Soon",
+        "guild_color": "1397735",
+    "guild_name": "The Collectives",
+        "guild_color": "4555521",
+  "guild_name": "Imaginarium",
+        "guild_color": "7538897",
+    "guild_name": "Fresh Air",
+        "guild_color": "7582717",
+
+        "guild_name": "Always Online",
+        "guild_color": "14616095",
+*/
+
+    if(message.member.roles.find(role => role.name === "BR"))
+    {
+    guildcolor = "14713377";
+    } else
+    if(message.member.roles.find(role => role.name === "CS"))
+    {
+    guildcolor = "7382744";
+    } else
+    if(message.member.roles.find(role => role.name === "The Collectives"))
+    {
+    guildcolor = "951659";
+    } else
+    if(message.member.roles.find(role => role.name === "Imaginarium"))
+    {
+    guildcolor = "9984690";
+    } else
+    if(message.member.roles.find(role => role.name === "Fresh Air"))
+    {
+    guildcolor = "3407751";
+    } else
+    if(message.member.roles.find(role => role.name === "Always Online"))
+    {
+    guildcolor = "16398164";
+    } else
+    {
+    guildcolor = "16312092";
+    }
+
+
 
     if (!args[0]) {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -94,7 +140,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'pet' || content[0] === 'stable' ) {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -165,7 +211,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'gold' || content[0] === 'bank') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -206,7 +252,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'level' || content[0] === 'lv') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -247,7 +293,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'exp' || content[0] === 'experience' || content[0] === 'altar') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -289,7 +335,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'wood' || content[0] === 'sawmill') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -341,7 +387,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'stone' || content[0] === 'warehouse') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -393,7 +439,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'points' || content[0] === 'fortress') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -445,7 +491,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'tower' || content[0] === 'sacrifical' || content[0] === 'offering' || content[0] === 'offerings') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -487,7 +533,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'fish' || content[0] === 'aquatic') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -529,7 +575,7 @@ exports.run = (client, message, args) => {
 
     if (content[0] === 'cards' || content[0] === 'card' || content[0] === 'library') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -570,7 +616,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'challenge' ) {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -601,7 +647,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'space' || content[0] === 'academy') {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
@@ -642,7 +688,7 @@ exports.run = (client, message, args) => {
     } else
     if (content[0] === 'help' || !content[0]) {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Cows 'n' Chaos",
 
