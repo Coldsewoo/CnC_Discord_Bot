@@ -51,7 +51,7 @@ exports.run = (client, message, args) => {
           **Update : Update guild information**
           *Updated Information is from CnC Guild's Utility Sheet*
           **Guides : Useful Sheets & Guides on IOU**
-          **Clear : Clear : Delete the latest 30 bot request and responses**
+          **Clear : Delete the bot request and responses in this channel**
           *Only Administrators can use !Clear command*
           **Cat : Random cat XD**
           **Puppy : Random puppy XDXD**
