@@ -1,6 +1,34 @@
 exports.run = (client, message, args) => {
+  var guildcolor;
+  if(message.member.roles.find(role => role.name === "BR"))
+  {
+  guildcolor = "14713377";
+  } else
+  if(message.member.roles.find(role => role.name === "CS"))
+  {
+  guildcolor = "7382744";
+  } else
+  if(message.member.roles.find(role => role.name === "The Collectives"))
+  {
+  guildcolor = "951659";
+  } else
+  if(message.member.roles.find(role => role.name === "Imaginarium"))
+  {
+  guildcolor = "9984690";
+  } else
+  if(message.member.roles.find(role => role.name === "Fresh Air"))
+  {
+  guildcolor = "3407751";
+  } else
+  if(message.member.roles.find(role => role.name === "Always Online"))
+  {
+  guildcolor = "16398164";
+  } else
+  {
+  guildcolor = "16312092";
+  }
   message.reply({embed: {
-      color: 1397735,
+      color: guildcolor,
       author: {
         name: "Cows 'n' Chaos",
 
@@ -23,6 +51,8 @@ exports.run = (client, message, args) => {
           **Update : Update guild information**
           *Updated Information is from CnC Guild's Utility Sheet*
           **Guides : Useful Sheets & Guides on IOU**
+          **Clear : Clear : Delete the latest 30 bot request and responses**
+          *Only Administrators can use !Clear command*
           **Cat : Random cat XD**
           **Puppy : Random puppy XDXD**
 
