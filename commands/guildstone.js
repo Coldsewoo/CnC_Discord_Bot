@@ -25,7 +25,7 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
-    if (args[0] === 'help') {
+    if (args[0] === 'help' || !args[0]) {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -53,6 +53,7 @@ exports.run = (client, message, args) => {
       }).catch(function (err) {
         console.error(err);
       });
+      return;
     } else
     parseInt(args, 10);
     if (args[0] - args[1] > 0 || !args[0] || !args[1])

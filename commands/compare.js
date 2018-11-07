@@ -27,7 +27,45 @@ exports.run = (client, message, args) => {
     guildsheet = JSON.parse(JSONBuffers[2]);
 
     if (!args[0]) {
-      message.reply(`You must type contents you want to compare (See !compare help)`);
+      message.reply({embed: {
+          color: `${guildinfo[5][0]['guild_color']}`,
+          author: {
+            name: "Cows 'n' Chaos",
+
+                  },
+          title: `**Compare**`,
+          fields: [
+            {
+              name: "Available Contents\n",
+              value: `\n\r
+  ***Level*** - Guild Level, Wising Well
+  ***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage
+  ***Gold*** - Bank Level, Gold Rate
+  ***Exp*** - Altar Level, EXP Rate
+  ***Wood*** - Sawmill Level, Woodcutting Dmg, Woodcutting Yield
+  ***Stone*** - Warehouse Level, +1 Stone Chance, Stone Yield
+  ***Points*** - Fortress Level, Asc Points, Legendary Points
+  ***Tower*** - Sacrifical Tower Level, Sacrifical Offering EXP
+  ***Fish*** - Aquatic Research Level, Fish Value
+  ***Cards*** - Library Level, Card Drop Amount
+  ***Challenge*** - Challenge Damage
+  ***Space*** - Space Academy Level, Space Arena HP/Damage
+
+  ***ex) !compare stone***
+  \n\r
+  `
+            }
+          ],
+
+          footer: {
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
+            text: `\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)`
+
+          }
+        }
+      }).catch(function (err) {
+        console.error(err);
+      });
       return;
     }
     var content = [];
@@ -597,7 +635,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'help' ) {
+    if (content[0] === 'help' || !content[0]) {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
@@ -610,29 +648,19 @@ exports.run = (client, message, args) => {
               name: "Available Contents\n",
               value: `\n\r
 ***Level*** - Guild Level, Wising Well
-
 ***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage
-
 ***Gold*** - Bank Level, Gold Rate
-
 ***Exp*** - Altar Level, EXP Rate
-
 ***Wood*** - Sawmill Level, Woodcutting Dmg, Woodcutting Yield
-
 ***Stone*** - Warehouse Level, +1 Stone Chance, Stone Yield
-
 ***Points*** - Fortress Level, Asc Points, Legendary Points
-
 ***Tower*** - Sacrifical Tower Level, Sacrifical Offering EXP
-
 ***Fish*** - Aquatic Research Level, Fish Value
-
 ***Cards*** - Library Level, Card Drop Amount
-
 ***Challenge*** - Challenge Damage
-
 ***Space*** - Space Academy Level, Space Arena HP/Damage
 
+***ex) !compare stone***
 \n\r
 `
             }

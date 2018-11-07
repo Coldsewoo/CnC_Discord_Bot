@@ -27,7 +27,37 @@ exports.run = (client, message, args) => {
     guildsheet = JSON.parse(JSONBuffers[2]);
 
     if (!args[0]) {
-      message.reply(`You must type guild name (See !info help)`);
+      message.reply({embed: {
+          color: `${guildinfo[5][0]['guild_color']}`,
+          author: {
+            name: `Info`,
+
+                  },
+          title: `Shows Guild Level Information`,
+          fields: [
+            {
+              name: "Available Contents",
+              value: `
+              **Burning Rage** - *BR, Burningrage*
+              **Coming Soon** - *CS, Comingsoon*
+              **The Collectives** - *TC, Thecollectives*
+              **Imaginarium** - *IM, Imaginarium*
+              **Fresh Air** - *FA, Freshair*
+              **Always Online** - *AO, Alwaysonline*
+              ex) !info AO, !info Alwaysonline
+    `
+            }
+          ],
+
+          footer: {
+            icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
+            text: `\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)`
+
+          }
+        }
+      }).catch(function (err) {
+        console.error(err);
+      });
       return;
     }
     var guildname = args.shift().toLowerCase();
@@ -49,7 +79,7 @@ exports.run = (client, message, args) => {
     if (guildname === 'ao' || guildname === 'alwaysonline' || guildname === 'always') {
       guildname = 5;
     } else
-    if (guildname === 'help' ) {
+    if (guildname === 'help') {
       message.reply({embed: {
           color: `${guildinfo[5][0]['guild_color']}`,
           author: {
