@@ -122,19 +122,23 @@ if (guildname === 'help')
   return;
 } else
 {
+  if(!guildsheet[8]) {
+    message.reply(" *Please* **!UPDATE** *first*");
+    return;
+  } else {
+    var month = guildsheet[8].substring(5,7);
+    var day = guildsheet[8].substring(8,10);
+    var hourstr1 = guildsheet[8].split('T');
+    var hourstr2 = hourstr1[1].substring(0,9);
+    var hourstr3 = hourstr2.split(':');
+    hourstr3[0] = parseInt(hourstr3[0],10);
+    hourstr3[0] = hourstr3[0] + 9 ;
+    day = parseInt(day,10);
 
-  var month = guildsheet[8].substring(5,7);
-  var day = guildsheet[8].substring(8,10);
-  var hourstr1 = guildsheet[8].split('T');
-  var hourstr2 = hourstr1[1].substring(0,9);
-  var hourstr3 = hourstr2.split(':');
-  hourstr3[0] = parseInt(hourstr3[0],10);
-  hourstr3[0] = hourstr3[0] + 9 ;
-  day = parseInt(day,10);
-
-  if (hourstr3[0] > 24) {
-    hourstr3[0] = hourstr3[0] - 24;
-    day =  day + 1;
+    if (hourstr3[0] > 24) {
+      hourstr3[0] = hourstr3[0] - 24;
+      day =  day + 1;
+  };
   }
   message.reply({embed: {
       color: `${guildinfo[guildname][0]['guild_color']}`,
