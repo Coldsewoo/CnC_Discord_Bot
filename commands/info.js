@@ -38,13 +38,13 @@ exports.run = (client, message, args) => {
             {
               name: "Available Contents",
               value: `
-              **Burning Rage** - *BR, Burningrage*
-              **Coming Soon** - *CS, Comingsoon*
-              **The Collectives** - *TC, Thecollectives*
-              **Imaginarium** - *IM, Imaginarium*
-              **Fresh Air** - *FA, Freshair*
-              **Always Online** - *AO, Alwaysonline*
-              ex) !info AO, !info Alwaysonline
+**Burning Rage** - *BR, Burningrage*
+**Coming Soon** - *CS, Comingsoon*
+**The Collectives** - *TC, Thecollectives*
+**Imaginarium** - *IM, Imaginarium*
+**Fresh Air** - *FA, Freshair*
+**Always Online** - *AO, Alwaysonline*
+ex) !info AO, !info Alwaysonline
     `
             }
           ],
@@ -91,13 +91,13 @@ exports.run = (client, message, args) => {
             {
               name: "Available Contents",
               value: `
-              **Burning Rage** - *BR, Burningrage*
-              **Coming Soon** - *CS, Comingsoon*
-              **The Collectives** - *TC, Thecollectives*
-              **Imaginarium** - *IM, Imaginarium*
-              **Fresh Air** - *FA, Freshair*
-              **Always Online** - *AO, Alwaysonline*
-              ex) !info AO, !info Alwaysonline
+**Burning Rage** - *BR, Burningrage*
+**Coming Soon** - *CS, Comingsoon*
+**The Collectives** - *TC, Thecollectives*
+**Imaginarium** - *IM, Imaginarium*
+**Fresh Air** - *FA, Freshair*
+**Always Online** - *AO, Alwaysonline*
+ex) !info AO, !info Alwaysonline
     `
             }
           ],

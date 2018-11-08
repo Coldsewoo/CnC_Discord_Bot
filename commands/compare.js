@@ -84,20 +84,20 @@ exports.run = (client, message, args) => {
             {
               name: "Available Contents\n",
               value: `\n\r
-  ***Level*** - Guild Level, Wising Well
-  ***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage
-  ***Gold*** - Bank Level, Gold Rate
-  ***Exp*** - Altar Level, EXP Rate
-  ***Wood*** - Sawmill Level, Woodcutting Dmg, Woodcutting Yield
-  ***Stone*** - Warehouse Level, +1 Stone Chance, Stone Yield
-  ***Points*** - Fortress Level, Asc Points, Legendary Points
-  ***Tower*** - Sacrifical Tower Level, Sacrifical Offering EXP
-  ***Fish*** - Aquatic Research Level, Fish Value
-  ***Cards*** - Library Level, Card Drop Amount
-  ***Challenge*** - Challenge Damage
-  ***Space*** - Space Academy Level, Space Arena HP/Damage
+***Level*** - Guild Level, Wising Well
+***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage
+***Gold*** - Bank Level, Gold Rate
+***Exp*** - Altar Level, EXP Rate
+***Wood*** - Sawmill Level, Woodcutting Dmg, Woodcutting Yield
+***Stone*** - Warehouse Level, +1 Stone Chance, Stone Yield
+***Points*** - Fortress Level, Asc Points, Legendary Points
+***Tower*** - Sacrifical Tower Level, Sacrifical Offering EXP
+***Fish*** - Aquatic Research Level, Fish Value
+***Cards*** - Library Level, Card Drop Amount
+***Challenge*** - Challenge Damage
+***Space*** - Space Academy Level, Space Arena HP/Damage
 
-  ***ex) !compare stone***
+***ex) !compare stone***
   \n\r
   `
             }
