@@ -70,8 +70,6 @@ exports.run = (client, message, args) => {
     guildcolor = "16312092";
     }
 
-
-
     if (!args[0]) {
       message.reply({embed: {
           color: `${guildcolor}`,
@@ -122,23 +120,8 @@ exports.run = (client, message, args) => {
     if(!guildsheet[8]) {
       message.reply(" *Please* **!UPDATE** *first*");
       return;
-    } else {
-      var month = guildsheet[8].substring(5,7);
-      var day = guildsheet[8].substring(8,10);
-      var hourstr1 = guildsheet[8].split('T');
-      var hourstr2 = hourstr1[1].substring(0,9);
-      var hourstr3 = hourstr2.split(':');
-      hourstr3[0] = parseInt(hourstr3[0],10);
-      hourstr3[0] = hourstr3[0] + 9 ;
-      day = parseInt(day,10);
-
-      if (hourstr3[0] > 24) {
-        hourstr3[0] = hourstr3[0] - 24;
-        day =  day + 1;
     }
-    }
-
-    if (content[0] === 'pet' || content[0] === 'stable' ) {
+    if (['pet','stable'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -201,7 +184,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -209,7 +192,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'gold' || content[0] === 'bank') {
+    if (['gold','bank'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -242,7 +225,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -250,7 +233,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'level' || content[0] === 'lv') {
+    if (['level','lv'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -283,7 +266,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -291,7 +274,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'exp' || content[0] === 'experience' || content[0] === 'altar') {
+    if (['exp','experience','altar'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -324,7 +307,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -333,7 +316,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'wood' || content[0] === 'sawmill') {
+    if (['wood', 'sawmill'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -376,7 +359,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -385,7 +368,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'stone' || content[0] === 'warehouse') {
+    if (['stone','warehoudse'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -428,7 +411,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -437,7 +420,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'points' || content[0] === 'fortress') {
+    if (['points','fortress','asc','ascension'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -480,7 +463,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -489,7 +472,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'tower' || content[0] === 'sacrifical' || content[0] === 'offering' || content[0] === 'offerings') {
+    if (['tower','sacrifical','offerings','offering'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -522,7 +505,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -531,7 +514,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'fish' || content[0] === 'aquatic') {
+    if (['fish','aquctic','aqua'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -564,7 +547,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -573,7 +556,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'cards' || content[0] === 'card' || content[0] === 'library') {
+    if (['cards','card','library'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -606,7 +589,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -614,7 +597,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'challenge' ) {
+    if (['challenge'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -637,7 +620,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }
@@ -645,7 +628,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'space' || content[0] === 'academy') {
+    if (['space','academy','ship'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -678,7 +661,7 @@ exports.run = (client, message, args) => {
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${month}月${day}日 ${hourstr3[0]}時${hourstr3[1]}分 JST(GMT+9)`
+            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
 
           }
         }

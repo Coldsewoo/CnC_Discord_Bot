@@ -32,8 +32,17 @@ exports.run = (client, message, args) => {
         for (var i = 0; i < rows.length; i++) {
           json.push(rows[i].split(/\t/i));
         }
-        time = new Date();
-    json.push(time);
+        var clientDate = new Date();
+        var time = new Date(clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000) + 32400000);
+        var dateInfo =
+        [
+          time.getFullYear(),
+          parseInt(time.getMonth())+1,
+          time.getDate(),
+          time.getHours(),
+          time.getMinutes()
+        ]
+    json.push(dateInfo);
         fs.writeFileSync(path.resolve(__dirname,'..','json','guildsheet.json'), JSON.stringify(json,null,2));
         message.reply(`\`\`\`prolog
   Updated Guild information on ${time}\`\`\``);
