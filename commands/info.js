@@ -61,22 +61,22 @@ ex) !info AO, !info Alwaysonline
       return;
     }
     var guildname = args.shift().toLowerCase();
-    if (guildname === 'br' || guildname === 'burningrage' || guildname === 'burning') {
+    if (['br','burningrage','burning'].indexOf(guildname) >= 0) {
       guildname = 0;
     } else
-    if (guildname === 'cs' || guildname === 'comingsoon' || guildname === 'coming') {
+    if (['cs','comingsoon','coming'].indexOf(guildname) >= 0) {
       guildname = 1;
     } else
-    if (guildname === 'tc' || guildname === 'thecollectives' || guildname === 'the') {
+    if (['tc','thecollectives','the'].indexOf(guildname) >= 0) {
       guildname = 2;
     } else
-    if (guildname === 'im' || guildname === 'imaginarium') {
+    if (['im','imaginarium'].indexOf(guildname) >= 0) {
       guildname = 3;
     } else
-    if (guildname === 'fa' || guildname === 'freshair' || guildname === 'fresh') {
+    if (['fa','freshair','fresh'].indexOf(guildname) >= 0) {
       guildname = 4;
     } else
-    if (guildname === 'ao' || guildname === 'alwaysonline' || guildname === 'always') {
+    if (['ao','alwaysonline','always'].indexOf(guildname) >= 0) {
       guildname = 5;
     } else
     if (guildname === 'help') {

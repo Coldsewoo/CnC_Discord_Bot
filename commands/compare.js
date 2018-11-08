@@ -121,7 +121,7 @@ exports.run = (client, message, args) => {
       message.reply(" *Please* **!UPDATE** *first*");
       return;
     }
-    if (content[0] === 'pet' || content[0] === 'stable' ) {
+    if (['pet','stable'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -192,7 +192,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'gold' || content[0] === 'bank') {
+    if (['gold','bank'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -233,7 +233,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'level' || content[0] === 'lv') {
+    if (['level','lv'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -274,7 +274,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'exp' || content[0] === 'experience' || content[0] === 'altar') {
+    if (['exp','experience','altar'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -316,7 +316,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'wood' || content[0] === 'sawmill') {
+    if (['wood', 'sawmill'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -368,7 +368,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'stone' || content[0] === 'warehouse') {
+    if (['stone','warehoudse'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -420,7 +420,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'points' || content[0] === 'fortress') {
+    if (['points','fortress','asc','ascension'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -472,7 +472,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'tower' || content[0] === 'sacrifical' || content[0] === 'offering' || content[0] === 'offerings') {
+    if (['tower','sacrifical','offerings','offering'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -514,7 +514,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'fish' || content[0] === 'aquatic') {
+    if (['fish','aquctic','aqua'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -556,7 +556,7 @@ exports.run = (client, message, args) => {
       });
     } else
 
-    if (content[0] === 'cards' || content[0] === 'card' || content[0] === 'library') {
+    if (['cards','card','library'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -597,7 +597,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'challenge' ) {
+    if (['challenge'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
@@ -628,7 +628,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    if (content[0] === 'space' || content[0] === 'academy') {
+    if (['space','academy','ship'].indexOf(content[0]) >= 0) {
       message.reply({embed: {
           color: `${guildcolor}`,
           author: {
