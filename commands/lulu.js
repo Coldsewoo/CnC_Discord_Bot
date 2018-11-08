@@ -1,29 +1,29 @@
+var fs = require('fs');
+var path = require('path');
 
 exports.run = (client, message, args) => {
-  var clientDate = new Date();
-  var timezone = new Date(clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000));
-  var timezone2 = new Date(clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000) + 32400000);
-  var timezoneoffset = new Date(clientDate.getTimezoneOffset());
-  message.channel.send(`${clientDate} clientDate`);
-  message.channel.send(`${timezoneoffset*60000} timezoneoffset*60000`);
-  message.channel.send(`${timezone} timezone`);
-  message.channel.send(`${timezone2} timezone2`);
+  fs.readFileAsync = function (fileName) {
+    return new Promise(function (resolve, reject) {
+      try {
+        fs.readFile(fileName, function(err, buffer) {
+          if (err) reject(err); else resolve(buffer);
+        });
+      } catch (err) {
+        reject(err);
+      }
+    });
+  };
 
-  var dates = [
-    timezone.getFullYear(),
-    parseInt(timezone.getMonth())+1,
-    timezone.getDate(),
-    timezone.getHours(),
-    timezone.getMinutes()
-  ];
-  var dates2 = [
-    timezone2.getFullYear(),
-    parseInt(timezone2.getMonth())+1,
-    timezone2.getDate(),
-    timezone2.getHours(),
-    timezone2.getMinutes()
-  ]
+  function getJSONAsync(Name) {
+    return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
+  }
 
-  message.channel.send(`${dates[0]}/${dates[1]}/${dates[2]}/${dates[3]}/${dates[4]} timezone`);
-  message.channel.send(`${dates2[0]}/${dates2[1]}/${dates2[2]}/${dates2[3]}/${dates2[4]} timezone2`);
+  var JSONnames = ['guildinfo','IOU_guild','guildsheet'].map(getJSONAsync);
+  Promise.all(JSONnames).then(function (JSONBuffers){
+    guildinfo = JSON.parse(JSONBuffers[0]);
+    IOU_guild = JSON.parse(JSONBuffers[1]);
+    guildsheet = JSON.parse(JSONBuffers[2]);
+    message.channel.send(guildsheet[8]);
+
+  });
 }
