@@ -44,7 +44,7 @@ exports.run = (client, message, args) => {
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) !bonus AO, !bonus Alwaysonline
+ex) ~bonus AO, ~bonus Alwaysonline
     `
             }
           ],
@@ -123,7 +123,7 @@ if (guildname === 'help')
 } else
 {
   if(!guildsheet[8]) {
-    message.reply(" *Please* **!UPDATE** *first*");
+    message.reply(" *Please* **~Update** *first*");
     return;
   }
   message.reply({embed: {

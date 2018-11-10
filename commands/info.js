@@ -44,7 +44,7 @@ exports.run = (client, message, args) => {
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) !info AO, !info Alwaysonline
+ex) ~info AO, ~info Alwaysonline
     `
             }
           ],
@@ -97,7 +97,7 @@ ex) !info AO, !info Alwaysonline
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) !info AO, !info Alwaysonline
+ex) ~info AO, ~info Alwaysonline
     `
             }
           ],
@@ -124,7 +124,7 @@ ex) !info AO, !info Alwaysonline
       //今日 午後9時45分
       //2018-11-01T13:35:28.550Z
       if(!guildsheet[8]) {
-        message.reply(" *Please* **!UPDATE** *first*");
+        message.reply(" *Please* **~Update** *first*");
         return;
       }
 
