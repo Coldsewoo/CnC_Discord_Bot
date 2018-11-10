@@ -97,7 +97,7 @@ ex) ~bonus AO, ~bonus Alwaysonline
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) !bonus AO, !bonus Alwaysonline
+ex) ~bonus AO, ~bonus Alwaysonline
     `
             }
           ],

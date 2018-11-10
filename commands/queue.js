@@ -82,13 +82,10 @@ exports.run = (client, message, args) => {
             value: `\n\r
   ***List*** - Show current queue list
   ***Add*** - Add to the queue list
-  *ex) !queue add some_message*
+  *ex) ~queue add some_message*
   ***Insert*** - Insert into the queue list
-  *ex) !queue insert number some_message*
+  *ex) ~queue insert number some_message*
   ***Out*** - Delete your queue from the list
-  ***Delete*** - Delete specific queue from the queue list
-  *You can also use !queue remove*
-  *Need to type the queue number on !queue ex)!queue delete number*
 
   \n\r
   `

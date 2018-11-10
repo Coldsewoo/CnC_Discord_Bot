@@ -694,7 +694,7 @@ exports.run = (client, message, args) => {
 ***Challenge*** - Challenge Damage
 ***Space*** - Space Academy Level, Space Arena HP/Damage
 
-***ex) !compare stone***
+***ex) ~compare stone***
 \n\r
 `
             }
