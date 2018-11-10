@@ -48,6 +48,8 @@ exports.run = (client, message, args) => {
  *See !Personal help*
 **Guildstone : Calculate stone required for guild level from and to**
  *See !Guildstone help*
+**Queue : Show queue list, In and Out**
+ *See !Queue help*
 **Update : Update guild information**
 *Updated Information is from CnC Guild's Utility Sheet*
 **Guides : Useful Sheets & Guides on IOU**

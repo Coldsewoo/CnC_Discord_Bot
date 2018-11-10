@@ -23,5 +23,15 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
+
+
+      const member = message.member;
+      const mess = message.content.toLowerCase();
+      const content = message.content.split(' ').slice(1).join(" ");
+      const content2 = message.content.split(' ').slice(2).join(" ");
+
+      message.channel.send(content);
+      message.channel.send(content2);
+      message.channel.send(args[0]);
   });
 }

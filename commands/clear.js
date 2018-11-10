@@ -17,9 +17,9 @@ exports.run = (client, message, args) => {
       });
     })
       message.reply("Messages Cleared!");
-    }, 5000);
+    }, 7000);
   });
 } else {
-  message.reply("You do not have a permission to run this command.")
+  message.reply("You do not have a permission to run this command.");
 }
 }
