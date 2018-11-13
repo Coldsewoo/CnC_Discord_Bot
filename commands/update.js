@@ -10,6 +10,7 @@ var sheetId = 1898531464;            // The Page ID of the Sheet you'd like to e
 
 
 exports.run = (client, message, args) => {
+  if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply("You are not CnC member!");
   message.reply(`\`\`\`prolog
   Now trying to update information...\`\`\``);
 

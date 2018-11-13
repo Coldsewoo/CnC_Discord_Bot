@@ -25,6 +25,7 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
+    if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply("You are not CnC member!");
 
     if (!args[0]) {
       message.channel.send({embed: {
@@ -44,7 +45,7 @@ exports.run = (client, message, args) => {
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) ~bonus AO, ~bonus Alwaysonline
+ex) !bonus AO, !bonus Alwaysonline
     `
             }
           ],
@@ -97,7 +98,7 @@ ex) ~bonus AO, ~bonus Alwaysonline
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) ~bonus AO, ~bonus Alwaysonline
+ex) !bonus AO, !bonus Alwaysonline
     `
             }
           ],
@@ -123,7 +124,7 @@ if (guildname === 'help')
 } else
 {
   if(!guildsheet[8]) {
-    message.reply(" *Please* **~Update** *first*");
+    message.reply(" *Please* **!UPDATE** *first*");
     return;
   }
   message.reply({embed: {

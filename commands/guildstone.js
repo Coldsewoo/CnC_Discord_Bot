@@ -36,8 +36,8 @@ exports.run = (client, message, args) => {
             {
               name: "Available Contents\n",
               value: `
-How to use : ~guildstone from to
-ex) ~guildstone 100 200 - stone req. from lv 100 to lv 200
+How to use : !guildstone from to
+ex) !guildstone 100 200 - stone req. from lv 100 to lv 200
 
 `
             }

@@ -1,25 +1,39 @@
 const Discord = require("discord.js");
 
 exports.run = (client, message, args) => {
-  if(message.member.roles.find(role => role.name === "Admin"))
+  if(message.member.roles.find(role => role.name === "Admin" || role.name === "Bot Controller"))
   {
-    message.channel.fetchMessages({limit: 100}).then(collected => { //collected is a Collection
-      message.channel.send("Clearing messages...");
-    collected.forEach(msg => {
-      if (msg.content.startsWith("~") || msg.content.startsWith("!")) msg.delete();
-      if (msg.author.bot) msg.delete();
-    });
-  }).then(() => {
-    setTimeout(() => {
-      message.channel.fetchMessages({limit: 10}).then(collected => { //collected is a Collection
-      collected.forEach(msg => {
-        if (msg.content.startsWith("Clearing")) msg.delete();
+    async function clear()
+      {
+        message.delete();
+        var needDelete = [];
+        message.channel.fetchMessages({limit: 100}).then(collected => { //collected is a Collection
+        collected.forEach(msg => {
+          if (msg.content.startsWith("~") || msg.content.startsWith("!")) needDelete.push(msg);
+          if (msg.author.bot) needDelete.push(msg);
+        });
+        message.channel.bulkDelete(needDelete);
       });
-    })
-      message.reply("Messages Cleared!");
-    }, 7000);
-  });
-} else {
+      }
+      message.channel.send("Clearing messages...");
+      for (var i = 0; i < 6; i++)
+      {
+        setTimeout(() => {
+          clear();
+        }, 4000);
+        i++;
+      }
+        setTimeout(() => {
+          message.channel.fetchMessages({limit: 5}).then(collected => { //collected is a Collection
+          collected.forEach(msg => {
+            if (msg.content.startsWith("Clearing")) msg.delete();
+          });
+        })
+          message.reply("Messages Cleared!");
+        }, 10000);
+
+  } else
+  {
   message.reply("You do not have a permission to run this command.");
-}
+  }
 }
