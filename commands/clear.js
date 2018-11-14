@@ -16,13 +16,8 @@ exports.run = (client, message, args) => {
       });
       }
       message.channel.send("Clearing messages...");
-      for (var i = 0; i < 6; i++)
-      {
-        setTimeout(() => {
-          clear();
-        }, 4000);
-        i++;
-      }
+      clear();
+
         setTimeout(() => {
           message.channel.fetchMessages({limit: 5}).then(collected => { //collected is a Collection
           collected.forEach(msg => {
@@ -30,7 +25,7 @@ exports.run = (client, message, args) => {
           });
         })
           message.reply("Messages Cleared!");
-        }, 10000);
+        }, 5000);
 
   } else
   {
