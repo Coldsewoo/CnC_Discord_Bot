@@ -227,16 +227,25 @@ if(args[0] === 'in')
       return message.reply("```prolog\nYou are not in the queue```");
     } else
     {
+      var messageIn = "```prolog\n No free spot(s) left. Current IN -  \n";
       for(var i = 1; i < guilds[message.channel.id].queue.length + 1; i++)
         {
+          const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
+          if (currentIn >= guilds[message.channel.id].maxIn)
+          {
+            if (guilds[message.channel.id].isIn[i-1] === isInNum) {
+              var temp2 =  "   " + i + " : " + guilds[message.channel.id].queue[i-1] + "  [" + guilds[message.channel.id].queueContent[i-1] + "]\n";
+              messageIn += temp2;
+            }
+          } else
           if(guilds[message.channel.id].queue[i-1] === member_Id)
           {
-            const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
-            if (currentIn >= guilds[message.channel.id].maxIn)
-            {
-              message.reply("*There is no spot available now*");
+
+            if (guilds[message.channel.id].isIn[i-1] === isInNum){
+              message.reply("*You are already IN* with" + "**  "+ i + " : " + guilds[message.channel.id].queue[i-1] + "  [" + guilds[message.channel.id].queueContent[i-1] + "]**");
               return;
-            } else {
+            } else
+            {
               guilds[message.channel.id].isIn[i-1] = 1;
               if(guilds[message.channel.id].queueContent[i-1])
               {
@@ -251,6 +260,9 @@ if(args[0] === 'in')
           }
 
         }
+        messageIn += "```";
+        message.channel.send(messageIn);
+        messageIn = "```";
     }
     }
    else
