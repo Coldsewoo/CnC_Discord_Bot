@@ -25,12 +25,40 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
+    var monthEng = ["XD", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply("You are not CnC member!");
-    
+    var guildcolor;
+    if(message.member.roles.find(role => role.name === "BR"))
+    {
+    guildcolor = "14713377";
+    } else
+    if(message.member.roles.find(role => role.name === "CS"))
+    {
+    guildcolor = "7382744";
+    } else
+    if(message.member.roles.find(role => role.name === "The Collectives"))
+    {
+    guildcolor = "951659";
+    } else
+    if(message.member.roles.find(role => role.name === "Imaginarium"))
+    {
+    guildcolor = "9984690";
+    } else
+    if(message.member.roles.find(role => role.name === "Fresh Air"))
+    {
+    guildcolor = "3407751";
+    } else
+    if(message.member.roles.find(role => role.name === "Always Online"))
+    {
+    guildcolor = "16398164";
+    } else
+    {
+    guildcolor = "16312092";
+    }
     if (!args[0]) {
       message.reply({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: `Info`,
 
@@ -46,7 +74,7 @@ exports.run = (client, message, args) => {
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) !info AO, !info Alwaysonline
+ex) ~info AO, ~info Alwaysonline
     `
             }
           ],
@@ -99,7 +127,7 @@ ex) !info AO, !info Alwaysonline
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) !info AO, !info Alwaysonline
+ex) ~info AO, ~info Alwaysonline
     `
             }
           ],
@@ -114,8 +142,13 @@ ex) !info AO, !info Alwaysonline
         console.error(err);
       });
     } else
+    if (guildname === 'cold' || 'coldsewoo')
     {
-      message.reply(`You must type correct guild name (See !info help)`);
+      message.reply(":hello:");
+      return;
+    } else
+    {
+      message.reply(`You must type correct guild name (See ~info help)`);
       return;
     }
     if (guildname === 'help')
@@ -126,7 +159,7 @@ ex) !info AO, !info Alwaysonline
       //今日 午後9時45分
       //2018-11-01T13:35:28.550Z
       if(!guildsheet[8]) {
-        message.reply(" *Please* **!UPDATE** *first*");
+        message.reply(" *Please* **~update** *first*");
         return;
       }
 
@@ -139,14 +172,14 @@ ex) !info AO, !info Alwaysonline
           title: `**${guildinfo[guildname][0]['guild_name']} guild information**`,
           fields: [
             {
-              name: "**              Building                          Level**",
+              name: "**             Building                        Level**",
               value: `\`\`\`css
-  Guild Level  -   ${guildsheet[guildname][2]}    \n  Wising Well  -   ${guildsheet[guildname][3]}
-  Stable       -   ${guildsheet[guildname][4]}    \n  Fortress     -   ${guildsheet[guildname][5]}
-  Bank         -   ${guildsheet[guildname][6]}    \n  Sawmill      -   ${guildsheet[guildname][7]}
-  Sac Tower    -   ${guildsheet[guildname][8]}    \n  Warehouse    -   ${guildsheet[guildname][9]}
-  Altar        -   ${guildsheet[guildname][10]}    \n  Library      -   ${guildsheet[guildname][11]}
-  Aquatic      -   ${guildsheet[guildname][12]}    \n  Space Aca.   -   ${guildsheet[guildname][13]}     \`\`\`\`\`\`prolog\n   Total Stone - ${guildsheet[guildname][31]}\`\`\``
+ Guild Level  -   ${guildsheet[guildname][2]}    \n Wising Well  -   ${guildsheet[guildname][3]}
+ Stable       -   ${guildsheet[guildname][4]}    \n Fortress     -   ${guildsheet[guildname][5]}
+ Bank         -   ${guildsheet[guildname][6]}    \n Sawmill      -   ${guildsheet[guildname][7]}
+ Sac Tower    -   ${guildsheet[guildname][8]}    \n Warehouse    -   ${guildsheet[guildname][9]}
+ Altar        -   ${guildsheet[guildname][10]}    \n Library      -   ${guildsheet[guildname][11]}
+ Aquatic      -   ${guildsheet[guildname][12]}    \n Space Aca.   -   ${guildsheet[guildname][13]}     \`\`\`\`\`\`prolog\n Total Stone - ${guildsheet[guildname][35]}\`\`\``
             }
           ],
 

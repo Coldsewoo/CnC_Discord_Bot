@@ -81,7 +81,7 @@ exports.run = (client, message, args) => {
 ***Challenge*** - Challenge Damage
 ***Space*** - Space Academy Level, Space Arena HP/Damage
 
-***ex) !compare stone***
+***ex) ~compare stone***
   \n\r
   `
             }
@@ -104,7 +104,7 @@ exports.run = (client, message, args) => {
     }
     content.sort();
     if(!guildsheet[8]) {
-      message.reply(" *Please* **!UPDATE** *first*");
+      message.reply(" *Please* **~update** *first*");
       return;
     }
     if (['pet','stable'].indexOf(content[0]) >= 0) {
@@ -680,7 +680,7 @@ exports.run = (client, message, args) => {
 ***Challenge*** - Challenge Damage
 ***Space*** - Space Academy Level, Space Arena HP/Damage
 
-***ex) !compare stone***
+***ex) ~compare stone***
 \n\r
 `
             }
@@ -696,7 +696,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    message.reply(`You must type correct content name you want to compare (See !compare help)`);
+    message.reply(`You must type correct content name you want to compare (See ~compare help)`);
     return;
 
 });

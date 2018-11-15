@@ -9,9 +9,10 @@ exports.run = (client, message, args) => {
         var needDelete = [];
         message.channel.fetchMessages({limit: 100}).then(collected => { //collected is a Collection
         collected.forEach(msg => {
-          if (msg.content.startsWith("~") || msg.content.startsWith("!")) needDelete.push(msg);
-          if (msg.author.bot) needDelete.push(msg);
-        });
+        if (msg.content.startsWith("~") || msg.content.startsWith("!") || msg.author.bot) needDelete.push(msg);
+        }
+
+      );
         message.channel.bulkDelete(needDelete);
       });
       }
@@ -25,7 +26,7 @@ exports.run = (client, message, args) => {
           });
         })
           message.reply("Messages Cleared!");
-        }, 5000);
+        }, 3500);
 
   } else
   {

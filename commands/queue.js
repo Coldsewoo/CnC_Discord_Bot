@@ -125,18 +125,20 @@ if(!args[0] || args[0] === 'list') {
             value: `\n\r
   ***List*** - Show current queue list
   ***Add*** - Add to the queue list
-  *ex) !queue add some_message*
+  *ex) ~queue add some_message*
   ***Insert*** - Insert into the queue list
-  *ex) !queue insert number some_message*
+  *ex) ~queue insert number some_message*
+  ***IN*** - Flag yourself as being inside the guild
   ***Out*** - Delete your queue from the list
+
   For ADMINS
   ***Delete*** - Delete specific queue number on list
-  *You can also use !queue remove*
-  *ex) !queue delete 3*
+  *You can also use ~queue remove*
+  *ex) ~queue delete 3*
   ***Clear*** - Clear whole queue list
   ***Max*** - Set the max IN availble
   *-> Depends on current free spot(s)*
-  *ex) !queue max 2*
+  *ex) ~queue max 2*
   \n\r
   `
           }
@@ -218,7 +220,7 @@ if(args[0] === 'in')
   {
     if(guilds[message.channel.id].isIn.length === 0)
     {
-      return message.reply("```prolog\nNo one is IN to the queue currently```");
+      return message.reply("There is no one in the queue at this moment*.*");
     } else
     if(guilds[message.channel.id].queueId.indexOf(member) === -1)
     {
@@ -232,11 +234,17 @@ if(args[0] === 'in')
             const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
             if (currentIn >= guilds[message.channel.id].maxIn)
             {
-              message.reply("Full in now");
+              message.reply("*There is no spot available now*");
               return;
             } else {
               guilds[message.channel.id].isIn[i-1] = 1;
-              message.reply("**" + guilds[message.channel.id].queue[i-1] + "**" + " is now **IN**");
+              if(guilds[message.channel.id].queueContent[i-1])
+              {
+                message.reply("**" + guilds[message.channel.id].queue[i-1] + " [" + guilds[message.channel.id].queueContent[i-1] + "]** is now **IN**");
+              } else {
+                message.reply("**" + guilds[message.channel.id].queue[i-1] + "** is now **IN**");
+              }
+
               return;
             }
 
@@ -247,7 +255,7 @@ if(args[0] === 'in')
     }
    else
   {
-    message.channel.send('Wrong command! See !queue help');
+    message.channel.send('Wrong command! See ~queue help');
   }
 
 
@@ -272,7 +280,7 @@ function queue_delete(member, deleteNum, message)
 
       if(parseInt(deleteNum, 10) === parseInt(lastqueue, 10))
       {
-        message.reply("Queue on " + "**" + deleteNum + " : " + guilds[message.channel.id].queue[lastqueue-1] + "**" + " deleted!");
+        message.reply("Queue on " + "**" + deleteNum + " : " + guilds[message.channel.id].queue[lastqueue-1] + "  [" + guilds[message.channel.id].queueContent[lastqueue-1] +"]**" + " deleted!");
         guilds[message.channel.id].queueId.length--;
         guilds[message.channel.id].queue.length--;
         guilds[message.channel.id].queueContent.length--;
@@ -283,7 +291,7 @@ function queue_delete(member, deleteNum, message)
         {
           if (i === guilds[message.channel.id].queue.length - 2 )
           {
-            message.reply("Queue on " + "**" + deleteNum + " : " + (deletedId ? deletedId : guilds[message.channel.id].queue[i-1]) + "**" + " deleted!");
+            message.reply("Queue on " + "**" + deleteNum + " : " + (deletedId ? deletedId : guilds[message.channel.id].queue[i]) + "  [" + (deletedContent ? deletedContent : guilds[message.channel.id].queueContent[i]) + "]**" + " deleted!");
             guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i+1];
             guilds[message.channel.id].queue[i] = guilds[message.channel.id].queue[i+1];
             guilds[message.channel.id].queueContent[i] = guilds[message.channel.id].queueContent[i+1];
@@ -295,6 +303,7 @@ function queue_delete(member, deleteNum, message)
           } else
           {
             var deletedId = guilds[message.channel.id].queue[i];
+            var deletedContent = guilds[message.channel.id].queueContent[i];
             guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i+1];
             guilds[message.channel.id].queue[i] = guilds[message.channel.id].queue[i+1];
             guilds[message.channel.id].queueContent[i] = guilds[message.channel.id].queueContent[i+1];
@@ -319,7 +328,7 @@ function queue_delete(member, deleteNum, message)
     } else
     if (deleteNum > 0)
     {
-      message.reply("Queue on " + "**" + "1" + " : " + guilds[message.channel.id].queue[0] + "**" + " deleted!");
+      message.reply("Queue on " + "**" + "1" + " : " + guilds[message.channel.id].queue[0] + "  [" + guilds[message.channel.id].queueContent[0] + "]** deleted!");
       guilds[message.channel.id].queueId.shift();
       guilds[message.channel.id].queue.shift();
       guilds[message.channel.id].queueContent.shift();
@@ -327,7 +336,7 @@ function queue_delete(member, deleteNum, message)
       lastqueue--;
     } else
     {
-      message.reply("Last queue - " + "**" + lastqueue + " : " + guilds[message.channel.id].queue[lastqueue - 1] + "**" + " deleted!");
+      message.reply("Queue on " + "**" + lastqueue + " : " + guilds[message.channel.id].queue[lastqueue - 1] + "  ["+ guilds[message.channel.id].queueContent[lastqueue - 1] +  "]**" + "deleted!");
       guilds[message.channel.id].queueId.length--;
       guilds[message.channel.id].queue.length--;
       guilds[message.channel.id].queueContent.length--;
@@ -355,7 +364,7 @@ function queue_insert(member, member_Id, message)
       guilds[message.channel.id].queue.splice(switchNum-1,0,member_Id);
       guilds[message.channel.id].queueContent.splice(switchNum-1,0,contentsString);
       guilds[message.channel.id].isIn.splice(switchNum-1,0,'0');
-      message.reply("Inserted to Queue number:  " + "**" + switchNum + "**");
+      message.reply("Inserted to Queue number:  " + "**" + switchNum + "** [" + guilds[message.channel.id].queueContent[switchNum-1] + "]");
     };
   } else
     if (guilds[message.channel.id].queue.length === 0) {

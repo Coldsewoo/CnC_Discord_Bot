@@ -4,8 +4,8 @@ var path = require('path');
 var fs = require('fs');
 
 var format = 'tsv';         // Format you'd like to parse. `tsv` or `csv`
-var id = '10Uz99smnDf3Dy-4qZkNXqBQAVJTMbecl5gVxHSDzzsg'; // The Google Sheet ID found in the URL of your Google Sheet.
-var sheetId = 1898531464;            // The Page ID of the Sheet you'd like to export. Found as `gid` in the URL.
+var id = '1mzU6Ab78zk-UUYtGy62XhOOLKWzeeRsdw8B7-xbvgBA'; // The Google Sheet ID found in the URL of your Google Sheet.
+var sheetId = 480263369;            // The Page ID of the Sheet you'd like to export. Found as `gid` in the URL.
 
 
 
