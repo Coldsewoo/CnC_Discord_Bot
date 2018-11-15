@@ -242,7 +242,7 @@ if(args[0] === 'in')
           {
 
             if (guilds[message.channel.id].isIn[i-1] === isInNum){
-              message.reply("*You are already IN* with" + "**  "+ i + " : " + guilds[message.channel.id].queue[i-1] + "  [" + guilds[message.channel.id].queueContent[i-1] + "]**");
+              message.reply("*You are already IN* with" + "**  "+ i + " : " + guilds[message.channel.id].queue[i-1] + (guilds[message.channel.id].queueContent[i-1] ? "  [" + guilds[message.channel.id].queueContent[i-1] + "]**" : "**" ));
               return;
             } else
             {
@@ -251,7 +251,7 @@ if(args[0] === 'in')
               {
                 message.reply("**" + guilds[message.channel.id].queue[i-1] + " [" + guilds[message.channel.id].queueContent[i-1] + "]** is now **IN**");
               } else {
-                message.reply("**" + guilds[message.channel.id].queue[i-1] + "** is now **IN**");
+                message.reply("*You are now* ***IN***");
               }
 
               return;
