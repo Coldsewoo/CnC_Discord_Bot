@@ -25,10 +25,39 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
+    if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply("You are not CnC member!");
+    var guildcolor;
+    if(message.member.roles.find(role => role.name === "BR"))
+    {
+    guildcolor = "14713377";
+    } else
+    if(message.member.roles.find(role => role.name === "CS"))
+    {
+    guildcolor = "7382744";
+    } else
+    if(message.member.roles.find(role => role.name === "The Collectives"))
+    {
+    guildcolor = "951659";
+    } else
+    if(message.member.roles.find(role => role.name === "Imaginarium"))
+    {
+    guildcolor = "9984690";
+    } else
+    if(message.member.roles.find(role => role.name === "Fresh Air"))
+    {
+    guildcolor = "3407751";
+    } else
+    if(message.member.roles.find(role => role.name === "Always Online"))
+    {
+    guildcolor = "16398164";
+    } else
+    {
+    guildcolor = "16312092";
+    }
 
     if (!args[0]) {
       message.channel.send({embed: {
-          color: `${guildinfo[5][0]['guild_color']}`,
+          color: `${guildcolor}`,
           author: {
             name: "Bonus",
 
@@ -44,7 +73,7 @@ exports.run = (client, message, args) => {
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) !bonus AO, !bonus Alwaysonline
+ex) ~bonus AO, ~bonus Alwaysonline
     `
             }
           ],
@@ -97,7 +126,7 @@ ex) !bonus AO, !bonus Alwaysonline
 **Imaginarium** - *IM, Imaginarium*
 **Fresh Air** - *FA, Freshair*
 **Always Online** - *AO, Alwaysonline*
-ex) !bonus AO, !bonus Alwaysonline
+ex) ~bonus AO, ~bonus Alwaysonline
     `
             }
           ],
@@ -113,7 +142,7 @@ ex) !bonus AO, !bonus Alwaysonline
       });
     } else
     {
-      message.channel.send(`You must type correct guild name (See !bonus help)`);
+      message.channel.send(`You must type correct guild name (See ~bonus help)`);
       return;
     }
 
@@ -123,7 +152,7 @@ if (guildname === 'help')
 } else
 {
   if(!guildsheet[8]) {
-    message.reply(" *Please* **!UPDATE** *first*");
+    message.reply(" *Please* **~update** *first*");
     return;
   }
   message.reply({embed: {
@@ -146,13 +175,14 @@ Wood Yield    -  ${guildsheet[guildname][19]}
 Stone Chance  -  ${guildsheet[guildname][20]}
 Stone Yield   -  ${guildsheet[guildname][21]}
 Fish Value    -  ${guildsheet[guildname][22]}
-PetArena Dmg  -  ${guildsheet[guildname][23]}
-Pet Training  -  ${guildsheet[guildname][24]}
-Asc Points    -  ${guildsheet[guildname][25]}
-Leg Points    -  ${guildsheet[guildname][26]}
-Challenge Dmg -  ${guildsheet[guildname][27]}
-ShipArena Dmg -  ${guildsheet[guildname][28]}
-Beast Dmg     -  ${guildsheet[guildname][29]}
+Card value    -  ${guildsheet[guildname][23]}
+PetArena Dmg  -  ${guildsheet[guildname][24]}
+Pet Training  -  ${guildsheet[guildname][25]}
+Asc Points    -  ${guildsheet[guildname][26]}
+Leg Points    -  ${guildsheet[guildname][27]}
+Challenge Dmg -  ${guildsheet[guildname][28]}
+ShipArena Dmg -  ${guildsheet[guildname][29]}
+Beast Dmg     -  ${guildsheet[guildname][30]}
 \`\`\``
         },
       ],

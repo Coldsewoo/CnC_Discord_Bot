@@ -26,21 +26,7 @@ exports.run = (client, message, args) => {
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
     var guildcolor;
-  /*  "guild_name": "Burning Rage",
-        "guild_color": "15508005",
-
-    "guild_name": "Coming Soon",
-        "guild_color": "1397735",
-    "guild_name": "The Collectives",
-        "guild_color": "4555521",
-  "guild_name": "Imaginarium",
-        "guild_color": "7538897",
-    "guild_name": "Fresh Air",
-        "guild_color": "7582717",
-
-        "guild_name": "Always Online",
-        "guild_color": "14616095",
-*/
+    if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply("You are not CnC member!");
 
     if(message.member.roles.find(role => role.name === "BR"))
     {
@@ -95,7 +81,7 @@ exports.run = (client, message, args) => {
 ***Challenge*** - Challenge Damage
 ***Space*** - Space Academy Level, Space Arena HP/Damage
 
-***ex) !compare stone***
+***ex) ~compare stone***
   \n\r
   `
             }
@@ -118,7 +104,7 @@ exports.run = (client, message, args) => {
     }
     content.sort();
     if(!guildsheet[8]) {
-      message.reply(" *Please* **!UPDATE** *first*");
+      message.reply(" *Please* **~update** *first*");
       return;
     }
     if (['pet','stable'].indexOf(content[0]) >= 0) {
@@ -694,7 +680,7 @@ exports.run = (client, message, args) => {
 ***Challenge*** - Challenge Damage
 ***Space*** - Space Academy Level, Space Arena HP/Damage
 
-***ex) !compare stone***
+***ex) ~compare stone***
 \n\r
 `
             }
@@ -710,7 +696,7 @@ exports.run = (client, message, args) => {
         console.error(err);
       });
     } else
-    message.reply(`You must type correct content name you want to compare (See !compare help)`);
+    message.reply(`You must type correct content name you want to compare (See ~compare help)`);
     return;
 
 });
