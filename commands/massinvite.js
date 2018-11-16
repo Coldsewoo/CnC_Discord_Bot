@@ -23,8 +23,7 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
-    if (!message.member.roles.find(role => role.name === "Bot_controler")) return;
-    if (!message.member.roles.find(role => role.name === "Bot Controller")) return;
+    if (!message.member.roles.find(role => role.name === "Bot_controler") && !message.member.roles.find(role => role.name === "Bot Controller")) return;
 
     message.delete();
     message.channel.fetchPinnedMessages()

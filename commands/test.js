@@ -24,8 +24,8 @@ exports.run = (client, message, args) => {
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
 
-    if (!message.member.roles.find(role => role.name === "Bot_controler")) return;
-    if (!message.member.roles.find(role => role.name === "Bot Controller")) return;
+    if (!message.member.roles.find(role => role.name === "Bot_controler") && !message.member.roles.find(role => role.name === "Bot Controller")) return;
+
     message.channel.fetchPinnedMessages()
   .then(collected => { //collected is a Collection
   collected.forEach(msg => {
