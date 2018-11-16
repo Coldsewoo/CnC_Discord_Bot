@@ -23,6 +23,7 @@ exports.run = (client, message, args) => {
           message.channel.fetchMessages({limit: 5}).then(collected => { //collected is a Collection
           collected.forEach(msg => {
             if (msg.content.startsWith("Clearing")) msg.delete();
+            if (msg.content.startsWith("~clear")) msg.delete();
           });
         })
           message.reply("Messages Cleared!");
