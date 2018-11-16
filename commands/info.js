@@ -25,7 +25,8 @@ exports.run = (client, message, args) => {
     guildinfo = JSON.parse(JSONBuffers[0]);
     IOU_guild = JSON.parse(JSONBuffers[1]);
     guildsheet = JSON.parse(JSONBuffers[2]);
-    var monthEng = ["XD", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+
 
     if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply("You are not CnC member!");
     var guildcolor;
@@ -56,6 +57,31 @@ exports.run = (client, message, args) => {
     {
     guildcolor = "16312092";
     }
+
+    var monthEng = ["XD", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var result = guildsheet[8][2] % 10;
+    if (result === 1) {
+      guildsheet[8][2] += "th";
+    } else
+    if (result === 2) {
+      guildsheet[8][2] += "nd";
+    } else
+    if (result === 3) {
+      guildsheet[8][2] += "rd";
+    } else {
+      guildsheet[8][2] += "th";
+    }
+    if (guildsheet[8][3] > 11) {
+      if (guildsheet[8][3] === 12) {
+        guildsheet[8][4] += "PM";
+      } else {
+        guildsheet[8][3] = guildsheet[8][3] - 12;
+        guildsheet[8][4] += "PM";
+      }
+    } else {
+        guildsheet[8][4] += "AM";
+    }
+
     if (!args[0]) {
       message.reply({embed: {
           color: `${guildcolor}`,
@@ -185,7 +211,7 @@ ex) ~info AO, ~info Alwaysonline
 
           footer: {
             icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-            text: `Last updated on ${guildsheet[8][1]}月${guildsheet[8][2]}日 ${guildsheet[8][3]}時${guildsheet[8][4]}分 JST(GMT+9)`
+            text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`
 
           }
         }

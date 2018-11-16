@@ -167,7 +167,7 @@ if(!args[0] || args[0] === 'list') {
         message.reply("max IN set to: " + "**" + content + "**");
       } else
       {
-        return message.reply("Max must bigger than 0");
+        return message.reply("Max number needs to be higher than 0");
       }
     } else {
       return message.reply("You do not have a permission to run this command.");
@@ -189,11 +189,7 @@ if(!args[0] || args[0] === 'list') {
 } else
 if(args[0] === 'out')
   {
-    if(guilds[message.channel.id].queueId.length === 0)
-    {
-      return message.reply("```prolog\nNo one is IN to the queue currently```");
-    } else
-    if(guilds[message.channel.id].queueId.indexOf(member) === -1)
+    if(guilds[message.channel.id].queueId.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1)
     {
       return message.reply("```prolog\nYou are not in the queue```");
     } else
@@ -213,19 +209,22 @@ if(args[0] === 'test')
 {
   for (var i = 0; i < guilds[message.channel.id].queueId.length; i++)
   {
-    message.channel.send(guilds[message.channel.id].queue[i] + "//" + guilds[message.channel.id].queueContent[i]);
+    console.log("--------" + "num" + i);
+    console.log(guilds[message.channel.id].queue[i]);
+    console.log(guilds[message.channel.id].queueId[i]);
+    console.log(guilds[message.channel.id].queueContent[i]);
+    console.log(guilds[message.channel.id].isIn[i]);
+    console.log("--------");
+
   }
 } else
 if(args[0] === 'in')
   {
-    if(guilds[message.channel.id].isIn.length === 0)
-    {
-      return message.reply("There is no one in the queue at this moment*.*");
-    } else
-    if(guilds[message.channel.id].queueId.indexOf(member) === -1)
+    if(guilds[message.channel.id].isIn.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1)
     {
       return message.reply("```prolog\nYou are not in the queue```");
-    } else
+    }
+     else
     {
       var messageIn = "```prolog\n No free spot(s) left. Current IN -  \n";
       for(var i = 1; i < guilds[message.channel.id].queue.length + 1; i++)
@@ -292,7 +291,7 @@ function queue_delete(member, deleteNum, message)
 
       if(parseInt(deleteNum, 10) === parseInt(lastqueue, 10))
       {
-        message.reply("Queue on " + "**" + deleteNum + " : " + guilds[message.channel.id].queue[lastqueue-1] + "  [" + guilds[message.channel.id].queueContent[lastqueue-1] +"]**" + " deleted!");
+        message.reply("Queue on " + "**" + deleteNum + " : " + guilds[message.channel.id].queue[lastqueue-1] + (guilds[message.channel.id].queueContent[lastqueue-1] ? "  [" + guilds[message.channel.id].queueContent[lastqueue-1] +"]**" : "**") + " deleted!");
         guilds[message.channel.id].queueId.length--;
         guilds[message.channel.id].queue.length--;
         guilds[message.channel.id].queueContent.length--;
@@ -303,7 +302,7 @@ function queue_delete(member, deleteNum, message)
         {
           if (i === guilds[message.channel.id].queue.length - 2 )
           {
-            message.reply("Queue on " + "**" + deleteNum + " : " + (deletedId ? deletedId : guilds[message.channel.id].queue[i]) + "  [" + (deletedContent ? deletedContent : guilds[message.channel.id].queueContent[i]) + "]**" + " deleted!");
+            message.reply("Queue on " + "**" + deleteNum + " : " + (deletedId ? deletedId : guilds[message.channel.id].queue[i]) + (guilds[message.channel.id].queueContent[i] ? "  [" + guilds[message.channel.id].queueContent[i] +"]**" : "**") + " deleted!");
             guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i+1];
             guilds[message.channel.id].queue[i] = guilds[message.channel.id].queue[i+1];
             guilds[message.channel.id].queueContent[i] = guilds[message.channel.id].queueContent[i+1];
@@ -340,7 +339,7 @@ function queue_delete(member, deleteNum, message)
     } else
     if (deleteNum > 0)
     {
-      message.reply("Queue on " + "**" + "1" + " : " + guilds[message.channel.id].queue[0] + "  [" + guilds[message.channel.id].queueContent[0] + "]** deleted!");
+      message.reply("Queue on " + "**" + "1" + " : " + guilds[message.channel.id].queue[0] + (guilds[message.channel.id].queueContent[0] ? "  [" + guilds[message.channel.id].queueContent[0] +"]**" : "**") + " deleted!");
       guilds[message.channel.id].queueId.shift();
       guilds[message.channel.id].queue.shift();
       guilds[message.channel.id].queueContent.shift();
@@ -348,7 +347,7 @@ function queue_delete(member, deleteNum, message)
       lastqueue--;
     } else
     {
-      message.reply("Queue on " + "**" + lastqueue + " : " + guilds[message.channel.id].queue[lastqueue - 1] + "  ["+ guilds[message.channel.id].queueContent[lastqueue - 1] +  "]**" + "deleted!");
+      message.reply("Queue on " + "**" + lastqueue + " : " + guilds[message.channel.id].queue[lastqueue - 1] + (guilds[message.channel.id].queueContent[lastqueue-1] ? "  [" + guilds[message.channel.id].queueContent[lastqueue-1] +"]**" : "**") + " deleted!");
       guilds[message.channel.id].queueId.length--;
       guilds[message.channel.id].queue.length--;
       guilds[message.channel.id].queueContent.length--;

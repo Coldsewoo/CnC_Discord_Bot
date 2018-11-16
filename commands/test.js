@@ -25,8 +25,13 @@ exports.run = (client, message, args) => {
     guildsheet = JSON.parse(JSONBuffers[2]);
 
     if (!message.member.roles.find(role => role.name === "Bot_controler")) return;
-
-
+    if (!message.member.roles.find(role => role.name === "Bot Controller")) return;
+    message.channel.fetchPinnedMessages()
+  .then(collected => { //collected is a Collection
+  collected.forEach(msg => {
+  if (msg.author.bot) msg.delete();
+})
+}).catch(console.error);
 
     });
 
