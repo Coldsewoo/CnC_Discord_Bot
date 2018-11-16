@@ -26,7 +26,7 @@ exports.run = (client, message, args) => {
           });
         })
           message.reply("Messages Cleared!");
-        }, 3000);
+        }, 5000);
 
   } else
   {
