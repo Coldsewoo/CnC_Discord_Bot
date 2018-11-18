@@ -1,43 +1,23 @@
 exports.run = (client, message, args) => {
-  var guildcolor;
-  if(message.member.roles.find(role => role.name === "BR"))
-  {
-  guildcolor = "14713377";
-  } else
-  if(message.member.roles.find(role => role.name === "CS"))
-  {
-  guildcolor = "7382744";
-  } else
-  if(message.member.roles.find(role => role.name === "The Collectives"))
-  {
-  guildcolor = "951659";
-  } else
-  if(message.member.roles.find(role => role.name === "Imaginarium"))
-  {
-  guildcolor = "9984690";
-  } else
-  if(message.member.roles.find(role => role.name === "Fresh Air"))
-  {
-  guildcolor = "3407751";
-  } else
-  if(message.member.roles.find(role => role.name === "Always Online"))
-  {
-  guildcolor = "16398164";
-  } else
-  {
-  guildcolor = "16312092";
-  }
-  message.reply({embed: {
-      color: guildcolor,
-      author: {
-        name: "Cows 'n' Chaos",
+	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
+	const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
+	let color;
+	for (let i = 0; i < 6; i++) {
+		if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
+	}
+	if (!color) color = guildcolor[6];
 
-              },
-      title: `**Help**`,
-      fields: [
-        {
-          name: "Available Commands",
-          value: `
+	message.reply({ embed: {
+		color: color,
+		author: {
+			name: 'Cows \'n\' Chaos',
+
+		},
+		title: '**Help**',
+		fields: [
+			{
+				name: 'Available Commands',
+				value: `
 **Info : Guild Level info**
  *See ~info help*
 **Bonus : Guild Bonus **
@@ -63,17 +43,17 @@ For ADMINS
 
 **Contact me if you have any question or suggestion!
 **https://github.com/Coldsewoo/CnC_Discord_Bot**\n\n\n
-          `
-        }
-      ],
+          `,
+			},
+		],
 
-      footer: {
-        icon_url:"https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png",
-        text: `IOU_BOT made by Coldsewoo (차가운새우#2410)`
+		footer: {
+			icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
+			text: 'IOU_BOT made by Coldsewoo (차가운새우#2410)',
 
-      }
-    }
-  }).catch(function (err) {
-    console.error(err);
-  });
-}
+		},
+	},
+	}).catch(function(err) {
+		console.error(err);
+	});
+};

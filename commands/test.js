@@ -1,38 +1,32 @@
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
+const https = require('https');
+
 
 exports.run = (client, message, args) => {
-  fs.readFileAsync = function (fileName) {
-    return new Promise(function (resolve, reject) {
-      try {
-        fs.readFile(fileName, function(err, buffer) {
-          if (err) reject(err); else resolve(buffer);
-        });
-      } catch (err) {
-        reject(err);
-      }
-    });
-  };
+	fs.readFileAsync = function(fileName) {
+		return new Promise(function(resolve, reject) {
+			try {
+				fs.readFile(fileName, function(err, buffer) {
+					if (err) reject(err); else resolve(buffer);
+				});
+			}
+			catch (err) {
+				reject(err);
+			}
+		});
+	};
 
-  function getJSONAsync(Name) {
-    return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
-  }
+	function getJSONAsync(Name) {
+		return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
+	}
 
-  var JSONnames = ['guildinfo','IOU_guild','guildsheet'].map(getJSONAsync);
-  Promise.all(JSONnames).then(function (JSONBuffers){
-    guildinfo = JSON.parse(JSONBuffers[0]);
-    IOU_guild = JSON.parse(JSONBuffers[1]);
-    guildsheet = JSON.parse(JSONBuffers[2]);
+	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
+	Promise.all(JSONnames).then(function(JSONBuffers) {
+		const  guildinfo = JSON.parse(JSONBuffers[0]);
+		const  IOU_guild = JSON.parse(JSONBuffers[1]);
+		const  guildsheet = JSON.parse(JSONBuffers[2]);
 
-    if (!message.member.roles.find(role => role.name === "Bot_controler") && !message.member.roles.find(role => role.name === "Bot Controller")) return;
-
-    message.channel.fetchPinnedMessages()
-  .then(collected => { //collected is a Collection
-  collected.forEach(msg => {
-  if (msg.author.bot) msg.delete();
-})
-}).catch(console.error);
-
-    });
-
-}
+		message.channel.send(guildsheet[8]);
+	});
+};
