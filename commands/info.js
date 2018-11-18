@@ -131,7 +131,7 @@ ex) ~info AO, ~info Alwaysonline
 		else
 		if (guildnameInput === 'help') {
 			message.reply({ embed: {
-				color: `${guildinfo[5][0]['guild_color']}`,
+				color: `${color}`,
 				author: {
 					name: 'Info',
 

@@ -27,8 +27,15 @@ exports.run = (client, message, args) => {
 		const IOU_guild = JSON.parse(JSONBuffers[1]);
 		const guildsheet = JSON.parse(JSONBuffers[2]);
 		if (args[0] === 'help' || !args[0]) {
+			const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
+			let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
+			let color;
+			for (let i = 0; i < 6; i++) {
+				if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
+			}
+			if (!color) color = guildcolor[6];
 			message.reply({ embed: {
-				color: `${guildinfo[5][0]['guild_color']}`,
+				color: `${color}`,
 				author: {
 					name: 'Guildstone',
 				},

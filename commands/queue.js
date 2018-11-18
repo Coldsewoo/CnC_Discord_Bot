@@ -10,34 +10,13 @@ exports.run = (client, message, args) => {
 	const isNotInNum = 2;
 	const numArray = ['Zero', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN'];
 	const leaderRole = ['BR Leadership', 'CS Leadership', 'The Collectives Leadership', 'Imaginarium Leadership', 'Fresh Air Leadership', 'Always Online Leadership', 'Admin'];
-	let guildcolor;
-
-	if(message.member.roles.find(role => role.name === 'BR')) {
-		guildcolor = '14713377';
+	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
+	let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
+	let color;
+	for (let i = 0; i < 6; i++) {
+		if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
 	}
-	else
-	if(message.member.roles.find(role => role.name === 'CS')) {
-		guildcolor = '7382744';
-	}
-	else
-	if(message.member.roles.find(role => role.name === 'The Collectives')) {
-		guildcolor = '951659';
-	}
-	else
-	if(message.member.roles.find(role => role.name === 'Imaginarium')) {
-		guildcolor = '9984690';
-	}
-	else
-	if(message.member.roles.find(role => role.name === 'Fresh Air')) {
-		guildcolor = '3407751';
-	}
-	else
-	if(message.member.roles.find(role => role.name === 'Always Online')) {
-		guildcolor = '16398164';
-	}
-	else {
-		guildcolor = '16312092';
-	}
+	if (!color) color = guildcolor[6];
 
 	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply('You are not CnC member!');
 
@@ -111,7 +90,7 @@ exports.run = (client, message, args) => {
 	else
 	if(args[0] === 'help') {
 		message.reply({ embed: {
-			color: `${guildcolor}`,
+			color: `${color}`,
 			author: {
 				name: 'Cows \'n\' Chaos',
 

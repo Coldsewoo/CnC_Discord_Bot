@@ -129,7 +129,7 @@ ex) ~bonus AO, ~bonus Alwaysonline
 		else
 		if (guildnameInput === 'help') {
 			message.channel.send({ embed: {
-				color: `${guildinfo[5][0]['guild_color']}`,
+				color: `${color}`,
 				author: {
 					name: 'Bonus',
 
@@ -174,7 +174,7 @@ ex) ~bonus AO, ~bonus Alwaysonline
 				return;
 			}
 			message.reply({ embed: {
-				color: `${guildinfo[guildname][0]['guild_color']}`,
+				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
 
