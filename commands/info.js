@@ -35,40 +35,46 @@ exports.run = (client, message, args) => {
 			if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
 		}
 		if (!color) color = guildcolor[6];
-		if (!guildsheet[8][2]) message.reply(' *Please* **~update** *first*');
 		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		const result = guildsheet[8][2] % 10;
-		if (result === 1) {
-			guildsheet[8][2] += 'th';
-		}
-		else
-		if (result === 2) {
-			guildsheet[8][2] += 'nd';
-		}
-		else
-		if (result === 3) {
-			guildsheet[8][2] += 'rd';
-		}
-		else {
-			guildsheet[8][2] += 'th';
-		}
-		if (guildsheet[8][3] > 11) {
-			if (guildsheet[8][3] === 12) {
-				guildsheet[8][4] += 'PM';
-				if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-			}
-			else {
-				guildsheet[8][3] = guildsheet[8][3] - 12;
-				if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-				guildsheet[8][4] += 'PM';
-				if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
-			}
-		}
-		else {
+
+		if (!guildsheet[8][2])
+{
+	return message.reply(' *Please* **~update** *first*');
+} else
+{
+	const result = guildsheet[8][2] % 10;
+	if (result === 1) {
+		guildsheet[8][2] += 'th';
+	}
+	else
+	if (result === 2) {
+		guildsheet[8][2] += 'nd';
+	}
+	else
+	if (result === 3) {
+		guildsheet[8][2] += 'rd';
+	}
+	else {
+		guildsheet[8][2] += 'th';
+	}
+	if (guildsheet[8][3] > 11) {
+		if (guildsheet[8][3] === 12) {
+			guildsheet[8][4] += 'PM';
 			if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-			guildsheet[8][4] += 'AM';
+		}
+		else {
+			guildsheet[8][3] = guildsheet[8][3] - 12;
+			if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
+			guildsheet[8][4] += 'PM';
 			if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
 		}
+	}
+	else {
+		if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
+		guildsheet[8][4] += 'AM';
+		if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
+	}
+}
 
 		if (!args[0]) {
 			message.reply({ embed: {
