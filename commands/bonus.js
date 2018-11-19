@@ -25,7 +25,7 @@ exports.run = (client, message, args) => {
 		var guildinfo = JSON.parse(JSONBuffers[0]);
 		var IOU_guild = JSON.parse(JSONBuffers[1]);
 		var guildsheet = JSON.parse(JSONBuffers[2]);
-
+		if (!guildsheet[8][2]) return message.reply(' *Please* **~update** *first*');
 		const result = guildsheet[8][2] % 10;
 		if (result === 1) {
 			guildsheet[8][2] += 'th';

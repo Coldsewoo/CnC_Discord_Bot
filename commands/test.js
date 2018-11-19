@@ -26,7 +26,8 @@ exports.run = (client, message, args) => {
 		const  guildinfo = JSON.parse(JSONBuffers[0]);
 		const  IOU_guild = JSON.parse(JSONBuffers[1]);
 		const  guildsheet = JSON.parse(JSONBuffers[2]);
+		const channels = message.guild.channels;
+		message.channel.send(channels);
 
-		message.channel.send(guildsheet[8]);
 	});
 };

@@ -28,6 +28,7 @@ exports.run = (client, message, args) => {
 		var guildsheet = JSON.parse(JSONBuffers[2]);
 
 		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		if (!guildsheet[8][2]) return message.reply(' *Please* **~update** *first*');
 		const result = guildsheet[8][2] % 10;
 		if (result === 1) {
 			guildsheet[8][2] += 'th';
@@ -111,7 +112,7 @@ exports.run = (client, message, args) => {
 			});
 			return;
 		}
-		const content = [];
+		let content = [];
 		for(let i = 0; i < args.length; i++) {
 			content.push(args[i].toLowerCase());
 		}

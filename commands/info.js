@@ -35,7 +35,7 @@ exports.run = (client, message, args) => {
 			if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
 		}
 		if (!color) color = guildcolor[6];
-
+		if (!guildsheet[8][2]) message.reply(' *Please* **~update** *first*');
 		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 		const result = guildsheet[8][2] % 10;
 		if (result === 1) {
