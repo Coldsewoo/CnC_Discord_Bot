@@ -27,5 +27,6 @@ exports.run = (client, message, args) => {
 		const  IOU_guild = JSON.parse(JSONBuffers[1]);
 		const  guildsheet = JSON.parse(JSONBuffers[2]);
 		client.user.setActivity('Use ~help for more info XD', { type: 'PLAYING' });
+		client.user.setUsername('CnC_Discord_BOT');
 	});
 };
