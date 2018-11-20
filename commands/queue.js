@@ -100,6 +100,7 @@ exports.run = (client, message, args) => {
 				{
 					name: 'Available Contents\n',
 					value: `\n\r
+	__*(Only for INNER-GUILD PUSHES channels!)*__
   ***List*** - Show current queue list
   ***Add*** - Add to the queue list
   *ex) ~queue add some_message*
@@ -108,7 +109,7 @@ exports.run = (client, message, args) => {
   ***IN*** - Flag yourself as being inside the guild
   ***Out*** - Delete your queue from the list
 
-  For ADMINS
+  __*For ADMINS*__
   ***Delete*** - Delete specific queue number on list
   *You can also use ~queue remove*
   *ex) ~queue delete 3*

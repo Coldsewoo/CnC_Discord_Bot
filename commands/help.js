@@ -16,18 +16,20 @@ exports.run = (client, message, args) => {
 		title: '**Help**',
 		fields: [
 			{
-				name: 'Available Commands',
+				name: 'Available Commands (use ~ before the desired command)',
 				value: `
 __*For Everyone*__
-***Personal*** : **Calculate stone required for guild personal from and to**
+***Personal*** : **Calculate stone required for guild personal** **from/to**
  *See ~Personal help*
-***Guildstone*** : **Calculate stone required for guild level from and to**
+***Guildstone*** : **Calculate stone required for guild level** **from/to**
  *See ~Guildstone help*
 ***Guides*** : **Useful Sheets & Guides on IOU**
 ***Cat*** : **Random cat XD**
 ***Puppy*** : **Random puppy XDXD**
 
 __*For CnC members*__
+***Update*** : **Update guild information**
+*Updated Information is from CnC Guild's Utility Sheet*
 ***Info*** : **Guild Level information**
  *See ~info help*
 ***Bonus*** : **Guild Bonus information**
@@ -35,9 +37,8 @@ __*For CnC members*__
 ***Compare*** : **Compare level & bonus information on each guild**
  *See ~Compare help*
 ***Queue*** : **Shows queue list, In and Out**
+*(__Only for INNER-GUILD PUSHES channels!__)*
  *See ~Queue help*
-***Update*** : **Update guild information**
-*Updated Information is from CnC Guild's Utility Sheet*
 
 __*For ADMINS*__
 ***ClearCommands*** - **Delete messages related to bot request in this channel**

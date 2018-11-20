@@ -28,7 +28,7 @@ exports.run = (client, message, args) => {
 		if (!guildsheet[8][2])
 {
 	return message.reply(' *Please* **~update** *first*');
-} else 
+} else
 {
 	const result = guildsheet[8][2] % 10;
 	if (result === 1) {

@@ -26,6 +26,6 @@ exports.run = (client, message, args) => {
 		const  guildinfo = JSON.parse(JSONBuffers[0]);
 		const  IOU_guild = JSON.parse(JSONBuffers[1]);
 		const  guildsheet = JSON.parse(JSONBuffers[2]);
-		client.user.setActivity('see ~help XD', { type: 'PLAYING' });
+		client.user.setActivity('Use ~help for more info XD', { type: 'PLAYING' });
 	});
 };
