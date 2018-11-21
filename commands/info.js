@@ -86,7 +86,7 @@ exports.run = (client, message, args) => {
 				title: 'Shows Guild Level Information',
 				fields: [
 					{
-						name: 'Available Contents',
+						name: 'Available Contents (use ~ before the desired command)',
 						value: `
 **Burning Rage** - *BR, Burningrage*
 **Coming Soon** - *CS, Comingsoon*
@@ -145,7 +145,7 @@ ex) ~info AO, ~info Alwaysonline
 				title: 'Shows Guild Level Information',
 				fields: [
 					{
-						name: 'Available Contents',
+						name: 'Available Contents (use ~ before the desired command)',
 						value: `
 **Burning Rage** - *BR, Burningrage*
 **Coming Soon** - *CS, Comingsoon*

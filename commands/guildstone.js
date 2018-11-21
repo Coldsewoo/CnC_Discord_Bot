@@ -42,7 +42,7 @@ exports.run = (client, message, args) => {
 				title: 'Calculates stone amount required for guild level',
 				fields: [
 					{
-						name: 'Available Contents\n',
+						name: 'Available Contents (use ~ before the desired command)\n',
 						value: `
 How to use : ~guildstone from to
 ex) ~guildstone 100 200 - stone req. from lv 100 to lv 200

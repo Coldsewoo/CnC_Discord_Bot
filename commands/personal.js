@@ -43,7 +43,7 @@ exports.run = (client, message, args) => {
 				title: 'Calculates stone amount required for personal guild level',
 				fields: [
 					{
-						name: 'Available Contents\n',
+						name: 'Available Contents (use ~ before the desired command)\n',
 						value: `
 How to use : ~personal from to
 ex) ~personal 100 200 - Stone EXP required from lv 100 to lv 200

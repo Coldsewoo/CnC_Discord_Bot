@@ -98,7 +98,7 @@ exports.run = (client, message, args) => {
 			title: '**Queue**',
 			fields: [
 				{
-					name: 'Available Contents\n',
+					name: 'Available Contents (use ~ before the desired command)\n',
 					value: `\n\r
 	__*(Only for INNER-GUILD PUSHES channels!)*__
   ***List*** - Show current queue list

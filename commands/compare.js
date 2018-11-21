@@ -81,7 +81,7 @@ exports.run = (client, message, args) => {
 				title: '**Compare**',
 				fields: [
 					{
-						name: 'Available Contents\n',
+						name: 'Available Contents (use ~ before the desired command)\n',
 						value: `\n\r
 ***Level*** - Guild Level, Wishing Well
 ***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage
@@ -692,7 +692,7 @@ Always Online   -  ${guildsheet[5][29]}\`\`\``,
 				title: '**Compare**',
 				fields: [
 					{
-						name: 'Available Contents\n',
+						name: 'Available Contents (use ~ before the desired command)\n',
 						value: `\n\r
 ***Level*** - Guild Level, Wishing Well
 ***Pet*** - Stable Level, PetDmg, Pet Arena Dmg, Pet Training, Beast Damage

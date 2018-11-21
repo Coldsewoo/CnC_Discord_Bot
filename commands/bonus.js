@@ -83,7 +83,7 @@ exports.run = (client, message, args) => {
 				title: 'Shows Guild Bonus (except for personal guild bonus)',
 				fields: [
 					{
-						name: 'Available Contents\n',
+						name: 'Available Contents (use ~ before the desired command)\n',
 						value: `
 **Burning Rage** - *BR, Burningrage*
 **Coming Soon** - *CS, Comingsoon*
@@ -142,7 +142,7 @@ ex) ~bonus AO, ~bonus Alwaysonline
 				title: 'Shows Guild Bonus (except for personal guild bonus)',
 				fields: [
 					{
-						name: 'Available Contents\n',
+						name: 'Available Contents (use ~ before the desired command)\n',
 						value: `
 **Burning Rage** - *BR, Burningrage*
 **Coming Soon** - *CS, Comingsoon*
