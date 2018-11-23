@@ -2,9 +2,9 @@ let needDeleteLength;
 
 exports.run = (client, message, args) => {
 	if(message.member.roles.find(role => role.name === 'Admin' || role.name === 'Bot Controller')) {
-
+		const clearnumber = parseInt(args[0]);
 		message.channel.send('Clearing messages...');
-		clear().then
+		clear(clearnumber).then
     setTimeout(() => {
 			message.channel.fetchMessages({ limit: 5 }).then(collected => {
 				collected.forEach(msg => {
@@ -19,13 +19,12 @@ exports.run = (client, message, args) => {
 		message.reply('You do not have a permission to run this command.');
 	}
 
-	async function clear() {
+	async function clear(clearnumber) {
 		message.delete();
 		const needDelete = [];
-		await message.channel.fetchMessages({ limit: 100 }).then(collected => {
+		await message.channel.fetchMessages({ limit: clearnumber }).then(collected => {
 			collected.forEach(msg => {
 				if (msg.content.startsWith('~') || msg.content.startsWith('!') || msg.author.bot) needDelete.push(msg);
-
 			}
 
 			);
