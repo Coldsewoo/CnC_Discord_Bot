@@ -119,7 +119,7 @@ exports.run = (client, message, args) => {
   *You can also use ~queue remove*
   *ex) ~queue delete 3*
   ***Clear*** - Clear whole queue list
-  ***Max*** - Set the max IN availble
+  ***Max*** - Set the max IN available
   *-> Depends on current free spot(s)*
   *ex) ~queue max 2*
   \n\r

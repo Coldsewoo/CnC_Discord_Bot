@@ -64,7 +64,6 @@ exports.run = (client, message, args) => {
 	}
 }
 		if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply('You are not CnC member!');
-		if (!message.member.roles.find(role => role.name === 'Bot_controler') && !message.member.roles.find(role => role.name === 'Bot Controller')) return;
 		const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
 		let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 		let color;
