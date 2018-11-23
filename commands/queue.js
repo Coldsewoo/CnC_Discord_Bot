@@ -278,6 +278,7 @@ exports.run = (client, message, args) => {
 			}
 			else {
 				let deletedId = undefined;
+				let deleteContent = undefined;
 				for (let i = deleteNum - 1; i < guilds[message.channel.id].queue.length - 1 ; i++) {
 					if (i === guilds[message.channel.id].queue.length - 2) {
 						message.reply('Queue on ' + '**' + deleteNum + ' : ' + (deletedId ? deletedId : guilds[message.channel.id].queue[i]) + (guilds[message.channel.id].queueContent[i] ? '  [' + guilds[message.channel.id].queueContent[i] + ']**' : '**') + ' deleted!');
@@ -292,7 +293,7 @@ exports.run = (client, message, args) => {
 					}
 					else {
 						deletedId = guilds[message.channel.id].queue[i];
-						const deletedContent = guilds[message.channel.id].queueContent[i];
+						deletedContent = guilds[message.channel.id].queueContent[i];
 						guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i + 1];
 						guilds[message.channel.id].queue[i] = guilds[message.channel.id].queue[i + 1];
 						guilds[message.channel.id].queueContent[i] = guilds[message.channel.id].queueContent[i + 1];
