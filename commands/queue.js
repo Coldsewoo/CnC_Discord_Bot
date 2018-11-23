@@ -365,15 +365,15 @@ exports.run = (client, message, args) => {
 	async function clearText(message) {
 		message.delete();
 		const needDelete = [];
-		await message.channel.fetchMessages({ limit: 5 }).then(collected => {
+		await message.channel.fetchMessages({ limit: 10 }).then(collected => {
 
 			collected.forEach(msg => {
-				if (msg.author.bot && msg.mentions) {
-					if (msg.mentions.users.first().id === message.member.id)
-				{
-						needDelete.push(msg);
+
+				if (msg.author.bot && msg.isMentioned) {
+				if (msg.mentions.users.first().id === message.member.id){
+					msg.delete();
+						}
 				}
-			}
 			});
 			message.channel.bulkDelete(needDelete);
 		});
