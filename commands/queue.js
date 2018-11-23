@@ -100,7 +100,12 @@ exports.run = (client, message, args) => {
 				{
 					name: 'Available Contents (use ~ before the desired command)\n',
 					value: `\n\r
-	__*(Only for INNER-GUILD PUSHES channels!)*__
+	*(__Only for INNER-GUILD PUSHES channels__!)*
+	**HOW TO USE** (~queue or ~queue list to see current queue list)
+	1) **~queue add IGN**
+	2) **~queue in** (when you join the guild)
+	3) **~queue out** (after your push done)
+
   ***List*** - Show current queue list
   ***Add*** - Add to the queue list
   *ex) ~queue add some_message*
