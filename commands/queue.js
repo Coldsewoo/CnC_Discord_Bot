@@ -75,7 +75,7 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'delete' || args[0] === 'remove') {
-		message.delete();
+		clearText(message);
 		if(message.member.roles.find(role => leaderRole.indexOf(role.name) != -1)) {
 			const deleteNum = message.content.split(' ').slice(2).join(' ');
 			parseInt(deleteNum, 10);
@@ -277,6 +277,7 @@ exports.run = (client, message, args) => {
 				lastqueue--;
 			}
 			else {
+				let deletedId = undefined;
 				for (let i = deleteNum - 1; i < guilds[message.channel.id].queue.length - 1 ; i++) {
 					if (i === guilds[message.channel.id].queue.length - 2) {
 						message.reply('Queue on ' + '**' + deleteNum + ' : ' + (deletedId ? deletedId : guilds[message.channel.id].queue[i]) + (guilds[message.channel.id].queueContent[i] ? '  [' + guilds[message.channel.id].queueContent[i] + ']**' : '**') + ' deleted!');
@@ -290,7 +291,7 @@ exports.run = (client, message, args) => {
 						guilds[message.channel.id].isIn[i + 1] = [];
 					}
 					else {
-						const deletedId = guilds[message.channel.id].queue[i];
+						deletedId = guilds[message.channel.id].queue[i];
 						const deletedContent = guilds[message.channel.id].queueContent[i];
 						guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i + 1];
 						guilds[message.channel.id].queue[i] = guilds[message.channel.id].queue[i + 1];
@@ -365,14 +366,12 @@ exports.run = (client, message, args) => {
 	async function clearText(message) {
 		message.delete();
 		const needDelete = [];
-		await message.channel.fetchMessages({ limit: 10 }).then(collected => {
+		await message.channel.fetchMessages({ limit: 5 }).then(collected => {
 
 			collected.forEach(msg => {
 
-				if (msg.author.bot && msg.isMentioned) {
-				if (msg.mentions.users.first().id === message.member.id){
-					msg.delete();
-						}
+				if (msg.author.bot && msg.isMentioned(message.member.id)) {
+					needDelete.push(msg);
 				}
 			});
 			message.channel.bulkDelete(needDelete);
