@@ -41,7 +41,7 @@ __*For CnC members*__
  *See ~Queue help*
 
 __*For ADMINS*__
-***ClearCommands*** - **Delete messages related to bot request in this channel**
+***ClearCommands [1-100]*** - **Delete messages related to bot request in this channel**
 
 **Contact me if you have any question or suggestion!**
 **https://github.com/Coldsewoo/CnC_Discord_Bot**\n\n\n
