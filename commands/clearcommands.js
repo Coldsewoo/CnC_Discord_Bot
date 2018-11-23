@@ -3,6 +3,7 @@ let needDeleteLength;
 exports.run = (client, message, args) => {
 	if(message.member.roles.find(role => role.name === 'Admin' || role.name === 'Bot Controller')) {
 		const clearnumber = parseInt(args[0]);
+
 		message.channel.send('Clearing messages...');
 		clear(clearnumber).then
     setTimeout(() => {

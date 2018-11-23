@@ -31,6 +31,7 @@ exports.run = (client, message, args) => {
 	}
 
 	if(!args[0] || args[0] === 'list') {
+		message.delete();
 		let message2 = '```css\n ';
 
 		if (parseInt(guilds[message.channel.id].maxIn, 10) === 1) {
@@ -68,11 +69,13 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'add') {
+		clearText(message);
 		add_to_queue(member, member_Id, content);
 		message.reply('Added to Queue number:  ' + '**' + guilds[message.channel.id].queueContent.length + '**');
 	}
 	else
 	if(args[0] === 'delete' || args[0] === 'remove') {
+		message.delete();
 		if(message.member.roles.find(role => leaderRole.indexOf(role.name) != -1)) {
 			const deleteNum = message.content.split(' ').slice(2).join(' ');
 			parseInt(deleteNum, 10);
@@ -85,11 +88,13 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'insert') {
+		clearText(message);
 		queue_insert(member, member_Id, message);
 	}
 	else
 	if(args[0] === 'help') {
-		message.reply({ embed: {
+		message.delete();
+		message.channel.send({ embed: {
 			color: `${color}`,
 			author: {
 				name: 'Cows \'n\' Chaos',
@@ -157,6 +162,7 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'clear') {
+		clearText(message);
 		if(message.member.roles.find(role => leaderRole.indexOf(role.name) != -1)) {
 			guilds[message.channel.id].queueId = [];
 			guilds[message.channel.id].queue = [];
@@ -170,6 +176,7 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'out') {
+		clearText(message);
 		if(guilds[message.channel.id].queueId.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
 			return message.reply('```prolog\nYou are not in the queue```');
 		}
@@ -184,6 +191,7 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'test') {
+		clearText(message);
 		for (let i = 0; i < guilds[message.channel.id].queueId.length; i++) {
 			console.log('--------' + 'num' + i);
 			console.log(guilds[message.channel.id].queue[i]);
@@ -196,6 +204,7 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'in') {
+		clearText(message);
 		if(guilds[message.channel.id].isIn.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
 			return message.reply('```prolog\nYou are not in the queue```');
 		}
@@ -237,6 +246,7 @@ exports.run = (client, message, args) => {
 		}
 	}
 	else {
+		message.delete();
 		message.channel.send('Wrong command! See ~queue help');
 	}
 
@@ -351,4 +361,22 @@ exports.run = (client, message, args) => {
 		}
 		else {return;}
 	}
+
+	async function clearText(message) {
+		message.delete();
+		const needDelete = [];
+		await message.channel.fetchMessages({ limit: 5 }).then(collected => {
+
+			collected.forEach(msg => {
+				if (msg.author.bot && msg.mentions) {
+					if (msg.mentions.users.first().id === message.member.id)
+				{
+						needDelete.push(msg);
+				}
+			}
+			});
+			message.channel.bulkDelete(needDelete);
+		});
+	}
+
 };
