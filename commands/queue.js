@@ -1,4 +1,4 @@
-var guilds = {};
+const guilds = {};
 
 exports.run = (client, message, args) => {
 
@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
 	const numArray = ['Zero', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN'];
 	const leaderRole = ['BR Leadership', 'CS Leadership', 'The Collectives Leadership', 'Imaginarium Leadership', 'Fresh Air Leadership', 'Always Online Leadership', 'Admin'];
 	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
-	let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
+	const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 	let color;
 	for (let i = 0; i < 6; i++) {
 		if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
@@ -51,7 +51,7 @@ exports.run = (client, message, args) => {
 			}
 		}
 		else {
-			for (var i = 0; i < guilds[message.channel.id].queueContent.length; i++) {
+			for (let i = 0; i < guilds[message.channel.id].queueContent.length; i++) {
 				const temp = (i + 1) + ': ' + guilds[message.channel.id].queue[i] + ' [' + guilds[message.channel.id].queueContent[i] + '] ' + (guilds[message.channel.id].isIn[i] === 1
 					? '  ' + '<= current IN' : '') + '\n';
 				if ((message2 + temp).length <= 2000 - 3) {
@@ -72,6 +72,7 @@ exports.run = (client, message, args) => {
 		clearText(message);
 		add_to_queue(member, member_Id, content);
 		message.reply('Added to Queue number:  ' + '**' + guilds[message.channel.id].queueContent.length + '**');
+		queue_list(message);
 	}
 	else
 	if(args[0] === 'delete' || args[0] === 'remove') {
@@ -84,12 +85,14 @@ exports.run = (client, message, args) => {
 		else {
 			message.reply('You do not have a permission to run this command');
 		}
+		queue_list(message);
 
 	}
 	else
 	if(args[0] === 'insert') {
 		clearText(message);
 		queue_insert(member, member_Id, message);
+		queue_list(message);
 	}
 	else
 	if(args[0] === 'help') {
@@ -179,11 +182,13 @@ exports.run = (client, message, args) => {
 		clearText(message);
 		if(guilds[message.channel.id].queueId.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
 			return message.reply('```prolog\nYou are not in the queue```');
+			queue_list(message);
 		}
 		else {
 			for(let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
 				if(guilds[message.channel.id].queue[i - 1] === member_Id) {
 					queue_delete(member, i, message);
+					queue_list(message);
 					return;
 				}
 			}
@@ -191,22 +196,18 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'test') {
-		clearText(message);
-		for (let i = 0; i < guilds[message.channel.id].queueId.length; i++) {
-			console.log('--------' + 'num' + i);
-			console.log(guilds[message.channel.id].queue[i]);
-			console.log(guilds[message.channel.id].queueId[i]);
-			console.log(guilds[message.channel.id].queueContent[i]);
-			console.log(guilds[message.channel.id].isIn[i]);
-			console.log('--------');
+		message.delete();
 
-		}
+
+		queue_list(message);
+
 	}
 	else
 	if(args[0] === 'in') {
 		clearText(message);
 		if(guilds[message.channel.id].isIn.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
 			return message.reply('```prolog\nYou are not in the queue```');
+			queue_list(message);
 		}
 		else {
 			let messageIn = '```prolog\n No free spot(s) left. Current IN -  \n';
@@ -223,15 +224,18 @@ exports.run = (client, message, args) => {
 
 					if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
 						message.reply('*You are already IN* with' + '**  ' + i + ' : ' + guilds[message.channel.id].queue[i - 1] + (guilds[message.channel.id].queueContent[i - 1] ? '  [' + guilds[message.channel.id].queueContent[i - 1] + ']**' : '**'));
+						queue_list(message);
 						return;
 					}
 					else {
 						guilds[message.channel.id].isIn[i - 1] = 1;
 						if(guilds[message.channel.id].queueContent[i - 1]) {
 							message.reply('**' + guilds[message.channel.id].queue[i - 1] + ' [' + guilds[message.channel.id].queueContent[i - 1] + ']** is now **IN**');
+							queue_list(message);
 						}
 						else {
 							message.reply('*You are now* ***IN***');
+							queue_list(message);
 						}
 
 						return;
@@ -243,6 +247,7 @@ exports.run = (client, message, args) => {
 			messageIn += '```';
 			message.channel.send(messageIn);
 			messageIn = '```';
+			queue_list(message);
 		}
 	}
 	else {
@@ -258,6 +263,46 @@ exports.run = (client, message, args) => {
 		guilds[message.channel.id].isIn.push(isNotInNum);
 
 	}
+
+	async function queue_list(message) {
+
+		let message2 = '```css\n ';
+
+		if (parseInt(guilds[message.channel.id].maxIn, 10) === 1) {
+			message2 += '[There is ONE free spot]\n';
+		}
+		else {
+			message2 += `[There are ${numArray[guilds[message.channel.id].maxIn]} free spots]\n`;
+		}
+
+		if (guilds[message.channel.id].queueContent.length === 0) {
+
+			if (parseInt(guilds[message.channel.id].maxIn, 10) === 1) {
+				message.reply('```css\n[There is ONE free spot]\nNo one is IN to the queue currently```');
+			}
+			else {
+				message.reply(`\`\`\`css\n[There are ${numArray[guilds[message.channel.id].maxIn]} free spots]\nNo one is IN to the queue currently\`\`\``);
+			}
+		}
+		else {
+			for (let i = 0; i < guilds[message.channel.id].queueContent.length; i++) {
+				const temp = (i + 1) + ': ' + guilds[message.channel.id].queue[i] + ' [' + guilds[message.channel.id].queueContent[i] + '] ' + (guilds[message.channel.id].isIn[i] === 1
+					? '  ' + '<= current IN' : '') + '\n';
+				if ((message2 + temp).length <= 2000 - 3) {
+					message2 += temp;
+				}
+				else {
+					message2 += '```';
+					await	message.reply(message2);
+					message2 = '```';
+				}
+			}
+			message2 += '```';
+			await	message.reply(message2);
+		}
+
+	}
+
 
 	function queue_delete(member, deleteNum, message) {
 		let lastqueue = guilds[message.channel.id].queueContent.length;
@@ -278,7 +323,7 @@ exports.run = (client, message, args) => {
 			}
 			else {
 				let deletedId = undefined;
-				let deleteContent = undefined;
+				const deleteContent = undefined;
 				for (let i = deleteNum - 1; i < guilds[message.channel.id].queue.length - 1 ; i++) {
 					if (i === guilds[message.channel.id].queue.length - 2) {
 						message.reply('Queue on ' + '**' + deleteNum + ' : ' + (deletedId ? deletedId : guilds[message.channel.id].queue[i]) + (guilds[message.channel.id].queueContent[i] ? '  [' + guilds[message.channel.id].queueContent[i] + ']**' : '**') + ' deleted!');
@@ -293,7 +338,7 @@ exports.run = (client, message, args) => {
 					}
 					else {
 						deletedId = guilds[message.channel.id].queue[i];
-						deletedContent = guilds[message.channel.id].queueContent[i];
+						const deletedContent = guilds[message.channel.id].queueContent[i];
 						guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i + 1];
 						guilds[message.channel.id].queue[i] = guilds[message.channel.id].queue[i + 1];
 						guilds[message.channel.id].queueContent[i] = guilds[message.channel.id].queueContent[i + 1];
@@ -338,8 +383,14 @@ exports.run = (client, message, args) => {
 
 	function queue_insert(member, member_Id, message) {
 		const contents  = message.content.split(' ').slice(3).join(' ');
-		const switchNum = args[1];
-		parseInt(switchNum, 10);
+		var switchNum = args[1];
+		switchNum = parseInt(switchNum, 10);
+		if (guilds[message.channel.id].queue.length === 0) {
+			add_to_queue(member, member_Id, content);
+			message.reply('Added to Queue number:  ' + '**' + guilds[message.channel.id].queueContent.length + '**');
+
+
+		}else
 		if (switchNum && switchNum > 0) {
 			if (switchNum > guilds[message.channel.id].queueContent.length) {
 				message.reply(`Current max queue number is : ${guilds[message.channel.id].queueContent.length}`);
@@ -353,28 +404,35 @@ exports.run = (client, message, args) => {
 				message.reply('Inserted to Queue number:  ' + '**' + switchNum + (guilds[message.channel.id].queueContent[switchNum - 1] ? '  [' + guilds[message.channel.id].queueContent[switchNum - 1] + ']**' : '**'));
 			}
 		}
-		else
-		if (guilds[message.channel.id].queue.length === 0) {
-			guilds[message.channel.id].queueId.push(member);
-			guilds[message.channel.id].queue.push(member_Id);
-			guilds[message.channel.id].queueContent.push(contents);
-			guilds[message.channel.id].queue.push(isNotInNum);
 
-		}
 		else {return;}
 	}
 
 	async function clearText(message) {
 		message.delete();
 		const needDelete = [];
-		await message.channel.fetchMessages({ limit: 5 }).then(collected => {
+		await message.channel.fetchMessages({ limit: 10 }).then(collected => {
 
 			collected.forEach(msg => {
 
-				if (msg.author.bot && msg.isMentioned(message.member.id)) {
+				if (msg.author.bot && msg.isMentioned) {
 					needDelete.push(msg);
 				}
 			});
+			message.channel.bulkDelete(needDelete);
+		});
+	}
+
+	async function clear() {
+		message.delete();
+		const needDelete = [];
+		await message.channel.fetchMessages({ limit: 10 }).then(collected => {
+			collected.forEach(msg => {
+				if(msg.type === 'PINS_ADD') needDelete.push(msg);
+			}
+
+			);
+			needDeleteLength = needDelete.length;
 			message.channel.bulkDelete(needDelete);
 		});
 	}
