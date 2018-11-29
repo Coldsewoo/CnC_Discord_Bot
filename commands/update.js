@@ -32,7 +32,8 @@ exports.run = (client, message, args) => {
 					json.push(rows[i].split(/\t/i));
 				}
 				const clientDate = new Date();
-				const time = new Date(clientDate.getTime() + 32400000);
+				const time = new Date(clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000) + 32400000);
+				const timeJP = time.toLocaleString('ja-JP')
 				const dateInfo =
         [
         	time.getFullYear(),
@@ -44,7 +45,7 @@ exports.run = (client, message, args) => {
 				json.push(dateInfo);
 				fs.writeFileSync(path.resolve(__dirname, '..', 'json', 'guildsheet.json'), JSON.stringify(json, null, 2));
 				message.reply(`\`\`\`prolog
-  updated Guild Information on ${time}\`\`\``);
+  updated Guild Information on ${timeJP} GMT+09 (Japan Standard Time)\`\`\``);
 
 			});
 
