@@ -32,7 +32,7 @@ exports.run = (client, message, args) => {
 					json.push(rows[i].split(/\t/i));
 				}
 				const clientDate = new Date();
-				const time = new Date(clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000) + 32400000);
+				const time = new Date(clientDate.getTime() + 32400000);
 				const dateInfo =
         [
         	time.getFullYear(),
