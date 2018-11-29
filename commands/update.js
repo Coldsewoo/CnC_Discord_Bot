@@ -44,7 +44,7 @@ exports.run = (client, message, args) => {
 				json.push(dateInfo);
 				fs.writeFileSync(path.resolve(__dirname, '..', 'json', 'guildsheet.json'), JSON.stringify(json, null, 2));
 				message.reply(`\`\`\`prolog
-  updated Guild Information on ${clientDate}\`\`\``);
+  updated Guild Information on ${time}\`\`\``);
 
 			});
 
