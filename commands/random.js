@@ -1,4 +1,5 @@
 const { get } = require('snekfetch');
+const Discord = require('discord.js');
 
 exports.run = (client, message, args) => {
 	try {
