@@ -37,7 +37,7 @@ exports.run = (client, message, args) => {
 		if (!color) color = guildcolor[6];
 		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-		if (!guildsheet[8][2])
+		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19))
 {
 	return message.reply(' *Please* **~update** *first*');
 } else

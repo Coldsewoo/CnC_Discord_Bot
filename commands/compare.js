@@ -28,7 +28,7 @@ exports.run = (client, message, args) => {
 		var guildsheet = JSON.parse(JSONBuffers[2]);
 
 		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		if (!guildsheet[8][2]) return message.reply(' *Please* **~update** *first*');
+		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.reply(' *Please* **~update** *first*');
 
 		const result = guildsheet[8][2] % 10;
 		if (result === 1) {

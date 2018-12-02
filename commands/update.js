@@ -12,11 +12,11 @@ exports.run = (client, message, args) => {
 	message.reply(`\`\`\`prolog
   Now trying to Update information...\`\`\``);
 
-	https.get('https://docs.google.com/spreadsheets/d/' + id + '/export?format=' + format + '&id=' + id + '&gid=' + sheetId, function(resp) {
+	https.get('https://docs.google.com/spreadsheets/d/' + id + '/export?format=' + format + '&id=' + id + '&gid=' + sheetId, async function(resp) {
 
 		let body = '';
 
-		resp
+		await resp
 			.on('data', function(data) {
 
 				body += ab2str(data);
