@@ -76,7 +76,8 @@ exports.run = (client, message, args) => {
 	}
 
 		async function massinvites() {
-			await message.channel.send({ embed: {
+			await message.channel.send("Mass invite Updater",
+				{ embed: {
 				color: 16398164,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -105,7 +106,7 @@ exports.run = (client, message, args) => {
 					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 				},
 			},
-			});
+		});
 		}
 		massinvites().then(() => {
 			message.channel.fetchMessages({ limit: 1 })
