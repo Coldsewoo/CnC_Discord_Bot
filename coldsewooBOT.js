@@ -6,7 +6,9 @@ const client = new Discord.Client();
 const config = require("./config.json");
 client.config = config;
 
-
+client.on('ready', () => {
+  client.user.setActivity('Use ~help for more info XD', { type: 'PLAYING' });
+});
 
 fs.readdir("./events/", (err,files) => {
   if (err) return console.error(err);
