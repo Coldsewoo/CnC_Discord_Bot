@@ -413,7 +413,7 @@ exports.run = (client, message, args) => {
 		const needDelete = [];
 		await message.channel.fetchMessages({ limit: 10 }).then(collected => {
 			collected.forEach(msg => {
-				if (msg.author.bot && !msg.content.startsWith("Mass")) {
+				if (msg.author.bot && msg.content.startsWith("<@")) {
 					needDelete.push(msg);
 				}
 			});
