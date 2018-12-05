@@ -74,6 +74,33 @@ exports.run = (client, message, args) => {
 		if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
 	}
 	}
+	var massinviteDate = new Date();
+	var massinviteTime = new Date(massinviteDate.getTime() + (massinviteDate.getTimezoneOffset() * 60000) + 32400000);
+	var massinviteTimeJp = massinviteTime.toLocaleString('ja-JP');
+	let massinviteTimeSplit = massinviteTimeJp.split(",");
+	let splitedDays = massinviteTimeSplit[0].split("/");
+	let splitedTime = massinviteTimeSplit[1].split(":");
+	let mon = splitedDays[0];
+	let days = splitedDays[1];
+	let hours = splitedTime[0].split(/ +/g)[1];
+	let minutes = splitedTime[1];
+	let amPm = splitedTime[2].split(/ +/g)[1];
+	const result = days % 10;
+if (result === 1) {
+	days += 'th';
+}
+else
+if (result === 2) {
+	days += 'nd';
+}
+else
+if (result === 3) {
+	days += 'rd';
+}
+else {
+	days += 'th';
+}
+	let month = monthEng[mon];
 
 		async function massinvites() {
 			await message.channel.send( { embed: {
@@ -87,7 +114,7 @@ exports.run = (client, message, args) => {
           [
           	{
           		name: '**  Mass Invite Updater**',
-          		value: 'Mass Invites sent. If you need to be Added to the List,TAG or send DM to @Coldsewoo or link your Multicalc in CnC Utility Sheet. (https://docs.google.com/spreadsheets/d/1RW-alTry7R5sQ4WM7CfMDwItpXO9pYtBvy40IatCKpo/edit#gid=1546377489)',
+          		value: ` Mass Invites sent on ***${month} ${days}, ${hours}:${minutes}${amPm} JST (GMT +9)***. If you need to be Added to the List, TAG or send DM to **@Coldsewoo** or link your Multicalc in **CnC Utility Sheet**. (https://docs.google.com/spreadsheets/d/1RW-alTry7R5sQ4WM7CfMDwItpXO9pYtBvy40IatCKpo/edit#gid=1546377489)\n`,
           	},
           	{
           		name: '**         Building                      Level**',
