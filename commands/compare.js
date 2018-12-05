@@ -28,7 +28,7 @@ exports.run = (client, message, args) => {
 		var guildsheet = JSON.parse(JSONBuffers[2]);
 
 		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.reply(' *Please* **~update** *first*');
+		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
 
 		const result = guildsheet[8][2] % 10;
 		if (result === 1) {
@@ -72,7 +72,7 @@ exports.run = (client, message, args) => {
 		if (!color) color = guildcolor[6];
 
 		if (!args[0]) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -119,11 +119,11 @@ exports.run = (client, message, args) => {
 		}
 		content.sort();
 		if(!guildsheet[8]) {
-			message.reply(' *Please* **~update** *first*');
+			message.channel.send(' *Please* **~update** *first*');
 			return;
 		}
 		if (['pet', 'stable'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -195,7 +195,7 @@ Always Online   -  ${guildsheet[5][30]}\`\`\``,
 		}
 		else
 		if (['gold', 'bank'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -237,7 +237,7 @@ Always Online   -  ${guildsheet[5][16]}\`\`\``,
 		}
 		else
 		if (['level', 'lv'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -279,7 +279,7 @@ Always Online   -  ${guildsheet[5][3]}\`\`\``,
 		}
 		else
 		if (['exp', 'experience', 'altar'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -322,7 +322,7 @@ Always Online   -  ${guildsheet[5][17]}\`\`\``,
 		else
 
 		if (['wood', 'sawmill'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -375,7 +375,7 @@ Always Online   -  ${guildsheet[5][19]}\`\`\``,
 		else
 
 		if (['stone', 'warehoudse'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -428,7 +428,7 @@ Always Online   -  ${guildsheet[5][21]}\`\`\``,
 		else
 
 		if (['points', 'fortress', 'asc', 'ascension'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -481,7 +481,7 @@ Always Online   -  ${guildsheet[5][27]}\`\`\``,
 		else
 
 		if (['tower', 'sacrifical', 'offerings', 'offering'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -524,7 +524,7 @@ Always Online   -  ${guildsheet[5][14]}\`\`\``,
 		else
 
 		if (['fish', 'aquctic', 'aqua'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -567,7 +567,7 @@ Always Online   -  ${guildsheet[5][22]}\`\`\``,
 		else
 
 		if (['cards', 'card', 'library'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -609,7 +609,7 @@ Always Online   -  ${guildsheet[5][23]}\`\`\``,
 		}
 		else
 		if (['challenge'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -641,7 +641,7 @@ Always Online   -  ${guildsheet[5][28]}\`\`\``,
 		}
 		else
 		if (['space', 'academy', 'ship'].indexOf(content[0]) >= 0) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -683,7 +683,7 @@ Always Online   -  ${guildsheet[5][29]}\`\`\``,
 		}
 		else
 		if (content[0] === 'help' || !content[0]) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
@@ -723,7 +723,7 @@ Always Online   -  ${guildsheet[5][29]}\`\`\``,
 				console.error(err);
 			});
 		}
-		else {message.reply('You must type correct content name you want to compare (See ~compare help)');}
+		else {message.channel.send('You must type correct content name you want to compare (See ~compare help)');}
 		return;
 
 	});

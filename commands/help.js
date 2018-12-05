@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
 	}
 	if (!color) color = guildcolor[6];
 
-	message.reply({ embed: {
+	message.channel.send({ embed: {
 		color: color,
 		author: {
 			name: 'Cows \'n\' Chaos',

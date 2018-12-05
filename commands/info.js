@@ -27,7 +27,7 @@ exports.run = (client, message, args) => {
 		const guildsheet = JSON.parse(JSONBuffers[2]);
 
 
-		if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply('You are not CnC member!');
+		if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
 		const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
 		let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 		let color;
@@ -39,7 +39,7 @@ exports.run = (client, message, args) => {
 
 		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19))
 {
-	return message.reply(' *Please* **~update** *first*');
+	return message.channel.send(' *Please* **~update** *first*');
 } else
 {
 	const result = guildsheet[8][2] % 10;
@@ -77,7 +77,7 @@ exports.run = (client, message, args) => {
 }
 
 		if (!args[0]) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Info',
@@ -136,7 +136,7 @@ ex) ~info AO, ~info Alwaysonline
 		}
 		else
 		if (guildnameInput === 'help') {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Info',
@@ -170,11 +170,11 @@ ex) ~info AO, ~info Alwaysonline
 		}
 		else
 		if (guildnameInput === 'cold' || guildnameInput === 'coldsewoo') {
-			message.reply(':heart:');
+			message.channel.send(':heart:');
 			return;
 		}
 		else {
-			message.reply('You must type correct guild name (See ~info help)');
+			message.channel.send('You must type correct guild name (See ~info help)');
 			return;
 		}
 
@@ -183,11 +183,11 @@ ex) ~info AO, ~info Alwaysonline
 		}
 		else {
 			if(!guildsheet[8]) {
-				message.reply(' *Please* **~update** *first*');
+				message.channel.send(' *Please* **~update** *first*');
 				return;
 			}
 
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${guildinfo[guildname][0]['guild_color']}`,
 				author: {
 					name: 'Cows \'n\' Chaos',

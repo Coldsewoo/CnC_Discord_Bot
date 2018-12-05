@@ -35,7 +35,7 @@ exports.run = (client, message, args) => {
 		}
 		if (!color) color = guildcolor[6];
 		if (args[0] === 'help' || !args[0]) {
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Personal',
@@ -65,19 +65,19 @@ ex) ~personal 100 200 - Stone EXP required from lv 100 to lv 200
 		}
 		else {parseInt(args, 10);}
 		if (args[0] - args[1] > 0 || !args[0] || !args[1]) {
-			message.reply('Please set the appropriate Range (from / to)');
+			message.channel.send('Please set the appropriate Range (from / to)');
 			return;
 		}
 		else
 		if (args[0] > 1000 || args[1] > 1000) {
-			message.reply('Personal Level cannot be more than 1000');
+			message.channel.send('Personal Level cannot be more than 1000');
 			return;
 		}
 		else {
 			const personal = IOU_guild['meta'][args[1]]['personal_sum'] - IOU_guild['meta'][args[0]]['personal_sum'];
 			const personal2 = numeral(personal).format('0a');
 			const personal3 = personal2.toUpperCase();
-			message.reply(personal3);
+			message.channel.send(personal3);
 		}
 
 	});

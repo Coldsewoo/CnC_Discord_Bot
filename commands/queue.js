@@ -32,6 +32,7 @@ exports.run = (client, message, args) => {
 
 	if(!args[0] || args[0] === 'list') {
 		message.delete();
+		clearText(message);
 		let message2 = '```css\n ';
 
 		if (parseInt(guilds[message.channel.id].maxIn, 10) === 1) {
@@ -206,8 +207,8 @@ exports.run = (client, message, args) => {
 	if(args[0] === 'in') {
 		clearText(message);
 		if(guilds[message.channel.id].isIn.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
-			return message.reply('```prolog\nYou are not in the queue```');
-			queue_list(message);
+			message.reply('```prolog\nYou are not in the queue```');
+			return queue_list(message);
 		}
 		else {
 			let messageIn = '```prolog\n No free spot(s) left. Current IN -  \n';

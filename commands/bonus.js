@@ -27,7 +27,7 @@ exports.run = (client, message, args) => {
 		var guildsheet = JSON.parse(JSONBuffers[2]);
 		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19))
 {
-	return message.reply(' *Please* **~update** *first*');
+	return message.channel.send(' *Please* **~update** *first*');
 } else
 {
 	const result = guildsheet[8][2] % 10;
@@ -63,7 +63,7 @@ exports.run = (client, message, args) => {
 		if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
 	}
 }
-		if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply('You are not CnC member!');
+		if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
 		const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
 		let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 		let color;
@@ -174,10 +174,10 @@ ex) ~bonus AO, ~bonus Alwaysonline
 		}
 		else {
 			if(!guildsheet[8]) {
-				message.reply(' *Please* **~update** *first*');
+				message.channel.send(' *Please* **~update** *first*');
 				return;
 			}
-			message.reply({ embed: {
+			message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Cows \'n\' Chaos',

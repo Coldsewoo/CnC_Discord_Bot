@@ -26,7 +26,23 @@ exports.run = (client, message, args) => {
 		const  guildinfo = JSON.parse(JSONBuffers[0]);
 		const  IOU_guild = JSON.parse(JSONBuffers[1]);
 		const  guildsheet = JSON.parse(JSONBuffers[2]);
-		client.user.setActivity('Use ~help for more info XD', { type: 'PLAYING' });
-		client.user.setUsername('CnC_Discord_BOT');
-	});
+		const brChannel = "<#491666791345684481>";
+		const aoChannel = "<#511304632115527680>";
+		const csChannel = "<#518820495878258710>";
+		const textChannelforBR = "<#419088680670461972>";
+		const coldsewoobotChannelforAO = "<#508458634678763535>";
+		const musicbotChannelforCS = "<#508626305365835787>";
+
+		console.log("id" + message.channel.id);
+		console.log("none" + message.channel);
+		if (message.channel == musicbotChannelforCS) {
+			message.channel.send("CS!");
+		} else
+		if (message.channel == coldsewoobotChannelforAO) {
+			message.channel.send("AO!");
+		} else
+		if (message.channel == textChannelforBR) {
+			message.channel.send("BR!");
+		} else return;
+});
 };
