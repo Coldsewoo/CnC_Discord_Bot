@@ -44,10 +44,10 @@ exports.run = (client, message, args) => {
 		if (guilds[message.channel.id].queueContent.length === 0) {
 
 			if (parseInt(guilds[message.channel.id].maxIn, 10) === 1) {
-				message.channel.send('```css\n[There is ONE free spot]\nNo one is IN to the queue currently```');
+				message.reply('```css\n[There is ONE free spot]\nNo one is IN to the queue currently```');
 			}
 			else {
-				message.channel.send(`\`\`\`css\n[There are ${numArray[guilds[message.channel.id].maxIn]} free spots]\nNo one is IN to the queue currently\`\`\``);
+				message.reply(`\`\`\`css\n[There are ${numArray[guilds[message.channel.id].maxIn]} free spots]\nNo one is IN to the queue currently\`\`\``);
 			}
 		}
 		else {
@@ -59,12 +59,12 @@ exports.run = (client, message, args) => {
 				}
 				else {
 					message2 += '```';
-					message.channel.send(message2);
+					message.reply(message2);
 					message2 = '```';
 				}
 			}
 			message2 += '```';
-			message.channel.send(message2);
+			message.reply(message2);
 		}
 	}
 	else
@@ -245,14 +245,14 @@ exports.run = (client, message, args) => {
 
 			}
 			messageIn += '```';
-			message.channel.send(messageIn);
+			message.reply(messageIn);
 			messageIn = '```';
 			queue_list(message);
 		}
 	}
 	else {
 		message.delete();
-		message.channel.send('Wrong command! See ~queue help');
+		message.reply('Wrong command! See ~queue help');
 	}
 
 
@@ -308,7 +308,7 @@ exports.run = (client, message, args) => {
 		let lastqueue = guilds[message.channel.id].queueContent.length;
 		if (deleteNum && deleteNum > 1) {
 			if (deleteNum > guilds[message.channel.id].queueContent.length) {
-				message.channel.send('deleteNum > queue length');
+				message.reply('deleteNum > queue length');
 				return;
 			}
 			else

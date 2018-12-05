@@ -76,8 +76,7 @@ exports.run = (client, message, args) => {
 	}
 
 		async function massinvites() {
-			await message.channel.send("Mass invite Updater",
-				{ embed: {
+			await message.channel.send( { embed: {
 				color: 16398164,
 				author: {
 					name: 'Cows \'n\' Chaos',
