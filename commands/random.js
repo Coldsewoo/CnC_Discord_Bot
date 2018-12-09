@@ -6,6 +6,7 @@ exports.run = (client, message, args) => {
 		const requestItem = args;
 		var path;
 		get('https://loremflickr.com/448/336/'+requestItem).then(res => {
+			if(!res) return;
 			if(res.request.path == "/cache/resized/defaultImage.small_448_336_nofilter.jpg"){
 				path = 'https://i.postimg.cc/RZN8F0VP/chromie2.jpg';
 			} else {
@@ -17,6 +18,6 @@ exports.run = (client, message, args) => {
 		});
 	}
 	catch(err) {
-		message.reply("Error! pls use only English letters");
+		console.log(err);
 	}
 };
