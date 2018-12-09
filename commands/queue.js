@@ -31,9 +31,9 @@ exports.run = (client, message, args) => {
 	}
 
 	if(!args[0] || args[0] === 'list') {
-		message.delete();
 		clearText(message);
-		let message2 = '```css\n ';
+		queue_list(message);
+		/* let message2 = '```css\n ';
 
 		if (parseInt(guilds[message.channel.id].maxIn, 10) === 1) {
 			message2 += '[There is ONE free spot]\n';
@@ -66,7 +66,7 @@ exports.run = (client, message, args) => {
 			}
 			message2 += '```';
 			message.reply(message2);
-		}
+		} */
 	}
 	else
 	if(args[0] === 'add') {
@@ -412,7 +412,7 @@ exports.run = (client, message, args) => {
 	async function clearText(message) {
 		message.delete();
 		const needDelete = [];
-		await message.channel.fetchMessages({ limit: 10 }).then(collected => {
+		await message.channel.fetchMessages({ limit: 20 }).then(collected => {
 			collected.forEach(msg => {
 				if (msg.author.bot && msg.content.startsWith("<@")) {
 					needDelete.push(msg);
@@ -422,18 +422,6 @@ exports.run = (client, message, args) => {
 		});
 	}
 
-	async function clear() {
-		message.delete();
-		const needDelete = [];
-		await message.channel.fetchMessages({ limit: 10 }).then(collected => {
-			collected.forEach(msg => {
-				if(msg.type === 'PINS_ADD') needDelete.push(msg);
-			}
 
-			);
-			needDeleteLength = needDelete.length;
-			message.channel.bulkDelete(needDelete);
-		});
-	}
 
 };
