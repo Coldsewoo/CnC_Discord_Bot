@@ -5,7 +5,6 @@ exports.run = (client, message, args) => {
 	try {
 		const requestItem = args.shift().toLowerCase();
 		if(requestItem == "coldsewoo") return message.reply(":heart:");
-		else if(requestItem == "discord") return message.reply(":PingSock:");
 		var path;
 		get('https://loremflickr.com/448/336/'+args).then(res => {
 			if(!res) return;
