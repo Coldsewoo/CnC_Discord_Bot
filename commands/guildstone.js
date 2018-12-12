@@ -74,7 +74,7 @@ ex) ~guildstone 100 200 - stone req. from lv 100 to lv 200
 		}
 		else {
 			const personal = IOU_guild['meta'][args[1]]['stone_sum'] - IOU_guild['meta'][args[0]]['stone_sum'];
-			const personal2 = numeral(personal).format('0a');
+			const personal2 = numeral(personal).format('0.0a');
 			const personal3 = personal2.toUpperCase();
 			message.reply(personal3);
 		}

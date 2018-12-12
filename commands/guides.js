@@ -21,9 +21,9 @@ exports.run = (client, message, args) => {
 
 	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
 	Promise.all(JSONnames).then(function(JSONBuffers) {
-		const guildinfo = JSON.parse(JSONBuffers[0]);
-		const IOU_guild = JSON.parse(JSONBuffers[1]);
-		const guildsheet = JSON.parse(JSONBuffers[2]);
+		var guildinfo = JSON.parse(JSONBuffers[0]);
+		var IOU_guild = JSON.parse(JSONBuffers[1]);
+		var guildsheet = JSON.parse(JSONBuffers[2]);
 		message.reply({ embed: {
 			color: 1397735,
 			author: {
@@ -66,6 +66,12 @@ exports.run = (client, message, args) => {
 					name: 'IOU Wiki',
 					value: `
             [Link to URL](http://iourpg.wikia.com/wiki/Idle_Online_Universe_Wiki)
+            `,
+				},
+				{
+					name: 'Stone Push Guide (Always Online)',
+					value: `
+            Made by Joep [Link to URL](http://iourpg.wikia.com/wiki/Idle_Online_Universe_Wiki)
             `,
 				},
 			],

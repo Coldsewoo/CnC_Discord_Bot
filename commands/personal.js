@@ -75,7 +75,7 @@ ex) ~personal 100 200 - Stone EXP required from lv 100 to lv 200
 		}
 		else {
 			const personal = IOU_guild['meta'][args[1]]['personal_sum'] - IOU_guild['meta'][args[0]]['personal_sum'];
-			const personal2 = numeral(personal).format('0a');
+			const personal2 = numeral(personal).format('0.0a');
 			const personal3 = personal2.toUpperCase();
 			message.channel.send(personal3);
 		}

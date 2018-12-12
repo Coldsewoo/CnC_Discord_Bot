@@ -26,6 +26,7 @@ __*For Everyone*__
 ***Guides*** : **Useful Sheets & Guides on IOU**
 ***Cat*** : **Random cat XD**
 ***Puppy*** : **Random puppy XDXD**
+***Random*** : **Random everything XDXDXD**
 
 __*For CnC members*__
 ***Update*** : **Update guild information**
@@ -34,14 +35,14 @@ __*For CnC members*__
  *See ~info help*
 ***Bonus*** : **Guild Bonus information**
  *See ~Bonus help*
-***Compare*** : **Compare level & bonus information on each guild**
+***Compare*** : **Compare level & bonus information each guild**
  *See ~Compare help*
 ***Queue*** : **Shows queue list, In and Out**
 *(__Only for INNER-GUILD PUSHES channels!__)*
  *See ~Queue help*
 
 __*For ADMINS*__
-***ClearCommands [1-100]*** - **Delete messages related to bot request in this channel**
+***ClearCommands [1-100]*** - **Delete bot related request in this channel**
 
 **Contact me if you have any question or suggestion!**
 **https://github.com/Coldsewoo/CnC_Discord_Bot**\n\n\n

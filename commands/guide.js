@@ -68,6 +68,12 @@ exports.run = (client, message, args) => {
             [Link to URL](http://iourpg.wikia.com/wiki/Idle_Online_Universe_Wiki)
             `,
 				},
+				{
+					name: 'Stone Push Guide (Always Online)',
+					value: `
+            Made by Joep [Link to URL](http://iourpg.wikia.com/wiki/Idle_Online_Universe_Wiki)
+            `,
+				},
 			],
 
 			footer: {
