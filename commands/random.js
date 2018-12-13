@@ -2,11 +2,12 @@ const { get } = require('snekfetch');
 const Discord = require('discord.js');
 
 exports.run = (client, message, args) => {
+	var requestItem = args;
+	var query = args.slice().shift().toLowerCase();
 	try {
-		const requestItem = args.shift().toLowerCase();
-		if(requestItem == "coldsewoo") return message.reply(":heart:");
+		if(query == "coldsewoo") return message.reply(":heart:");
 		var path;
-		get('https://loremflickr.com/448/336/'+args).then(res => {
+		get('https://loremflickr.com/448/336/'+requestItem).then(res => {
 			if(!res) return;
 			if(res.request.path == "/cache/resized/defaultImage.small_448_336_nofilter.jpg"){
 				path = 'https://i.postimg.cc/RZN8F0VP/chromie2.jpg';
