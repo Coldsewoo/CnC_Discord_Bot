@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
 	var query = args.slice().shift().toLowerCase();
 	try {
 		if(query == "coldsewoo") return message.reply(":heart:");
-		var path;
+		let path;
 		get('https://loremflickr.com/448/336/'+requestItem).then(res => {
 			if(!res) return;
 			if(res.request.path == "/cache/resized/defaultImage.small_448_336_nofilter.jpg"){

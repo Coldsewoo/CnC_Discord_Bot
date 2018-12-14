@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
-
+const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var Global = require('../global.js');
 
 exports.run = (client, message, args) => {
 	fs.readFileAsync = function(fileName) {
@@ -26,23 +27,7 @@ exports.run = (client, message, args) => {
 		const  guildinfo = JSON.parse(JSONBuffers[0]);
 		const  IOU_guild = JSON.parse(JSONBuffers[1]);
 		const  guildsheet = JSON.parse(JSONBuffers[2]);
-		const brChannel = "<#491666791345684481>";
-		const aoChannel = "<#511304632115527680>";
-		const csChannel = "<#518820495878258710>";
-		const textChannelforBR = "<#419088680670461972>";
-		const coldsewoobotChannelforAO = "<#508458634678763535>";
-		const musicbotChannelforCS = "<#508626305365835787>";
-
-		console.log("id" + message.channel.id);
-		console.log("none" + message.channel);
-		if (message.channel == musicbotChannelforCS) {
-			message.channel.send("CS!");
-		} else
-		if (message.channel == coldsewoobotChannelforAO) {
-			message.channel.send("AO!");
-		} else
-		if (message.channel == textChannelforBR) {
-			message.channel.send("BR!");
-		} else return;
+		message.channel.send(`Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`)
+		message.channel.send(`${Global.monthEng[1]}`);
 });
 };

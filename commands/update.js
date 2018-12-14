@@ -42,6 +42,46 @@ exports.run = (client, message, args) => {
         	time.getHours(),
         	time.getMinutes(),
         ];
+			/* year == dateInfo[0];
+				 month == dateInfo[1];
+				 date == dateInfo[2];
+				 hours == dateInfo[3];
+				 minutes == dateInfo[4]; */
+
+				const result = dateInfo[2] % 10;
+				if (result === 1) {
+					dateInfo[2] += 'th';
+				}
+				else
+				if (result === 2) {
+					dateInfo[2] += 'nd';
+				}
+				else
+				if (result === 3) {
+					dateInfo[2] += 'rd';
+				}
+				else {
+					dateInfo[2] += 'th';
+				}
+				if (dateInfo[3] > 11) {
+					if (dateInfo[3] === 12) {
+						if (dateInfo[4] < 10) dateInfo[4] = '0' + dateInfo[4];
+						dateInfo[4] += 'PM';
+					}
+					else {
+						dateInfo[3] = dateInfo[3] - 12;
+						if (dateInfo[4] < 10) dateInfo[4] = '0' + dateInfo[4];
+						dateInfo[4] += 'PM';
+						if (dateInfo[3] < 10) dateInfo[3] = '0' + dateInfo[3];
+					}
+				}
+				else {
+					if (dateInfo[4] < 10) dateInfo[4] = '0' + dateInfo[4];
+					dateInfo[4] += 'AM';
+					if (dateInfo[3] < 10) dateInfo[3] = '0' + dateInfo[3];
+				}
+
+
 				json.push(dateInfo);
 				fs.writeFileSync(path.resolve(__dirname, '..', 'json', 'guildsheet.json'), JSON.stringify(json, null, 2));
 				message.reply(`\`\`\`prolog

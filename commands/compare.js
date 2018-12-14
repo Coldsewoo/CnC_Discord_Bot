@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var Global = require('../global.js');
 
 
 exports.run = (client, message, args) => {
@@ -27,41 +29,7 @@ exports.run = (client, message, args) => {
 		var IOU_guild = JSON.parse(JSONBuffers[1]);
 		var guildsheet = JSON.parse(JSONBuffers[2]);
 
-		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
-
-		const result = guildsheet[8][2] % 10;
-		if (result === 1) {
-			guildsheet[8][2] += 'th';
-		}
-		else
-		if (result === 2) {
-			guildsheet[8][2] += 'nd';
-		}
-		else
-		if (result === 3) {
-			guildsheet[8][2] += 'rd';
-		}
-		else {
-			guildsheet[8][2] += 'th';
-		}
-		if (guildsheet[8][3] > 11) {
-			if (guildsheet[8][3] === 12) {
-				guildsheet[8][4] += 'PM';
-				if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-			}
-			else {
-				guildsheet[8][3] = guildsheet[8][3] - 12;
-				if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-				guildsheet[8][4] += 'PM';
-				if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
-			}
-		}
-		else {
-			if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-			guildsheet[8][4] += 'AM';
-			if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
-		}
 
 		const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
 		const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
@@ -185,7 +153,7 @@ Always Online   -  ${guildsheet[5][30]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -227,7 +195,7 @@ Always Online   -  ${guildsheet[5][16]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -269,7 +237,7 @@ Always Online   -  ${guildsheet[5][3]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -311,7 +279,7 @@ Always Online   -  ${guildsheet[5][17]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -364,7 +332,7 @@ Always Online   -  ${guildsheet[5][19]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -417,7 +385,7 @@ Always Online   -  ${guildsheet[5][21]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -470,7 +438,7 @@ Always Online   -  ${guildsheet[5][27]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -513,7 +481,7 @@ Always Online   -  ${guildsheet[5][14]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -556,7 +524,7 @@ Always Online   -  ${guildsheet[5][22]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -599,7 +567,7 @@ Always Online   -  ${guildsheet[5][23]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -631,7 +599,7 @@ Always Online   -  ${guildsheet[5][28]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},
@@ -673,7 +641,7 @@ Always Online   -  ${guildsheet[5][29]}\`\`\``,
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},

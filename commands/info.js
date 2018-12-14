@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-
+const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var Global = require('../global.js');
 
 exports.run = (client, message, args) => {
 	fs.readFileAsync = function(fileName) {
@@ -35,46 +36,8 @@ exports.run = (client, message, args) => {
 			if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
 		}
 		if (!color) color = guildcolor[6];
-		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
 
-		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19))
-{
-	return message.channel.send(' *Please* **~update** *first*');
-} else
-{
-	const result = guildsheet[8][2] % 10;
-	if (result === 1) {
-		guildsheet[8][2] += 'th';
-	}
-	else
-	if (result === 2) {
-		guildsheet[8][2] += 'nd';
-	}
-	else
-	if (result === 3) {
-		guildsheet[8][2] += 'rd';
-	}
-	else {
-		guildsheet[8][2] += 'th';
-	}
-	if (guildsheet[8][3] > 11) {
-		if (guildsheet[8][3] === 12) {
-			guildsheet[8][4] += 'PM';
-			if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-		}
-		else {
-			guildsheet[8][3] = guildsheet[8][3] - 12;
-			if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-			guildsheet[8][4] += 'PM';
-			if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
-		}
-	}
-	else {
-		if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-		guildsheet[8][4] += 'AM';
-		if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
-	}
-}
 
 		if (!args[0]) {
 			message.channel.send({ embed: {
@@ -209,7 +172,7 @@ ex) ~info AO, ~info Alwaysonline
 
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 
 				},
 			},

@@ -61,5 +61,6 @@ typings/
 
 # config file
 c2.js
+commands/test.js
 
 #memo

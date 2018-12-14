@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var Global = require('../global.js');
 
 exports.run = (client, message, args) => {
 	fs.readFileAsync = function(fileName) {
@@ -51,45 +53,8 @@ exports.run = (client, message, args) => {
 				guildName = 1
 			} else return;
 
-		const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19))
-	{
-	return message.reply(' *Please* **~update** *first*');
-	} else
-	{
-	const result = guildsheet[8][2] % 10;
-	if (result === 1) {
-		guildsheet[8][2] += 'th';
-	}
-	else
-	if (result === 2) {
-		guildsheet[8][2] += 'nd';
-	}
-	else
-	if (result === 3) {
-		guildsheet[8][2] += 'rd';
-	}
-	else {
-		guildsheet[8][2] += 'th';
-	}
-	if (guildsheet[8][3] > 11) {
-		if (guildsheet[8][3] === 12) {
-			guildsheet[8][4] += 'PM';
-			if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-		}
-		else {
-			guildsheet[8][3] = guildsheet[8][3] - 12;
-			if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-			guildsheet[8][4] += 'PM';
-			if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
-		}
-	}
-	else {
-		if (guildsheet[8][4] < 10) guildsheet[8][4] = '0' + guildsheet[8][4];
-		guildsheet[8][4] += 'AM';
-		if (guildsheet[8][3] < 10) guildsheet[8][3] = '0' + guildsheet[8][3];
-	}
-	}
+		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
+
 	var massinviteDate = new Date();
 	var massinviteTime = new Date(massinviteDate.getTime() + (massinviteDate.getTimezoneOffset() * 60000) + 32400000);
 	var massinviteTimeJp = massinviteTime.toLocaleString('ja-JP');
@@ -101,22 +66,7 @@ exports.run = (client, message, args) => {
 	let hours = splitedTime[0].split(/ +/g)[1];
 	let minutes = splitedTime[1];
 	let amPm = splitedTime[2].split(/ +/g)[1];
-	const result = days % 10;
-if (result === 1) {
-	days += 'th';
-}
-else
-if (result === 2) {
-	days += 'nd';
-}
-else
-if (result === 3) {
-	days += 'rd';
-}
-else {
-	days += 'th';
-}
-	let month = monthEng[mon];
+
 
 		async function massinvites() {
 			await message.channel.send( { embed: {
@@ -145,7 +95,7 @@ else {
           ],
 				footer: {
 					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 				},
 			},
 		});
