@@ -8,16 +8,11 @@ var IOU_guild = global.IOU_guild;
 
 exports.run = (client, message, args) => {
 	var guildsheet = requireUncached('../json/guildsheet.json');
-
-
-
-	//	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
-	//	const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 		let color;
 		for (let i = 0; i < 6; i++) {
-			if(message.member.roles.find(role => role.name === Global.guildname[i])) {color = Global.guildcolor[i];}
+			if(message.member.roles.find(role => role.name === Global.guildRole[i])) {color = Global.guildColor[i];}
 		}
-		if (!color) color = Global.guildcolor[6];
+		if (!color) color = Global.guildColor[6];
 		if (args[0] === 'help' || !args[0]) {
 			message.channel.send({ embed: {
 				color: `${color}`,

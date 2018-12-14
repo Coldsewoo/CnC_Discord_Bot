@@ -21,7 +21,6 @@ exports.run = (client, message, args) => {
 			.on('data', function(data) {
 
 				body += ab2str(data);
-				console.log(body);
 
 			})
 			.on('end', function() {

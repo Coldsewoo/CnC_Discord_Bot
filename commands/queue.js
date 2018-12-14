@@ -12,9 +12,9 @@ exports.run = (client, message, args) => {
 	const isNotInNum = 2;
 	let color;
 	for (let i = 0; i < 6; i++) {
-		if(message.member.roles.find(role => role.name === Global.guildname[i])) {color = Global.guildcolor[i];}
+		if(message.member.roles.find(role => role.name === Global.guildRole[i])) {color = Global.guildColor[i];}
 	}
-	if (!color) color = Global.guildcolor[6];
+	if (!color) color = Global.guildColor[6];
 
 	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply('You are not CnC member!');
 
