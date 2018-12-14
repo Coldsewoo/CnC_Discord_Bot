@@ -7,6 +7,7 @@ const id = '13ryAftYe7ptatfaGRcAg-XQtWX3PKeATToiV_oLxS_0'; // The Google Sheet I
 const sheetId = 407554068;            // The Page ID of the Sheet you'd like to export. Found as `gid` in the URL.
 
 
+
 exports.run = (client, message, args) => {
 	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply('You are not CnC member!');
 	message.reply(`\`\`\`prolog
@@ -20,6 +21,7 @@ exports.run = (client, message, args) => {
 			.on('data', function(data) {
 
 				body += ab2str(data);
+				console.log(body);
 
 			})
 			.on('end', function() {
@@ -91,8 +93,12 @@ exports.run = (client, message, args) => {
 
 	});
 
+
+
+
 	function ab2str(buf) {
 		return String.fromCharCode.apply(null, new Uint16Array(buf));
 	}
+
 
 };

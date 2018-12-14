@@ -3,9 +3,7 @@ const Discord = require('discord.js');
 
 exports.run = (client, message, args) => {
 	var requestItem = args;
-	var query = args.slice().shift().toLowerCase();
 	try {
-		if(query == "coldsewoo") return message.reply(":heart:");
 		let path;
 		get('https://loremflickr.com/448/336/'+requestItem).then(res => {
 			if(!res) return;

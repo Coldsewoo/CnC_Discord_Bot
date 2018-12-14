@@ -1,41 +1,23 @@
 const fs = require('fs');
 const path = require('path');
-const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-var Global = require('../global.js');
+var global = require('../global.js');
+var Global = global.Global;
+var guildinfo = global.Guildinfo;
+var IOU_guild = global.IOU_guild;
 
 exports.run = (client, message, args) => {
-	fs.readFileAsync = function(fileName) {
-		return new Promise(function(resolve, reject) {
-			try {
-				fs.readFile(fileName, function(err, buffer) {
-					if (err) reject(err); else resolve(buffer);
-				});
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-	};
+	var guildsheet = requireUncached('../json/guildsheet.json');
 
-	function getJSONAsync(Name) {
-		return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
-	}
 
-	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
-	Promise.all(JSONnames).then(function(JSONBuffers) {
-		var guildinfo = JSON.parse(JSONBuffers[0]);
-		var IOU_guild = JSON.parse(JSONBuffers[1]);
-		var guildsheet = JSON.parse(JSONBuffers[2]);
 		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
-
 		if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
-		const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
-		let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
+	//	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
+	//	let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 		let color;
 		for (let i = 0; i < 6; i++) {
-			if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
+			if(message.member.roles.find(role => role.name === Global.guildRole[i])) {color = Global.guildColor[i];}
 		}
-		if (!color) color = guildcolor[6];
+		if (!color) color = Global.guildColor[6];
 
 		if (!args[0]) {
 			message.channel.send({ embed: {
@@ -71,33 +53,16 @@ ex) ~bonus AO, ~bonus Alwaysonline
 			});
 			return;
 		}
-		const guildnameInput = args.shift().toLowerCase();
-		if (['br', 'burningrage', 'burning'].indexOf(guildnameInput) >= 0) {
-			guildname = 0;
+		const guildnameInput = args.slice().shift().toLowerCase();
+		let guildname;
+		for (let i = 0; i < 6 ; i++) {
+			if(Global.guildnameList[i].indexOf(guildnameInput) >= 0){
+				guildname = i;
+			}
 		}
-		else
-		if (['cs', 'comingsoon', 'coming'].indexOf(guildnameInput) >= 0) {
-			guildname = 1;
-		}
-		else
-		if (['tc', 'thecollectives', 'the'].indexOf(guildnameInput) >= 0) {
-			guildname = 2;
-		}
-		else
-		if (['im', 'imaginarium'].indexOf(guildnameInput) >= 0) {
-			guildname = 3;
-		}
-		else
-		if (['fa', 'freshair', 'fresh'].indexOf(guildnameInput) >= 0) {
-			guildname = 4;
-		}
-		else
-		if (['ao', 'alwaysonline', 'always'].indexOf(guildnameInput) >= 0) {
-			guildname = 5;
-		}
-		else
+		if (guildname == undefined) {
 		if (guildnameInput === 'help') {
-			message.channel.send({ embed: {
+		return message.channel.send({ embed: {
 				color: `${color}`,
 				author: {
 					name: 'Bonus',
@@ -133,22 +98,20 @@ ex) ~bonus AO, ~bonus Alwaysonline
 			message.channel.send('You must type correct guild name (See ~bonus help)');
 			return;
 		}
-
-		if (guildnameInput === 'help') {
-			return;
 		}
-		else {
+
+			{
 			if(!guildsheet[8]) {
 				message.channel.send(' *Please* **~update** *first*');
 				return;
 			}
 			message.channel.send({ embed: {
-				color: `${color}`,
+				color: `${guildinfo[0][guildname][0]['guild_color']}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
 
 				},
-				title: `**${guildinfo[guildname][0]['guild_name']} Guild Information**`,
+				title: `**${guildinfo[0][guildname][0]['guild_name']} Guild Information**`,
 				fields: [
 					{
 						name: '**              Name                           Bonus**',
@@ -186,5 +149,8 @@ Beast Dmg     -  ${guildsheet[guildname][30]}
 
 		}
 
-	});
+		function requireUncached(module) {
+			delete require.cache[require.resolve(module)];
+			return require(module);
+		}
 };

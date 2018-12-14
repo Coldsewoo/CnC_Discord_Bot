@@ -1,31 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const numeral = require('numeral');
-
+var global = require('../global.js');
+var Global = global.Global;
+var guildinfo = global.Guildinfo;
+var IOU_guild = global.IOU_guild;
 
 exports.run = (client, message, args) => {
-	fs.readFileAsync = function(fileName) {
-		return new Promise(function(resolve, reject) {
-			try {
-				fs.readFile(fileName, function(err, buffer) {
-					if (err) reject(err); else resolve(buffer);
-				});
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-	};
-
-	function getJSONAsync(Name) {
-		return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
-	}
-
-	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
-	Promise.all(JSONnames).then(function(JSONBuffers) {
-		const guildinfo = JSON.parse(JSONBuffers[0]);
-		const IOU_guild = JSON.parse(JSONBuffers[1]);
-		const guildsheet = JSON.parse(JSONBuffers[2]);
 		if (args[0] === 'help' || !args[0]) {
 			const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
 			let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
@@ -73,11 +54,9 @@ ex) ~guildstone 100 200 - stone req. from lv 100 to lv 200
 			return;
 		}
 		else {
-			const personal = IOU_guild['meta'][args[1]]['stone_sum'] - IOU_guild['meta'][args[0]]['stone_sum'];
+			const personal = IOU_guild[0]['meta'][args[1]]['stone_sum'] - IOU_guild[0]['meta'][args[0]]['stone_sum'];
 			const personal2 = numeral(personal).format('0.0a');
 			const personal3 = personal2.toUpperCase();
-			message.reply(personal3);
+			message.channel.send(personal3);
 		}
-
-	});
 };

@@ -1,4 +1,6 @@
 const guilds = {};
+const global = require('../global.js')
+const Global = global.Global;
 
 exports.run = (client, message, args) => {
 
@@ -8,15 +10,11 @@ exports.run = (client, message, args) => {
 	const member_Id = message.member.displayName;
 	const isInNum = 1;
 	const isNotInNum = 2;
-	const numArray = ['Zero', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN'];
-	const leaderRole = ['BR Leadership', 'CS Leadership', 'The Collectives Leadership', 'Imaginarium Leadership', 'Fresh Air Leadership', 'Always Online Leadership', 'Admin'];
-	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
-	const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 	let color;
 	for (let i = 0; i < 6; i++) {
-		if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
+		if(message.member.roles.find(role => role.name === Global.guildname[i])) {color = Global.guildcolor[i];}
 	}
-	if (!color) color = guildcolor[6];
+	if (!color) color = Global.guildcolor[6];
 
 	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply('You are not CnC member!');
 
@@ -39,7 +37,7 @@ exports.run = (client, message, args) => {
 			message2 += '[There is ONE free spot]\n';
 		}
 		else {
-			message2 += `[There are ${numArray[guilds[message.channel.id].maxIn]} free spots]\n`;
+			message2 += `[There are ${Global.numArray[guilds[message.channel.id].maxIn]} free spots]\n`;
 		}
 
 		if (guilds[message.channel.id].queueContent.length === 0) {
@@ -48,7 +46,7 @@ exports.run = (client, message, args) => {
 				message.reply('```css\n[There is ONE free spot]\nNo one is IN to the queue currently```');
 			}
 			else {
-				message.reply(`\`\`\`css\n[There are ${numArray[guilds[message.channel.id].maxIn]} free spots]\nNo one is IN to the queue currently\`\`\``);
+				message.reply(`\`\`\`css\n[There are ${Global.numArray[guilds[message.channel.id].maxIn]} free spots]\nNo one is IN to the queue currently\`\`\``);
 			}
 		}
 		else {
@@ -78,7 +76,7 @@ exports.run = (client, message, args) => {
 	else
 	if(args[0] === 'delete' || args[0] === 'remove') {
 		clearText(message);
-		if(message.member.roles.find(role => leaderRole.indexOf(role.name) != -1)) {
+		if(message.member.roles.find(role => Global.leaderRole.indexOf(role.name) != -1)) {
 			const deleteNum = message.content.split(' ').slice(2).join(' ');
 			parseInt(deleteNum, 10);
 			queue_delete(member, deleteNum, message);
@@ -148,7 +146,7 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'max') {
-		if(message.member.roles.find(role => leaderRole.indexOf(role.name) != -1)) {
+		if(message.member.roles.find(role => Global.leaderRole.indexOf(role.name) != -1)) {
 			parseInt(content, 10);
 			if(content > 5) return message.reply('Max Number cant be more than 5');
 			if(content > 0) {
@@ -167,7 +165,7 @@ exports.run = (client, message, args) => {
 	else
 	if(args[0] === 'clear') {
 		clearText(message);
-		if(message.member.roles.find(role => leaderRole.indexOf(role.name) != -1)) {
+		if(message.member.roles.find(role => Global.leaderRole.indexOf(role.name) != -1)) {
 			guilds[message.channel.id].queueId = [];
 			guilds[message.channel.id].queue = [];
 			guilds[message.channel.id].queueContent = [];
@@ -273,7 +271,7 @@ exports.run = (client, message, args) => {
 			message2 += '[There is ONE free spot]\n';
 		}
 		else {
-			message2 += `[There are ${numArray[guilds[message.channel.id].maxIn]} free spots]\n`;
+			message2 += `[There are ${Global.numArray[guilds[message.channel.id].maxIn]} free spots]\n`;
 		}
 
 		if (guilds[message.channel.id].queueContent.length === 0) {
@@ -282,7 +280,7 @@ exports.run = (client, message, args) => {
 				message.reply('```css\n[There is ONE free spot]\nNo one is IN to the queue currently```');
 			}
 			else {
-				message.reply(`\`\`\`css\n[There are ${numArray[guilds[message.channel.id].maxIn]} free spots]\nNo one is IN to the queue currently\`\`\``);
+				message.reply(`\`\`\`css\n[There are ${Global.numArray[guilds[message.channel.id].maxIn]} free spots]\nNo one is IN to the queue currently\`\`\``);
 			}
 		}
 		else {

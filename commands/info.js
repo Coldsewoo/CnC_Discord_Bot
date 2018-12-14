@@ -1,31 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-var Global = require('../global.js');
-
+var global = require('../global.js');
+var Global = global.Global;
+var guildinfo = global.Guildinfo;
+var IOU_guild = global.IOU_guild;
 exports.run = (client, message, args) => {
-	fs.readFileAsync = function(fileName) {
-		return new Promise(function(resolve, reject) {
-			try {
-				fs.readFile(fileName, function(err, buffer) {
-					if (err) reject(err); else resolve(buffer);
-				});
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-	};
-
-	function getJSONAsync(Name) {
-		return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
-	}
-
-	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
-	Promise.all(JSONnames).then(function(JSONBuffers) {
-		const guildinfo = JSON.parse(JSONBuffers[0]);
-		const IOU_guild = JSON.parse(JSONBuffers[1]);
-		const guildsheet = JSON.parse(JSONBuffers[2]);
+		var guildsheet = requireUncached('../json/guildsheet.json');
 
 
 		if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
@@ -151,12 +131,12 @@ ex) ~info AO, ~info Alwaysonline
 			}
 
 			message.channel.send({ embed: {
-				color: `${guildinfo[guildname][0]['guild_color']}`,
+				color: `${guildinfo[0][guildname][0]['guild_color']}`,
 				author: {
 					name: 'Cows \'n\' Chaos',
 
 				},
-				title: `**${guildinfo[guildname][0]['guild_name']} guild information**`,
+				title: `**${guildinfo[0][guildname][0]['guild_name']} guild information**`,
 				fields: [
 					{
 						name: '**             Building                         Level**       ',
@@ -179,8 +159,11 @@ ex) ~info AO, ~info Alwaysonline
 			}).catch(function(err) {
 				console.error(err);
 			});
-
 		}
 
-	});
+		function requireUncached(module) {
+			delete require.cache[require.resolve(module)];
+			return require(module);
+		}
+
 };

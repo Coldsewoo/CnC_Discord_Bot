@@ -1,39 +1,23 @@
 const fs = require('fs');
 const path = require('path');
 const numeral = require('numeral');
-
+var global = require('../global.js');
+var Global = global.Global;
+var guildinfo = global.Guildinfo;
+var IOU_guild = global.IOU_guild;
 
 exports.run = (client, message, args) => {
-	fs.readFileAsync = function(fileName) {
-		return new Promise(function(resolve, reject) {
-			try {
-				fs.readFile(fileName, function(err, buffer) {
-					if (err) reject(err); else resolve(buffer);
-				});
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-	};
+	var guildsheet = requireUncached('../json/guildsheet.json');
 
-	function getJSONAsync(Name) {
-		return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
-	}
 
-	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
-	Promise.all(JSONnames).then(function(JSONBuffers) {
-		const  guildinfo = JSON.parse(JSONBuffers[0]);
-		const  IOU_guild = JSON.parse(JSONBuffers[1]);
-		const  guildsheet = JSON.parse(JSONBuffers[2]);
 
-		const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
-		const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
+	//	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
+	//	const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 		let color;
 		for (let i = 0; i < 6; i++) {
-			if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
+			if(message.member.roles.find(role => role.name === Global.guildname[i])) {color = Global.guildcolor[i];}
 		}
-		if (!color) color = guildcolor[6];
+		if (!color) color = Global.guildcolor[6];
 		if (args[0] === 'help' || !args[0]) {
 			message.channel.send({ embed: {
 				color: `${color}`,
@@ -74,11 +58,13 @@ ex) ~personal 100 200 - Stone EXP required from lv 100 to lv 200
 			return;
 		}
 		else {
-			const personal = IOU_guild['meta'][args[1]]['personal_sum'] - IOU_guild['meta'][args[0]]['personal_sum'];
+			const personal = IOU_guild[0]['meta'][args[1]]['personal_sum'] - IOU_guild[0]['meta'][args[0]]['personal_sum'];
 			const personal2 = numeral(personal).format('0.0a');
 			const personal3 = personal2.toUpperCase();
 			message.channel.send(personal3);
 		}
-
-	});
+		function requireUncached(module) {
+			delete require.cache[require.resolve(module)];
+			return require(module);
+		}
 };

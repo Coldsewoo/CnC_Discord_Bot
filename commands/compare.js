@@ -1,33 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-var Global = require('../global.js');
-
+var global = require('../global.js');
+var Global = global.Global;
+var guildinfo = global.Guildinfo;
+var IOU_guild = global.IOU_guild;
 
 exports.run = (client, message, args) => {
-	fs.readFileAsync = function(fileName) {
-		return new Promise(function(resolve, reject) {
-			try {
-				fs.readFile(fileName, function(err, buffer) {
-					if (err) reject(err); else resolve(buffer);
-				});
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-	};
+	var guildsheet = requireUncached('../json/guildsheet.json');
 
-	function getJSONAsync(Name) {
-		return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
-	}
-
-	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
-	Promise.all(JSONnames).then(function(JSONBuffers) {
-
-		var guildinfo = JSON.parse(JSONBuffers[0]);
-		var IOU_guild = JSON.parse(JSONBuffers[1]);
-		var guildsheet = JSON.parse(JSONBuffers[2]);
 
 		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
 
@@ -694,5 +674,8 @@ Always Online   -  ${guildsheet[5][29]}\`\`\``,
 		else {message.channel.send('You must type correct content name you want to compare (See ~compare help)');}
 		return;
 
-	});
+		function requireUncached(module) {
+			delete require.cache[require.resolve(module)];
+			return require(module);
+		}
 };

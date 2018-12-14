@@ -1,33 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
-const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-var Global = require('../global.js');
-
+var global = require('../global.js');
+var Global = global.Global;
+var guildinfo = global.Guildinfo;
+var IOU_guild = global.IOU_guild;
 exports.run = (client, message, args) => {
-	fs.readFileAsync = function(fileName) {
-		return new Promise(function(resolve, reject) {
-			try {
-				fs.readFile(fileName, function(err, buffer) {
-					if (err) reject(err); else resolve(buffer);
-				});
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-	};
+	var guildsheet = requireUncached('../json/guildsheet.json');
 
-	function getJSONAsync(Name) {
-		return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
+	function requireUncached(module) {
+		delete require.cache[require.resolve(module)];
+		return require(module);
 	}
-
-	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
-	Promise.all(JSONnames).then(function(JSONBuffers) {
-		const  guildinfo = JSON.parse(JSONBuffers[0]);
-		const  IOU_guild = JSON.parse(JSONBuffers[1]);
-		const  guildsheet = JSON.parse(JSONBuffers[2]);
-		message.channel.send(`Last updated on ${monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`)
-		message.channel.send(`${Global.monthEng[1]}`);
-});
 };

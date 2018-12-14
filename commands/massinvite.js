@@ -1,31 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-const monthEng = ['XD', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-var Global = require('../global.js');
+var global = require('../global.js');
+var Global = global.Global;
+var guildinfo = global.Guildinfo;
+var IOU_guild = global.IOU_guild;
 
 exports.run = (client, message, args) => {
-	fs.readFileAsync = function(fileName) {
-		return new Promise(function(resolve, reject) {
-			try {
-				fs.readFile(fileName, function(err, buffer) {
-					if (err) reject(err); else resolve(buffer);
-				});
-			}
-			catch (err) {
-				reject(err);
-			}
-		});
-	};
+		var guildsheet = requireUncached('../json/guildsheet.json');
 
-	function getJSONAsync(Name) {
-		return fs.readFileAsync(path.join(__dirname, '..', 'json', Name + '.json'));
-	}
-
-	const JSONnames = ['guildinfo', 'IOU_guild', 'guildsheet'].map(getJSONAsync);
-	Promise.all(JSONnames).then(function(JSONBuffers) {
-		const guildinfo = JSON.parse(JSONBuffers[0]);
-		const IOU_guild = JSON.parse(JSONBuffers[1]);
-		const guildsheet = JSON.parse(JSONBuffers[2]);
 		if (!message.member.roles.find(role => role.name === 'Bot_controler') && !message.member.roles.find(role => role.name === 'Bot Controller')) return;
 
 		message.delete();
@@ -51,7 +33,7 @@ exports.run = (client, message, args) => {
 			} else
 			if (message.channel == csChannel || message.channel == musicbotChannelforCS) {
 				guildName = 1
-			} else return;
+			} else guildName = 5;
 
 		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
 
@@ -61,12 +43,26 @@ exports.run = (client, message, args) => {
 	let massinviteTimeSplit = massinviteTimeJp.split(",");
 	let splitedDays = massinviteTimeSplit[0].split("/");
 	let splitedTime = massinviteTimeSplit[1].split(":");
-	let mon = splitedDays[0];
+	let mon = Global.monthEng[splitedDays[0]];
 	let days = splitedDays[1];
 	let hours = splitedTime[0].split(/ +/g)[1];
 	let minutes = splitedTime[1];
 	let amPm = splitedTime[2].split(/ +/g)[1];
-
+	const result = days % 10;
+	if (result === 1) {
+		days += 'th';
+	}
+	else
+	if (result === 2) {
+		days += 'nd';
+	}
+	else
+	if (result === 3) {
+		days += 'rd';
+	}
+	else {
+		days += 'th';
+	}
 
 		async function massinvites() {
 			await message.channel.send( { embed: {
@@ -75,12 +71,12 @@ exports.run = (client, message, args) => {
 					name: 'Cows \'n\' Chaos',
 
 				},
-				title: `**  ${guildinfo[guildName][0]['guild_name']} Guild**`,
+				title: `**  ${guildinfo[0][guildName][0]['guild_name']} Guild**`,
 				fields:
           [
           	{
           		name: '**  Mass Invite Updater**',
-          		value: ` Mass Invites sent on ***${month} ${days}, ${hours}:${minutes}${amPm} JST (GMT +9)***. If you need to be Added to the List, TAG or send DM to **@Coldsewoo** or link your Multicalc in **CnC Utility Sheet**. (https://docs.google.com/spreadsheets/d/1RW-alTry7R5sQ4WM7CfMDwItpXO9pYtBvy40IatCKpo/edit#gid=1546377489)`,
+          		value: ` Mass Invites sent on ***${mon} ${days}, ${hours}:${minutes}${amPm} JST (GMT +9)***. If you need to be Added to the List, TAG or send DM to **@Coldsewoo** or link your Multicalc in **CnC Utility Sheet**. (https://docs.google.com/spreadsheets/d/1RW-alTry7R5sQ4WM7CfMDwItpXO9pYtBvy40IatCKpo/edit#gid=1546377489)`,
           	},
           	{
           		name: '**         Building                      Level**',
@@ -108,5 +104,9 @@ exports.run = (client, message, args) => {
 					});
 				}).catch(console.error);
 		});
-	});
+
+			function requireUncached(module) {
+				delete require.cache[require.resolve(module)];
+				return require(module);
+			}
 };
