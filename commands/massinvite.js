@@ -1,53 +1,54 @@
-const fs = require('fs');
-const path = require('path');
-var global = require('../global.js');
-var Global = global.Global;
-var guildinfo = global.Guildinfo;
-var IOU_guild = global.IOU_guild;
+const global = require('../global.js');
+const Global = global.Global;
+const guildinfo = global.Guildinfo;
+
 
 exports.run = (client, message, args) => {
-		var guildsheet = requireUncached('../json/guildsheet.json');
+	const guildsheet = requireUncached('../json/guildsheet.json');
 
-		if (!message.member.roles.find(role => role.name === 'Bot_controler') && !message.member.roles.find(role => role.name === 'Bot Controller')) return;
+	if (!message.member.roles.find(role => role.name === 'Bot_controler') && !message.member.roles.find(role => role.name === 'Bot Controller')) return;
 
-		message.delete();
-		message.channel.fetchPinnedMessages()
-			.then(collected => {
-				collected.forEach(msg => {
-					if (msg.author.bot) msg.delete();
-				});
-			}).catch(console.error);
-			var guildName;
-			const brChannel = "<#491666791345684481>"; //0
-			const aoChannel = "<#511304632115527680>"; //5
-			const csChannel = "<#518820495878258710>"; //1
+	message.delete();
+	message.channel.fetchPinnedMessages()
+		.then(collected => {
+			collected.forEach(msg => {
+				if (msg.author.bot) msg.delete();
+			});
+		}).catch(console.error);
+	let guildName;
+	const brChannel = '<#491666791345684481>'; // 0
+	const aoChannel = '<#511304632115527680>'; // 5
+	const csChannel = '<#518820495878258710>'; // 1
 
-			const textChannelforBR = "<#419088680670461972>"; //test
-			const coldsewoobotChannelforAO = "<#508458634678763535>"; //test
-			const musicbotChannelforCS = "<#508626305365835787>"; //test
-			if (message.channel == brChannel || message.channel == textChannelforBR) {
-				guildName = 0
-			} else
-			if (message.channel == aoChannel || message.channel == coldsewoobotChannelforAO) {
-				guildName = 5
-			} else
-			if (message.channel == csChannel || message.channel == musicbotChannelforCS) {
-				guildName = 1
-			} else guildName = 5;
+	const textChannelforBR = '<#419088680670461972>'; // test
+	const coldsewoobotChannelforAO = '<#508458634678763535>'; // test
+	const musicbotChannelforCS = '<#508626305365835787>'; // test
+	if (message.channel == brChannel || message.channel == textChannelforBR) {
+		guildName = 0;
+	}
+	else
+	if (message.channel == aoChannel || message.channel == coldsewoobotChannelforAO) {
+		guildName = 5;
+	}
+	else
+	if (message.channel == csChannel || message.channel == musicbotChannelforCS) {
+		guildName = 1;
+	}
+	else {guildName = 5;}
 
-		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
+	if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
 
-	var massinviteDate = new Date();
-	var massinviteTime = new Date(massinviteDate.getTime() + (massinviteDate.getTimezoneOffset() * 60000) + 32400000);
-	var massinviteTimeJp = massinviteTime.toLocaleString('ja-JP');
-	let massinviteTimeSplit = massinviteTimeJp.split(",");
-	let splitedDays = massinviteTimeSplit[0].split("/");
-	let splitedTime = massinviteTimeSplit[1].split(":");
-	let mon = Global.monthEng[splitedDays[0]];
+	const massinviteDate = new Date();
+	const massinviteTime = new Date(massinviteDate.getTime() + (massinviteDate.getTimezoneOffset() * 60000) + 32400000);
+	const massinviteTimeJp = massinviteTime.toLocaleString('ja-JP');
+	const massinviteTimeSplit = massinviteTimeJp.split(',');
+	const splitedDays = massinviteTimeSplit[0].split('/');
+	const splitedTime = massinviteTimeSplit[1].split(':');
+	const mon = Global.monthEng[splitedDays[0]];
 	let days = splitedDays[1];
-	let hours = splitedTime[0].split(/ +/g)[1];
-	let minutes = splitedTime[1];
-	let amPm = splitedTime[2].split(/ +/g)[1];
+	const hours = splitedTime[0].split(/ +/g)[1];
+	const minutes = splitedTime[1];
+	const amPm = splitedTime[2].split(/ +/g)[1];
 	const result = days % 10;
 	if (result === 1) {
 		days += 'th';
@@ -64,15 +65,15 @@ exports.run = (client, message, args) => {
 		days += 'th';
 	}
 
-		async function massinvites() {
-			await message.channel.send( { embed: {
-				color: 16398164,
-				author: {
-					name: 'Cows \'n\' Chaos',
+	async function massinvites() {
+		await message.channel.send({ embed: {
+			color: 16398164,
+			author: {
+				name: 'Cows \'n\' Chaos',
 
-				},
-				title: `**  ${guildinfo[0][guildName][0]['guild_name']} Guild**`,
-				fields:
+			},
+			title: `**  ${guildinfo[0][guildName][0]['guild_name']} Guild**`,
+			fields:
           [
           	{
           		name: '**  Mass Invite Updater**',
@@ -89,24 +90,24 @@ exports.run = (client, message, args) => {
  Aquatic      - ${guildsheet[guildName][12]}    \n Space Aca.   - ${guildsheet[guildName][13]}     \`\`\`\`\`\`prolog\n Total Stone - ${guildsheet[guildName][35]}\`\`\``,
           	},
           ],
-				footer: {
-					icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
-				},
+			footer: {
+				icon_url:'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
+				text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
 			},
+		},
 		});
-		}
-		massinvites().then(() => {
-			message.channel.fetchMessages({ limit: 1 })
-				.then(collected => {
-					collected.forEach(msg => {
-						if (msg.author.bot) msg.pin();
-					});
-				}).catch(console.error);
-		});
+	}
+	massinvites().then(() => {
+		message.channel.fetchMessages({ limit: 1 })
+			.then(collected => {
+				collected.forEach(msg => {
+					if (msg.author.bot) msg.pin();
+				});
+			}).catch(console.error);
+	});
 
-			function requireUncached(module) {
-				delete require.cache[require.resolve(module)];
-				return require(module);
-			}
+	function requireUncached(module) {
+		delete require.cache[require.resolve(module)];
+		return require(module);
+	}
 };

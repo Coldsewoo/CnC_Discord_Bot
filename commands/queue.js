@@ -321,11 +321,10 @@ exports.run = (client, message, args) => {
 				lastqueue--;
 			}
 			else {
-				let deletedId = undefined;
-				const deleteContent = undefined;
+				const deletedId = guilds[message.channel.id].queueId[deleteNum-1];
+				const deletedContent = guilds[message.channel.id].queueContent[deleteNum-1].slice();
 				for (let i = deleteNum - 1; i < guilds[message.channel.id].queue.length - 1 ; i++) {
 					if (i === guilds[message.channel.id].queue.length - 2) {
-						message.reply('Queue on ' + '**' + deleteNum + ' : ' + (deletedId ? deletedId : guilds[message.channel.id].queue[i]) + (guilds[message.channel.id].queueContent[i] ? '  [' + guilds[message.channel.id].queueContent[i] + ']**' : '**') + ' deleted!');
 						guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i + 1];
 						guilds[message.channel.id].queue[i] = guilds[message.channel.id].queue[i + 1];
 						guilds[message.channel.id].queueContent[i] = guilds[message.channel.id].queueContent[i + 1];
@@ -336,8 +335,6 @@ exports.run = (client, message, args) => {
 						guilds[message.channel.id].isIn[i + 1] = [];
 					}
 					else {
-						deletedId = guilds[message.channel.id].queue[i];
-						const deletedContent = guilds[message.channel.id].queueContent[i];
 						guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i + 1];
 						guilds[message.channel.id].queue[i] = guilds[message.channel.id].queue[i + 1];
 						guilds[message.channel.id].queueContent[i] = guilds[message.channel.id].queueContent[i + 1];
@@ -349,7 +346,7 @@ exports.run = (client, message, args) => {
 				guilds[message.channel.id].queueContent.length--;
 				guilds[message.channel.id].isIn.length--;
 				lastqueue--;
-
+				message.reply('Queue on ' + '**' + deletedId +  '[' + deletedContent + ']**' : '**') + ' deleted!');
 			}
 		}
 		else

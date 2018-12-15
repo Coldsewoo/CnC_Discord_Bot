@@ -1,14 +1,9 @@
-const fs = require('fs');
-const path = require('path');
 var global = require('../global.js');
 var Global = global.Global;
 var guildinfo = global.Guildinfo;
-var IOU_guild = global.IOU_guild;
 
 exports.run = (client, message, args) => {
-	var guildsheet = requireUncached('../json/guildsheet.json');
-
-
+		var guildsheet = requireUncached('../json/guildsheet.json');
 		if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
 		if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
 	//	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];

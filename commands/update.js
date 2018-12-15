@@ -7,7 +7,6 @@ const id = '13ryAftYe7ptatfaGRcAg-XQtWX3PKeATToiV_oLxS_0'; // The Google Sheet I
 const sheetId = 407554068;            // The Page ID of the Sheet you'd like to export. Found as `gid` in the URL.
 
 
-
 exports.run = (client, message, args) => {
 	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.reply('You are not CnC member!');
 	message.reply(`\`\`\`prolog
@@ -34,7 +33,7 @@ exports.run = (client, message, args) => {
 				}
 				const clientDate = new Date();
 				const time = new Date(clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000) + 32400000);
-				const timeJP = time.toLocaleString('ja-JP')
+				const timeJP = time.toLocaleString('ja-JP');
 				const dateInfo =
         [
         	time.getFullYear(),
@@ -43,7 +42,7 @@ exports.run = (client, message, args) => {
         	time.getHours(),
         	time.getMinutes(),
         ];
-			/* year == dateInfo[0];
+				/* year == dateInfo[0];
 				 month == dateInfo[1];
 				 date == dateInfo[2];
 				 hours == dateInfo[3];
@@ -91,8 +90,6 @@ exports.run = (client, message, args) => {
 			});
 
 	});
-
-
 
 
 	function ab2str(buf) {
