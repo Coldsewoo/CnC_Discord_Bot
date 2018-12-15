@@ -5,8 +5,8 @@ const client = new Discord.Client()
 exports.run = (client, message, args) => {
 	const requestItem = args;
 	let findMe;
-	if (requestItem) findMe = requestItem.slice().toLowerCase();
-	if (findMe == 'coldsewoo' || findMe == 'cold') return message.reply(":heart:");
+	//if (args) findMe = args.slice().toLowerCase();
+	//if (findMe == 'coldsewoo' || findMe == 'cold') return message.reply(:heart)
 	try {
 		let path;
 		get('https://loremflickr.com/448/336/' + requestItem).then(res => {

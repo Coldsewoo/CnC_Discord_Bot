@@ -1,11 +1,14 @@
+const global = require('../global.js');
+const Global = global.Global;
+
 exports.run = (client, message, args) => {
-	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
-	const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
+	//const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
+	//const guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
 	let color;
 	for (let i = 0; i < 6; i++) {
-		if(message.member.roles.find(role => role.name === guildname[i])) {color = guildcolor[i];}
+		if(message.member.roles.find(role => role.name === Global.guildRole[i])) {color = Global.guildColor[i];}
 	}
-	if (!color) color = guildcolor[6];
+	if (!color) color = Global.guildColor[6];
 
 	message.channel.send({ embed: {
 		color: color,

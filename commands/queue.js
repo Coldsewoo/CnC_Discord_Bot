@@ -1,5 +1,5 @@
 const guilds = {};
-const global = require('../global.js')
+const global = require('../global.js');
 const Global = global.Global;
 
 exports.run = (client, message, args) => {
@@ -171,6 +171,8 @@ exports.run = (client, message, args) => {
 			guilds[message.channel.id].queueContent = [];
 			guilds[message.channel.id].isIn = [];
 			message.reply('Queue list cleared!');
+			queue_list(message);
+			return;
 		}
 		else {
 			return message.reply('You do not have a permission to run this command.');
@@ -180,8 +182,9 @@ exports.run = (client, message, args) => {
 	if(args[0] === 'out') {
 		clearText(message);
 		if(guilds[message.channel.id].queueId.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
-			return message.reply('```prolog\nYou are not in the queue```');
+			message.reply('```prolog\nYou are not in the queue```');
 			queue_list(message);
+			return;
 		}
 		else {
 			for(let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
@@ -210,7 +213,7 @@ exports.run = (client, message, args) => {
 		}
 		else {
 			let messageIn = '```prolog\n No free spot(s) left. Current IN -  \n';
-			for(var i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
+			for(let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
 				const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
 				if (currentIn >= guilds[message.channel.id].maxIn) {
 					if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
@@ -321,8 +324,8 @@ exports.run = (client, message, args) => {
 				lastqueue--;
 			}
 			else {
-				const deletedId = guilds[message.channel.id].queueId[deleteNum-1];
-				const deletedContent = guilds[message.channel.id].queueContent[deleteNum-1].slice();
+				const deletedName = guilds[message.channel.id].queue[deleteNum - 1];
+				const deletedContent = guilds[message.channel.id].queueContent[deleteNum - 1].slice();
 				for (let i = deleteNum - 1; i < guilds[message.channel.id].queue.length - 1 ; i++) {
 					if (i === guilds[message.channel.id].queue.length - 2) {
 						guilds[message.channel.id].queueId[i] = guilds[message.channel.id].queueId[i + 1];
@@ -346,7 +349,7 @@ exports.run = (client, message, args) => {
 				guilds[message.channel.id].queueContent.length--;
 				guilds[message.channel.id].isIn.length--;
 				lastqueue--;
-				message.reply('Queue on ' + '**' + deletedId +  '[' + deletedContent + ']**' : '**') + ' deleted!');
+				message.reply('Queue on ' + '**' + deleteNum + ' : ' + deletedName + (deletedContent ? '  [' + deletedContent + ']**' : '**') + ' deleted!');
 			}
 		}
 		else
@@ -379,14 +382,15 @@ exports.run = (client, message, args) => {
 
 	function queue_insert(member, member_Id, message) {
 		const contents  = message.content.split(' ').slice(3).join(' ');
-		var switchNum = args[1];
+		let switchNum = args[1];
 		switchNum = parseInt(switchNum, 10);
 		if (guilds[message.channel.id].queue.length === 0) {
 			add_to_queue(member, member_Id, content);
 			message.reply('Added to Queue number:  ' + '**' + guilds[message.channel.id].queueContent.length + '**');
 
 
-		}else
+		}
+		else
 		if (switchNum && switchNum > 0) {
 			if (switchNum > guilds[message.channel.id].queueContent.length) {
 				message.reply(`Current max queue number is : ${guilds[message.channel.id].queueContent.length}`);
@@ -409,14 +413,13 @@ exports.run = (client, message, args) => {
 		const needDelete = [];
 		await message.channel.fetchMessages({ limit: 20 }).then(collected => {
 			collected.forEach(msg => {
-				if (msg.author.bot && msg.content.startsWith("<@")) {
+				if (msg.author.bot && msg.content.startsWith('<@')) {
 					needDelete.push(msg);
 				}
 			});
-		message.channel.bulkDelete(needDelete);
+			message.channel.bulkDelete(needDelete);
 		});
 	}
-
 
 
 };
