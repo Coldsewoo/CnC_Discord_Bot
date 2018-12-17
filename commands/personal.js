@@ -1,7 +1,6 @@
 const numeral = require('numeral');
 const global = require('../global.js');
 const Global = global.Global;
-
 const IOU_guild = global.IOU_guild;
 
 exports.run = (client, message, args) => {

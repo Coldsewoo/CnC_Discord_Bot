@@ -4,7 +4,6 @@ const guildinfo = global.Guildinfo;
 exports.run = (client, message, args) => {
 	const guildsheet = requireUncached('../json/guildsheet.json');
 
-
 	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
 	// const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
 	// let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];

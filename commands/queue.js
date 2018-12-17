@@ -74,11 +74,45 @@ exports.run = (client, message, args) => {
 		queue_list(message);
 	}
 	else
+	if(args[0] === 'setin') {
+		clearText(message);
+		var setinNum = message.content.split(' ').slice(2).join(' ');
+		setinNum = parseInt(setinNum, 10);
+		if (setinNum > guilds[message.channel.id].queueContent.length) {
+			message.reply('setinNum > queue length');
+			queue_list(message);
+			return;
+		}
+
+		else {
+			let messageIn = '```prolog\n No free spot(s) left. Current IN -  \n';
+			for(let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
+				const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
+				if (currentIn >= guilds[message.channel.id].maxIn) {
+					if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
+						const temp2 =  '   ' + i + ' : ' + guilds[message.channel.id].queue[i - 1] + '  [' + guilds[message.channel.id].queueContent[i - 1] + ']\n';
+						messageIn += temp2;
+					}
+				}
+					else {
+						guilds[message.channel.id].isIn[setinNum - 1] = isInNum;
+						message.reply('**' + guilds[message.channel.id].queue[setinNum - 1] + ' [' + guilds[message.channel.id].queueContent[setinNum - 1] + ']** is now **IN**');
+						queue_list(message);
+						return;
+						}
+			}
+			messageIn += '```';
+			message.reply(messageIn);
+			messageIn = '```';
+			queue_list(message);
+		}
+	}
+	else
 	if(args[0] === 'delete' || args[0] === 'remove') {
 		clearText(message);
 		if(message.member.roles.find(role => Global.leaderRole.indexOf(role.name) != -1)) {
-			const deleteNum = message.content.split(' ').slice(2).join(' ');
-			parseInt(deleteNum, 10);
+			var deleteNum = message.content.split(' ').slice(2).join(' ');
+			deleteNum = parseInt(deleteNum, 10);
 			queue_delete(member, deleteNum, message);
 		}
 		else {
