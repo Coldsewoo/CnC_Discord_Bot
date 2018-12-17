@@ -60,9 +60,12 @@ typings/
 # next.js build output
 .next
 
-# config file
+# .json file
 config.json
+credentials.json
+token.json
 api_key.json
 
-#memo
-memo.js
+
+#.js file
+commands/test.js

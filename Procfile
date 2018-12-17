@@ -1,1 +1,1 @@
-worker: node ./coldsewoobot.js
+worker: node coldsewooBOT.js
