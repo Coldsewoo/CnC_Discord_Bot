@@ -8,8 +8,7 @@ var IOU_guild = global.IOU_guild;
 
 
 exports.run = (client, message, args) => {
-	var guildsheet = requireUncached('../guildsheet.json');
-	message.channel.send(guildsheet[args[0]][args[1]])
+	var guildsheet = requireUncached('../json/guildsheet.json');
 
 
 	function requireUncached(module){
