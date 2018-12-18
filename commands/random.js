@@ -6,12 +6,15 @@ exports.run = (client, message, args) => {
 	const queryItem = args;
 	const heart = null;
 	const pingSock = "<:PingSock:508407641295552518>"
+	const stella = "<a:pusheen_pizza:430304580824334347>"
 	if(queryItem.slice().shift()) {
 		var argSliced = queryItem.slice().shift().toLowerCase()
 		if (argSliced == "coldsewoo" || argSliced == "cold"){
 			return message.reply("❤");
 		} else if (argSliced == "discord") {
 			return message.reply(pingSock);
+		} else if (argSliced == "stella") {
+			return message.reply(stella);
 		}
 
 	}
