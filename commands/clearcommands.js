@@ -4,6 +4,7 @@ const Global = global.Global;
 exports.run = (client, message, args) => {
 	const hasAdminRole = message.member.roles.some(roles => {return Global.adminRole.includes(roles.name);});
 	if(hasAdminRole == false) return message.reply("You do not have a permission to run this command");
+	if(!args[0]) return message.reply("Number?");
   async function clear(){
     let fetched;
     let needDelete = [];
@@ -23,8 +24,8 @@ exports.run = (client, message, args) => {
         await message.channel.bulkDelete(needDelete);
 				needDelete = [];
       } catch (error) {
-        if (error.message) message.channe.send(error.message);
-        return message.channel.send("deleted " + clearedNum + " messages!");
+        message.channel.send("API ERROR: "+ error);
+				return message.channel.send("Deleted " + clearedNum + " messages anyway :wink:")
       }
     }
     while(fetched.size >= 2 && messageNum < messageLimit);

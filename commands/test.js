@@ -10,7 +10,7 @@ var IOU_guild = global.IOU_guild;
 exports.run = (client, message, args) => {
 	var guildsheet = requireUncached('../json/guildsheet.json');
 	message.channel.send(message.author.id);
-	if(message.author.id != Global.adminId) message.channel.send("boo");
+	console.log(args);
 
 	function requireUncached(module){
 		delete require.cache[require.resolve(module)];
