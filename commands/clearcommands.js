@@ -19,13 +19,17 @@ exports.run = (client, message, args) => {
         fetched.forEach(msg => {
           if(msg.content.startsWith('!') || msg.content.startsWith('~') || msg.author.bot) needDelete.push(msg);
         })
-        clearedNum += needDelete.length;
-        messageNum += fetched.size;
         await message.channel.bulkDelete(needDelete);
+				clearedNum += needDelete.length;
+				messageNum += fetched.size;
 				needDelete = [];
       } catch (error) {
-        message.channel.send("API ERROR: "+ error);
-				return message.channel.send("Deleted " + clearedNum + " messages anyway :wink:")
+				clearedNum += needDelete.length
+				for(var i=1;i<needDelete.length;i++){
+					await needDelete[i].delete(2000);
+				}
+				clearedNum += needDelete.length
+				return message.channel.send("Deleted " + clearedNum + " messages :wink:")
       }
     }
     while(fetched.size >= 2 && messageNum < messageLimit);
