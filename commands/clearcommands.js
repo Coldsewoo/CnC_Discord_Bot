@@ -1,37 +1,48 @@
-let needDeleteLength;
+const global = require('../global.js')
+const Global = global.Global;
 
 exports.run = (client, message, args) => {
-	if(message.member.roles.find(role => role.name === 'Admin' || role.name === 'Bot Controller')) {
-		if (!args[0]) return message.reply('Set the number of messages you need to delete (1-100)');
-		const clearnumber = parseInt(args[0]);
-		if (clearnumber > 100) return message.reply('Set the number of messages you need to delete (1-100)');
-		message.channel.send('Clearing messages...');
-		clear(clearnumber).then;
-		setTimeout(() => {
+	const hasAdminRole = message.member.roles.some(roles => {return Global.adminRole.includes(roles.name);});
+	if(hasAdminRole == false) return message.reply("You do not have a permission to run this command");
+  async function clear(){
+    let fetched;
+    let needDelete = [];
+    var messageNum = 0;
+    var clearedNum = 0;
+    let messageLimit = args[0];
+    do {
+      try {
+        let fetchLimit = 100;
+        if (messageLimit < 100) fetchLimit = messageLimit;
+        fetched = await message.channel.fetchMessages({limit: fetchLimit});
+        fetched.forEach(msg => {
+          if(msg.content.startsWith('!') || msg.content.startsWith('~') || msg.author.bot) needDelete.push(msg);
+        })
+        clearedNum += needDelete.length;
+        messageNum += fetched.size;
+        await message.channel.bulkDelete(needDelete);
+      } catch (error) {
+        console.log(error);
+        return message.channel.send("deleted " + clearedNum + " messages! (Cannot delete messages Older than 2 weeks!)");
+      }
+    }
+    while(fetched.size >= 2 && messageNum < messageLimit);
+    message.channel.send("Deleted " + clearedNum + " messages!");
+    setTimeout(() => {
 			message.channel.fetchMessages({ limit: 5 }).then(collected => {
 				collected.forEach(msg => {
-					if (msg.content.startsWith('Clearing')) msg.delete();
+					if (msg.content.startsWith('Deleted')) msg.delete();
 				});
 			});
-			message.reply(`${needDeleteLength} Messages Cleared!`);
-		}, 3000);
+		}, 5000);
+  }
 
-	}
-	else {
-		message.reply('You do not have a permission to run this command.');
-	}
 
-	async function clear(clearnumber) {
-		message.delete();
-		const needDelete = [];
-		await message.channel.fetchMessages({ limit: clearnumber }).then(collected => {
-			collected.forEach(msg => {
-				if (msg.content.startsWith('~') || msg.content.startsWith('!') || msg.author.bot) needDelete.push(msg);
-			}
 
-			);
-			needDeleteLength = needDelete.length;
-			message.channel.bulkDelete(needDelete);
-		});
-	}
-};
+  try {
+    clear();
+} catch (error) {
+    console.log("API ERROR :" + error);
+}
+
+}
