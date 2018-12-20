@@ -21,9 +21,10 @@ exports.run = (client, message, args) => {
         clearedNum += needDelete.length;
         messageNum += fetched.size;
         await message.channel.bulkDelete(needDelete);
+				needDelete = [];
       } catch (error) {
-        console.log(error);
-        return message.channel.send("deleted " + clearedNum + " messages! (Cannot delete messages Older than 2 weeks!)");
+        if (error.message) message.channe.send(error.message);
+        return message.channel.send("deleted " + clearedNum + " messages!");
       }
     }
     while(fetched.size >= 2 && messageNum < messageLimit);
