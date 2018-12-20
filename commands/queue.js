@@ -3,6 +3,7 @@ const global = require('../global.js');
 const Global = global.Global;
 
 exports.run = (client, message, args) => {
+	const hasLeaderRole = message.member.roles.some(roles => {return Global.leaderRole.includes(roles.name);})
 
 	if (args[0]) args[0] = args[0].toLowerCase();
 	const member = message.member.id;
@@ -75,6 +76,7 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'setin') {
+		if(hasLeaderRole == false) return message.reply('You do not have a permission to run this command');
 		clearText(message);
 		var setinNum = message.content.split(' ').slice(2).join(' ');
 		setinNum = parseInt(setinNum, 10);
@@ -110,7 +112,7 @@ exports.run = (client, message, args) => {
 	else
 	if(args[0] === 'delete' || args[0] === 'remove') {
 		clearText(message);
-		if(message.member.roles.find(role => Global.leaderRole.indexOf(role.name) != -1)) {
+		if(hasLeaderRole == true) {
 			var deleteNum = message.content.split(' ').slice(2).join(' ');
 			deleteNum = parseInt(deleteNum, 10);
 			queue_delete(member, deleteNum, message);
@@ -180,7 +182,7 @@ exports.run = (client, message, args) => {
 	}
 	else
 	if(args[0] === 'max') {
-		if(message.member.roles.find(role => Global.leaderRole.indexOf(role.name) != -1)) {
+		if(hasLeaderRole == true) {
 			parseInt(content, 10);
 			if(content > 5) return message.reply('Max Number cant be more than 5');
 			if(content > 0) {
@@ -199,7 +201,7 @@ exports.run = (client, message, args) => {
 	else
 	if(args[0] === 'clear') {
 		clearText(message);
-		if(message.member.roles.find(role => Global.leaderRole.indexOf(role.name) != -1)) {
+		if(hasLeaderRole == true) {
 			guilds[message.channel.id].queueId = [];
 			guilds[message.channel.id].queue = [];
 			guilds[message.channel.id].queueContent = [];

@@ -4,19 +4,20 @@ const client = new Discord.Client()
 
 exports.run = (client, message, args) => {
 	const queryItem = args;
-	const heart = null;
 	const pingSock = "<:PingSock:508407641295552518>"
+	const hello = "<:hello:466677170081628195>"
 	if(queryItem.slice().shift()) {
-		var argSliced = queryItem.slice().shift().toLowerCase()
+		const argSliced = queryItem.slice().shift().toLowerCase()
 		if (argSliced == "coldsewoo" || argSliced == "cold"){
 			return message.reply("❤");
 		} else if (argSliced == "discord") {
 			return message.reply(pingSock);
 		} else if (argSliced == "stella") {
 			return message.reply("😈");
+		} else if (argSliced == "lili") {
+			return message.reply(hello);
 		}
-
-	}
+}
 	try {
 		let path;
 		get('https://loremflickr.com/448/336/' + queryItem).then(res => {

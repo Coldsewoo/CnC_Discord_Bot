@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const global = require('../global.js')
+const Global = global.Global;
 
 exports.run = (client, message, args) => {
+	if(!message.author.id == Global.adminId) return;
 	let commandNames = [];
 	fs.readdir(path.join(__dirname, '..', 'commands'), (err, files) => {
 	  if (err) return console.error(err)

@@ -44,7 +44,7 @@ ex) ~guildstone 100 200 - stone req. from lv 100 to lv 200
 		args[0] = parseInt(args[0], 10);
 		args[1] =	parseInt(args[1], 10);
 		}
-	if (args[0] - args[1] > 0 || !args[0] || !args[1]) {
+	if (args[0] - args[1] > 0 || (!args[0] && args[0] != 0)  || !args[1]) {
 		message.reply('Set the appropriate Range (from / to)');
 		return;
 	}

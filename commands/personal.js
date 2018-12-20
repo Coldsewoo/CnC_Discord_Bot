@@ -38,11 +38,8 @@ ex) ~personal 100 200 - Stone EXP required from lv 100 to lv 200
 		});
 		return;
 	}
-	else {
-		args[0] = parseInt(args[0], 10);
-		args[1] =	parseInt(args[1], 10);
-	}
-	if (args[0] - args[1] > 0 || !args[0] || !args[1]) {
+	else {parseInt(args, 10);}
+	if (args[0] - args[1] > 0 || (!args[0] && args[0] != 0) || !args[1]) {
 		message.channel.send('Please set the appropriate Range (from / to)');
 		return;
 	}
