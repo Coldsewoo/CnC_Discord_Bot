@@ -28,7 +28,14 @@ exports.run = (client, message, args) => {
 				for(var i=1;i<needDelete.length;i++){
 					await needDelete[i].delete(2000);
 				}
-				clearedNum += needDelete.length
+				clearedNum += needDelete.length;
+				if (clearedNum > messageLimit) {
+					if(messageLimit > 100) {
+						clearedNum = cleardNum - 100;
+					} else {
+						clearedNum = cleardNum - messageLimit;
+					}
+				}
 				return message.channel.send("Deleted " + clearedNum + " messages :wink:")
       }
     }
