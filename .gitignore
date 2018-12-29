@@ -69,3 +69,4 @@ api_key.json
 
 #.js file
 commands/test.js
+commands/j.js

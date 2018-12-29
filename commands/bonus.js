@@ -1,6 +1,6 @@
-var global = require('../global.js');
-var Global = global.Global;
-var guildinfo = global.Guildinfo;
+const global = require('../global.js');
+const Global = global.Global;
+const guildinfo = global.Guildinfo;
 
 exports.run = (client, message, args) => {
 		var guildsheet = requireUncached('../json/guildsheet.json');

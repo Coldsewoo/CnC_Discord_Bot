@@ -25,7 +25,6 @@ exports.run = (client, message, args) => {
 
 				var json = [];
 				var rows = body.split(/\r\n/i);
-				console.log(rows[0].slice().split(/\t/i)[2]);
 				if (rows[0].slice().split(/\t/i)[2] === 0 || rows[0].slice().split(/\t/i)[2] === '') return message.reply('ERROR! Please ~update once again.');
 
 				for (let i = 0; i < rows.length; i++) {

@@ -9,9 +9,13 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
+const global = require('../global.js')
+const Global = global.Global;
 
 
 exports.run = (client, message, args) => {
+  if(!message.author.id == Global.adminId) return;
+
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
