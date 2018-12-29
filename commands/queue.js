@@ -97,7 +97,7 @@ exports.run = (client, message, args) => {
 					}
 				} else {
 					guilds[message.channel.id].isIn[setinNum - 1] = isInNum;
-					message.reply('**' + guilds[message.channel.id].queue[setinNum - 1] + ' [' + guilds[message.channel.id].queueContent[setinNum - 1] + ']** is now **IN**');
+					message.reply('**' + setinNum + ' : ' + guilds[message.channel.id].queue[setinNum - 1] + ' [' + guilds[message.channel.id].queueContent[setinNum - 1] + ']** is now **IN**');
 					queue_list(message);
 					return;
 				}
