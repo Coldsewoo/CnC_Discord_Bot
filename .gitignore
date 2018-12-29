@@ -65,6 +65,8 @@ config.json
 credentials.json
 token.json
 api_key.json
+package-lock.json
+package.json
 
 
 #.js file
