@@ -6,7 +6,7 @@ const global = require('../global.js')
 const Global = global.Global;
 
 exports.run = (client, message, args) => {
-	if (Global.cnc_spam.indexOf(message.channel.id) > -1) {
+	if (Global.cnc_spam.indexOf(message.channel.id) == -1) {
 		if (Global.testChannels.indexOf(message.channel.id) == -1) {
 			message.delete();
 			message.reply("Please use in spam channel :)")
