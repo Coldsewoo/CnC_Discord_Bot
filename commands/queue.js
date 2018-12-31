@@ -6,6 +6,22 @@ exports.run = (client, message, args) => {
 	const hasLeaderRole = message.member.roles.some(roles => {
 		return Global.leaderRole.includes(roles.name);
 	})
+	if (Global.inner_guild_pushes.indexOf(message.channel.id) == -1) {
+		if (Global.testChannels.indexOf(message.channel.id) == -1) {
+			message.delete();
+			message.reply("You cannot use this command in this channel")
+			setTimeout(() => {
+				message.channel.fetchMessages({
+					limit: 3
+				}).then(collected => {
+					collected.forEach(msg => {
+						if (msg.author.bot) msg.delete();
+					});
+				});
+			}, 3000);
+			return;
+		}
+	}
 
 	if (args[0]) args[0] = args[0].toLowerCase();
 	const member = message.member.id;
