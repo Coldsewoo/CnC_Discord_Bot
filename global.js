@@ -33,15 +33,15 @@ var Global = {
 		'455088374122807336'
 	],
 	cnc_spam: ['519108917796667392'],
-	inner_guild_pushes: ['518820495878258710', '511304632115527680', '491666791345684481'],
+	inner_guild_pushes: ['518820495878258710', '511304632115527680', '491666791345684481', '537306147737042944'],
 	testChannels: ['419088680670461972', '420617424929423370', '508458634678763535', '508626305365835787', '510090900236533769', '511871369273933835', '512766335994953728', '514016888037048341']
 };
 
 
-let readFileAsync = function(fileName) {
-	return new Promise(function(resolve, reject) {
+let readFileAsync = function (fileName) {
+	return new Promise(function (resolve, reject) {
 		try {
-			fs.readFile(fileName, function(err, buffer) {
+			fs.readFile(fileName, function (err, buffer) {
 				if (err) reject(err);
 				else resolve(buffer);
 			});
@@ -56,7 +56,7 @@ function getJSONAsync(Name) {
 }
 
 const JSONnames = ['guildinfo', 'IOU_guild'].map(getJSONAsync);
-Promise.all(JSONnames).then(function(JSONBuffers) {
+Promise.all(JSONnames).then(function (JSONBuffers) {
 	Guildinfo.push(JSON.parse(JSONBuffers[0]));
 	IOU_guild.push(JSON.parse(JSONBuffers[1]));
 })
