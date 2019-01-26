@@ -73,6 +73,6 @@ setInterval(function () {
   } catch (err) {
     console.log(err);
   }
-}, 30 * 60 * 1000);
+}, 60 * 1000);
 
 client.login(config.token);
