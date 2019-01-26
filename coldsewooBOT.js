@@ -47,7 +47,7 @@ setInterval(function () {
       var codes = content.substring(codeIndex, codeEndIndex)
       var br = "<br />"
       var codesArray = codes.split(br);
-      for (let i = 0; i < 3; i++) {
+      for (let i = 1; i < 3; i++) {
         codesArray[i] = codesArray[i].trim();
         facebookArray.push(codesArray[i]);
       }
