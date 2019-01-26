@@ -40,8 +40,8 @@ setInterval(function () {
   try {
     get('https://www.facebook.com/pg/Idle-Online-Universe-IOU-RPG-320106674851481/posts/?ref=page_internal').then(res => {
       var content = res.body.toString();
-      var codeFinder = "Here are your codes"
-      var codeEndFinder = "Cheers, Lynn"
+      var codeFinder = "your codes"
+      var codeEndFinder = "Cheers,"
       var codeIndex = content.indexOf(codeFinder);
       var codeEndIndex = content.indexOf(codeEndFinder);
       var codes = content.substring(codeIndex, codeEndIndex)
