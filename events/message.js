@@ -1,6 +1,7 @@
+
 module.exports = (client, message) => {
   // Ignore all bots
-  if (message.author.bot) return;
+  if (message.author.bot && message.author.id == "509201572949917720") return;
 
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(client.config.prefix) !== 0) return;
