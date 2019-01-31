@@ -4,6 +4,15 @@ const fs = require("fs");
 const {
   get
 } = require('snekfetch');
+const admin = require("firebase-admin");
+
+const serviceAccount = require("firebase-adminsdk.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://cnc-discord-bot.firebaseio.com"
+});
+
 
 const client = new Discord.Client();
 const config = require("./config.json");
