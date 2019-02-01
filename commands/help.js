@@ -29,8 +29,6 @@ __*For Everyone*__
 ***guildstone*** : **Calculate stone required for guild level** **from/to**
  *See ~guildstone(or ~g) help*
 ***Guides*** : **Useful Sheets & Guides on IOU**
-***Cat*** : **Random cat XD**
-***Puppy*** : **Random puppy XDXD**
 ***Random*** : **Random everything XDXDXD**
 
 __*For CnC members*__
