@@ -24,10 +24,10 @@ exports.run = (client, message, args) => {
 				name: 'Available Commands (use ~ before the desired command)',
 				value: `
 __*For Everyone*__
-***p*** : **Calculate stone required for guild personal** **from/to**
- *See ~p help*
-***g*** : **Calculate stone required for guild level** **from/to**
- *See ~g help*
+***personal*** : **Calculate stone required for guild personal** **from/to**
+ *See ~personal(or ~p) help*
+***guildstone*** : **Calculate stone required for guild level** **from/to**
+ *See ~guildstone(or ~g) help*
 ***Guides*** : **Useful Sheets & Guides on IOU**
 ***Cat*** : **Random cat XD**
 ***Puppy*** : **Random puppy XDXD**
@@ -52,7 +52,7 @@ __*For ADMINS*__
 **Contact me if you have any question or suggestion!**
 **https://github.com/Coldsewoo/CnC_Discord_Bot**\n\n\n
           `,
-			}, ],
+			},],
 
 			footer: {
 				icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
@@ -60,7 +60,7 @@ __*For ADMINS*__
 
 			},
 		},
-	}).catch(function(err) {
+	}).catch(function (err) {
 		console.error(err);
 	});
 };

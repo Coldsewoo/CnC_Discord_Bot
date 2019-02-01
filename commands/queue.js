@@ -87,73 +87,73 @@ exports.run = (client, message, args) => {
 			message.reply(message2);
 		} */
 	} else
-	if (args[0] === 'add') {
-		clearText(message);
-		add_to_queue(member, member_Id, content);
-		message.reply('Added to Queue number:  ' + '**' + guilds[message.channel.id].queueContent.length + '**');
-		queue_list(message);
-	} else
-	if (args[0] === 'setin') {
-		if (hasLeaderRole == false) return message.reply('You do not have a permission to run this command');
-		clearText(message);
-		var setinNum = message.content.split(' ').slice(2).join(' ');
-		setinNum = parseInt(setinNum, 10);
-		if (setinNum > guilds[message.channel.id].queueContent.length) {
-			message.reply('setinNum > queue length');
+		if (args[0] === 'add') {
+			clearText(message);
+			add_to_queue(member, member_Id, content);
+			message.reply('Added to Queue number:  ' + '**' + guilds[message.channel.id].queueContent.length + '**');
 			queue_list(message);
-			return;
-		} else {
-			let messageIn = '```prolog\n No free spot(s) left. Current IN -  \n';
-			for (let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
-				const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
-				if (currentIn >= guilds[message.channel.id].maxIn) {
-					if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
-						const temp2 = '   ' + i + ' : ' + guilds[message.channel.id].queue[i - 1] + '  [' + guilds[message.channel.id].queueContent[i - 1] + ']\n';
-						messageIn += temp2;
-					}
-				} else {
-					guilds[message.channel.id].isIn[setinNum - 1] = isInNum;
-					message.reply('**' + setinNum + ' : ' + guilds[message.channel.id].queue[setinNum - 1] + ' [' + guilds[message.channel.id].queueContent[setinNum - 1] + ']** is now **IN**');
+		} else
+			if (args[0] === 'setin') {
+				if (hasLeaderRole == false) return message.reply('You do not have a permission to run this command');
+				clearText(message);
+				var setinNum = message.content.split(' ').slice(2).join(' ');
+				setinNum = parseInt(setinNum, 10);
+				if (setinNum > guilds[message.channel.id].queueContent.length) {
+					message.reply('setinNum > queue length');
 					queue_list(message);
 					return;
+				} else {
+					let messageIn = '```prolog\n No free spot(s) left. Current IN -  \n';
+					for (let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
+						const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
+						if (currentIn >= guilds[message.channel.id].maxIn) {
+							if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
+								const temp2 = '   ' + i + ' : ' + guilds[message.channel.id].queue[i - 1] + '  [' + guilds[message.channel.id].queueContent[i - 1] + ']\n';
+								messageIn += temp2;
+							}
+						} else {
+							guilds[message.channel.id].isIn[setinNum - 1] = isInNum;
+							message.reply('**' + setinNum + ' : ' + guilds[message.channel.id].queue[setinNum - 1] + ' [' + guilds[message.channel.id].queueContent[setinNum - 1] + ']** is now **IN**');
+							queue_list(message);
+							return;
+						}
+					}
+					messageIn += '```';
+					message.reply(messageIn);
+					messageIn = '```';
+					queue_list(message);
 				}
-			}
-			messageIn += '```';
-			message.reply(messageIn);
-			messageIn = '```';
-			queue_list(message);
-		}
-	} else
-	if (args[0] === 'delete' || args[0] === 'remove') {
-		clearText(message);
-		if (hasLeaderRole == true) {
-			var deleteNum = message.content.split(' ').slice(2).join(' ');
-			deleteNum = parseInt(deleteNum, 10);
-			queue_delete(member, deleteNum, message);
-		} else {
-			message.reply('You do not have a permission to run this command');
-		}
-		queue_list(message);
+			} else
+				if (args[0] === 'delete' || args[0] === 'remove') {
+					clearText(message);
+					if (hasLeaderRole == true) {
+						var deleteNum = message.content.split(' ').slice(2).join(' ');
+						deleteNum = parseInt(deleteNum, 10);
+						queue_delete(member, deleteNum, message);
+					} else {
+						message.reply('You do not have a permission to run this command');
+					}
+					queue_list(message);
 
-	} else
-	if (args[0] === 'insert') {
-		clearText(message);
-		queue_insert(member, member_Id, message);
-		queue_list(message);
-	} else
-	if (args[0] === 'help') {
-		message.delete();
-		message.channel.send({
-			embed: {
-				color: `${color}`,
-				author: {
-					name: 'Cows \'n\' Chaos',
+				} else
+					if (args[0] === 'insert') {
+						clearText(message);
+						queue_insert(member, member_Id, message);
+						queue_list(message);
+					} else
+						if (args[0] === 'help') {
+							message.delete();
+							message.channel.send({
+								embed: {
+									color: `${color}`,
+									author: {
+										name: 'Cows \'n\' Chaos',
 
-				},
-				title: '**Queue**',
-				fields: [{
-					name: 'Available Contents (use ~ before the desired command)\n',
-					value: `\n\r
+									},
+									title: '**Queue**',
+									fields: [{
+										name: 'Available Contents (use ~ before the desired command)\n',
+										value: `\n\r
 	*(__Only for INNER-GUILD PUSHES channels__!)*
 	**HOW TO USE** (~queue or ~queue list to see current queue list)
 	1) **~queue add IGN**
@@ -162,13 +162,13 @@ exports.run = (client, message, args) => {
 
   ***List*** - Show current queue list
   ***Add*** - Add to the queue list
-  *ex) ~queue add some_message*
+  *ex) ~queue add YOUR_IGN*
   ***Insert*** - Insert into the queue list
-  *ex) ~queue insert number some_message*
+  *ex) ~queue insert number YOUR_IGN*
   ***IN*** - Flag yourself as being inside the guild
   ***Out*** - Delete your queue from the list
 
-  __*For ADMINS*__
+  __*For Leaders*__
 	***setIn*** - Flag specific queue number on list as IN
 	*ex) ~queue setIn 3*
   ***Delete*** - Delete specific queue number on list
@@ -180,117 +180,117 @@ exports.run = (client, message, args) => {
   *ex) ~queue max 2*
   \n\r
   `,
-				}, ],
+									},],
 
-				footer: {
-					icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: '\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)',
+									footer: {
+										icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
+										text: '\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)',
 
-				},
-			},
-		}).catch(function(err) {
-			console.error(err);
-		});
-	} else
-	if (args[0] === 'max') {
-		if (hasLeaderRole == true) {
-			parseInt(content, 10);
-			if (content > 5) return message.reply('Max Number cannot be more than 5');
-			if (content > 0) {
-				guilds[message.channel.id].maxIn.shift();
-				guilds[message.channel.id].maxIn.push(content);
-				message.reply('max IN set to: ' + '**' + content + '**');
-			} else {
-				return message.reply('Max number needs to be higher than 0');
-			}
-		} else {
-			return message.reply('You do not have a permission to run this command.');
-		}
-	} else
-	if (args[0] === 'clear') {
-		clearText(message);
-		if (hasLeaderRole == true) {
-			guilds[message.channel.id].queueId = [];
-			guilds[message.channel.id].queue = [];
-			guilds[message.channel.id].queueContent = [];
-			guilds[message.channel.id].isIn = [];
-			message.reply('Queue list cleared!');
-			queue_list(message);
-			return;
-		} else {
-			return message.reply('You do not have a permission to run this command.');
-		}
-	} else
-	if (args[0] === 'out') {
-		clearText(message);
-		if (guilds[message.channel.id].queueId.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
-			message.reply('```prolog\nYou are not in the queue```');
-			queue_list(message);
-			return;
-		} else {
-			for (let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
-				if (guilds[message.channel.id].queue[i - 1] === member_Id) {
-					queue_delete(member, i, message);
-					queue_list(message);
-					return;
-				}
-			}
-		}
-	} else
-	if (args[0] === 'test') {
-		message.delete();
-		console.log(message.channel.id);
-		for (let i = 0; i < guilds[message.channel.id].queue.length; i++) {
-			let j = i + 1;
-			console.log(j + ' - ' + guilds[message.channel.id].queue[i] + '(' + guilds[message.channel.id].queueId[i] + ')' + ' : ' + guilds[message.channel.id].queueContent[i]);
-		}
-		queue_list(message);
+									},
+								},
+							}).catch(function (err) {
+								console.error(err);
+							});
+						} else
+							if (args[0] === 'max') {
+								if (hasLeaderRole == true) {
+									parseInt(content, 10);
+									if (content > 5) return message.reply('Max Number cannot be more than 5');
+									if (content > 0) {
+										guilds[message.channel.id].maxIn.shift();
+										guilds[message.channel.id].maxIn.push(content);
+										message.reply('max IN set to: ' + '**' + content + '**');
+									} else {
+										return message.reply('Max number needs to be higher than 0');
+									}
+								} else {
+									return message.reply('You do not have a permission to run this command.');
+								}
+							} else
+								if (args[0] === 'clear') {
+									clearText(message);
+									if (hasLeaderRole == true) {
+										guilds[message.channel.id].queueId = [];
+										guilds[message.channel.id].queue = [];
+										guilds[message.channel.id].queueContent = [];
+										guilds[message.channel.id].isIn = [];
+										message.reply('Queue list cleared!');
+										queue_list(message);
+										return;
+									} else {
+										return message.reply('You do not have a permission to run this command.');
+									}
+								} else
+									if (args[0] === 'out') {
+										clearText(message);
+										if (guilds[message.channel.id].queueId.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
+											message.reply('```prolog\nYou are not in the queue```');
+											queue_list(message);
+											return;
+										} else {
+											for (let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
+												if (guilds[message.channel.id].queue[i - 1] === member_Id) {
+													queue_delete(member, i, message);
+													queue_list(message);
+													return;
+												}
+											}
+										}
+									} else
+										if (args[0] === 'test') {
+											message.delete();
+											console.log(message.channel.id);
+											for (let i = 0; i < guilds[message.channel.id].queue.length; i++) {
+												let j = i + 1;
+												console.log(j + ' - ' + guilds[message.channel.id].queue[i] + '(' + guilds[message.channel.id].queueId[i] + ')' + ' : ' + guilds[message.channel.id].queueContent[i]);
+											}
+											queue_list(message);
 
-	} else
-	if (args[0] === 'in') {
-		clearText(message);
-		if (guilds[message.channel.id].isIn.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
-			message.reply('```prolog\nYou are not in the queue```');
-			return queue_list(message);
-		} else {
-			let messageIn = '```prolog\n No free spot(s) left. Current IN -  \n';
-			for (let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
-				const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
-				if (currentIn >= guilds[message.channel.id].maxIn) {
-					if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
-						const temp2 = '   ' + i + ' : ' + guilds[message.channel.id].queue[i - 1] + '  [' + guilds[message.channel.id].queueContent[i - 1] + ']\n';
-						messageIn += temp2;
-					}
-				} else
-				if (guilds[message.channel.id].queue[i - 1] === member_Id) {
-					if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
-						message.reply('*You are already IN* with' + '**  ' + i + ' : ' + guilds[message.channel.id].queue[i - 1] + (guilds[message.channel.id].queueContent[i - 1] ? '  [' + guilds[message.channel.id].queueContent[i - 1] + ']**' : '**'));
-						queue_list(message);
-						return;
-					} else {
-						guilds[message.channel.id].isIn[i - 1] = 1;
-						if (guilds[message.channel.id].queueContent[i - 1]) {
-							message.reply('**' + guilds[message.channel.id].queue[i - 1] + ' [' + guilds[message.channel.id].queueContent[i - 1] + ']** is now **IN**');
-							queue_list(message);
-						} else {
-							message.reply('*You are now* ***IN***');
-							queue_list(message);
-						}
-						return;
-					}
+										} else
+											if (args[0] === 'in') {
+												clearText(message);
+												if (guilds[message.channel.id].isIn.length === 0 || guilds[message.channel.id].queueId.indexOf(member) === -1) {
+													message.reply('```prolog\nYou are not in the queue```');
+													return queue_list(message);
+												} else {
+													let messageIn = '```prolog\n No free spot(s) left. Current IN -  \n';
+													for (let i = 1; i < guilds[message.channel.id].queue.length + 1; i++) {
+														const currentIn = guilds[message.channel.id].isIn.filter(j => j === isInNum).length;
+														if (currentIn >= guilds[message.channel.id].maxIn) {
+															if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
+																const temp2 = '   ' + i + ' : ' + guilds[message.channel.id].queue[i - 1] + '  [' + guilds[message.channel.id].queueContent[i - 1] + ']\n';
+																messageIn += temp2;
+															}
+														} else
+															if (guilds[message.channel.id].queue[i - 1] === member_Id) {
+																if (guilds[message.channel.id].isIn[i - 1] === isInNum) {
+																	message.reply('*You are already IN* with' + '**  ' + i + ' : ' + guilds[message.channel.id].queue[i - 1] + (guilds[message.channel.id].queueContent[i - 1] ? '  [' + guilds[message.channel.id].queueContent[i - 1] + ']**' : '**'));
+																	queue_list(message);
+																	return;
+																} else {
+																	guilds[message.channel.id].isIn[i - 1] = 1;
+																	if (guilds[message.channel.id].queueContent[i - 1]) {
+																		message.reply('**' + guilds[message.channel.id].queue[i - 1] + ' [' + guilds[message.channel.id].queueContent[i - 1] + ']** is now **IN**');
+																		queue_list(message);
+																	} else {
+																		message.reply('*You are now* ***IN***');
+																		queue_list(message);
+																	}
+																	return;
+																}
 
-				}
+															}
 
-			}
-			messageIn += '```';
-			message.reply(messageIn);
-			messageIn = '```';
-			queue_list(message);
-		}
-	} else {
-		message.delete();
-		message.reply('Wrong command! See ~queue help');
-	}
+													}
+													messageIn += '```';
+													message.reply(messageIn);
+													messageIn = '```';
+													queue_list(message);
+												}
+											} else {
+												message.delete();
+												message.reply('Wrong command! See ~queue help');
+											}
 
 
 	function add_to_queue(member, member_Id, content) {
@@ -435,20 +435,20 @@ exports.run = (client, message, args) => {
 
 
 		} else
-		if (switchNum && switchNum > 0) {
-			if (switchNum > guilds[message.channel.id].queueContent.length) {
-				message.reply(`Current max queue number is : ${guilds[message.channel.id].queueContent.length}`);
-				return;
+			if (switchNum && switchNum > 0) {
+				if (switchNum > guilds[message.channel.id].queueContent.length) {
+					message.reply(`Current max queue number is : ${guilds[message.channel.id].queueContent.length}`);
+					return;
+				} else {
+					guilds[message.channel.id].queueId.splice(switchNum - 1, 0, member);
+					guilds[message.channel.id].queue.splice(switchNum - 1, 0, member_Id);
+					guilds[message.channel.id].queueContent.splice(switchNum - 1, 0, contents);
+					guilds[message.channel.id].isIn.splice(switchNum - 1, 0, '0');
+					message.reply('Inserted to Queue number:  ' + '**' + switchNum + (guilds[message.channel.id].queueContent[switchNum - 1] ? '  [' + guilds[message.channel.id].queueContent[switchNum - 1] + ']**' : '**'));
+				}
 			} else {
-				guilds[message.channel.id].queueId.splice(switchNum - 1, 0, member);
-				guilds[message.channel.id].queue.splice(switchNum - 1, 0, member_Id);
-				guilds[message.channel.id].queueContent.splice(switchNum - 1, 0, contents);
-				guilds[message.channel.id].isIn.splice(switchNum - 1, 0, '0');
-				message.reply('Inserted to Queue number:  ' + '**' + switchNum + (guilds[message.channel.id].queueContent[switchNum - 1] ? '  [' + guilds[message.channel.id].queueContent[switchNum - 1] + ']**' : '**'));
+				return;
 			}
-		} else {
-			return;
-		}
 	}
 
 	async function clearText(message) {

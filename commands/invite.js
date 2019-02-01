@@ -4,8 +4,13 @@ const Global = global.Global;
 
 exports.run = (client, message, args) => {
     message.delete();
+    // ignore auto-invite channel 
     if (message.channel.id == "540506186638688256") return;
+
+    // Works only in the ao-push-channel
     //if (message.channel.id != "511304632115527680") return;
+
+    //for the test channels in my server (to be integrated with above)
     if (!Global.testChannels.includes(message.channel.id)) return;
 
     if (!queue[queue] || queue[queue].queue == undefined) {
@@ -14,10 +19,15 @@ exports.run = (client, message, args) => {
         }
         var timeout = 5000;
         var IGN = args[0];
+        if (!IGN) return message.reply("your IGN?")
+
+        // push message to the auto-invite channel
         const autoInviteChannelId = "540506186638688256";
         const autoInviteChannel = client.channels.get(autoInviteChannelId);
         autoInviteChannel.send("!invite " + IGN + " " + message.member.displayName);
 
+
+        //inner timeout = 3sec , outer timeout = 5sec  total:8sec
         setTimeout(() => {
             autoInviteChannel.fetchMessages({ limit: 1 }).then(collected => {
                 collected.forEach((msg) => {
@@ -50,8 +60,6 @@ exports.run = (client, message, args) => {
                 })
         }, timeout);
     } else {
-        console.log(queue[queue]);
         return message.reply("pls wait!")
-
     }
 }
