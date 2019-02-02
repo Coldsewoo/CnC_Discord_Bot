@@ -1,24 +1,29 @@
 const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
+const path = require('path');
 const {
   get
 } = require('snekfetch');
+global.__basedir = __dirname
+const admin = require("firebase-admin");
 
+const serviceAccount = require("./firebase-adminsdk.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://cnc-discord-bot.firebaseio.com"
+});
 
 
 const client = new Discord.Client();
 const config = require("./config.json");
 client.config = config;
 
-
-//set presence of bot when logged in
 client.on('ready', () => {
   client.user.setActivity('Use ~help for more info XD', { type: 'PLAYING' });
 });
 
-
-//read events dir and set each keyword as an event listener (clinet.on)
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
@@ -28,35 +33,52 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
+
 //read commands dir and set each keyword as linked in command prop in client.commands
 client.commands = new Enmap();
 fs.readdir("./commands/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
-    if (!file.endsWith(".js")) return;
-    let props = require(`./commands/${file}`);
-    let commandName = file.split(".")[0];
-    console.log(`Attempting to load command ${commandName}`);
-    client.commands.set(commandName, props);
+    if (!fs.statSync("./commands/" + file).isDirectory()) {
+      if (!file.endsWith(".js")) {
+        return;
+      } else {
+        let props = require(`./commands/${file}`);
+        let commandName = file.split(".")[0];
+        console.log(`Attempting to load command ${commandName}`);
+        client.commands.set(commandName, props);
+      }
+    } else {
+      if (file == 'others') return;
+      fs.readdir(`./commands/${file}`, (err, innerFiles) => {
+        if (err) return console.error(err);
+
+        innerFiles.forEach(innerFile => {
+          if (!innerFile.endsWith(".js")) return;
+          let props = require(`./commands/${file}/${innerFile}`);
+          let commandName = innerFile.split(".")[0];
+          console.log(`Attempting to load command ${commandName}`);
+          client.commands.set(commandName, props);
+        })
+      })
+    }
   });
 });
 
 
-//fetch IOU facebook page posts and update daily codes in codes channel
-//set time inverval to 30 mins
 setInterval(function () {
   var facebookArray = new Array();
   try {
     get('https://www.facebook.com/pg/Idle-Online-Universe-IOU-RPG-320106674851481/posts/?ref=page_internal').then(res => {
       var content = res.body.toString();
-      var codeFinder = "Here are your codes"
-      var codeEndFinder = "Cheers, Lynn"
+      var codeFinder = "your codes"
+      var codeEndFinder = "Cheers,"
       var codeIndex = content.indexOf(codeFinder);
       var codeEndIndex = content.indexOf(codeEndFinder);
       var codes = content.substring(codeIndex, codeEndIndex)
       var br = "<br />"
       var codesArray = codes.split(br);
-      for (let i = 0; i < 3; i++) {
+      for (let i = 1; i < 3; i++) {
         codesArray[i] = codesArray[i].trim();
         facebookArray.push(codesArray[i]);
       }
@@ -83,6 +105,5 @@ setInterval(function () {
     console.log(err);
   }
 }, 30 * 60 * 1000);
-
 
 client.login(config.token);

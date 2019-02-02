@@ -1,4 +1,3 @@
-
 module.exports = (client, message) => {
   // Ignore all bots
   if (message.author.bot && message.author.id == "509201572949917720") return;
