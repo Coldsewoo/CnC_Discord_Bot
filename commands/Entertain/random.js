@@ -2,9 +2,9 @@ const {
 	get
 } = require('snekfetch');
 const Discord = require('discord.js');
-const client = new Discord.Client()
-const global = require('../global.js')
-const Global = global.Global;
+const client = new Discord.Client();
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
 
 exports.run = (client, message, args) => {
 	if (Global.cnc_spam.indexOf(message.channel.id) == -1) {

@@ -1,21 +1,25 @@
 const fs = require('fs');
 const readline = require('readline');
-const {google} = require('googleapis');
+const { google } = require('googleapis');
 const path = require('path');
-const { promisify } = require("util");
-const writeFile = promisify(fs.writeFile);
-
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
-const TOKEN_PATH = path.join(__dirname, '..', 'token.json');
+// The file token.json stores the user's access and refresh tokens, and is
+// created automatically when the authorization flow completes for the first
+// time.
+const TOKEN_PATH = 'token.json';
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
+
 
 exports.run = (client, message, args) => {
-  // Load client secrets from a local file.
-  fs.readFile(path.join(__dirname, '..', 'credentials.json'), (err, content) => {
+  if (!message.author.id == Global.adminId) return;
+
+  fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), listGuilds);
+    authorize(JSON.parse(content), listGuildInfo);
   });
 
   /**
@@ -25,9 +29,9 @@ exports.run = (client, message, args) => {
    * @param {function} callback The callback to call with the authorized client.
    */
   function authorize(credentials, callback) {
-    const {client_secret, client_id, redirect_uris} = credentials.installed;
+    const { client_secret, client_id, redirect_uris } = credentials.installed;
     const oAuth2Client = new google.auth.OAuth2(
-        client_id, client_secret, redirect_uris[0]);
+      client_id, client_secret, redirect_uris[0]);
 
     // Check if we have previously stored a token.
     fs.readFile(TOKEN_PATH, (err, token) => {
@@ -68,38 +72,26 @@ exports.run = (client, message, args) => {
     });
   }
 
-  /**
-   * Prints the names and majors of students in a sample spreadsheet:
-   * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-   * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
-   */
-
-  function listGuilds(auth) {
-     return new Promise(function (resolve, reject) {
-       const sheets = google.sheets({version: 'v4',auth});
-       sheets.spreadsheets.values.get({
-         spreadsheetId: '1RW-alTry7R5sQ4WM7CfMDwItpXO9pYtBvy40IatCKpo',
-         range: 'Guild Levels!B1:G13',
-         majorDimension: 'COLUMNS'
-       }, (err, res) => {
-         if (err) return console.log('The API returned an error: ' + err);
-         const rows = res.data.values;
-         if (rows.length) {
-           // Print columns A and E, which correspond to indices 0 and 4.
-           rows.map((row) => {
-             var json = [];
-             var rowdata = row.split(/\r\n/i);
-             for (var i = 0; i<rows.length; i++) {
-               json.push(rowdata[i].split(/\t/i));
-             }
-             console.log(json);
-           });
-         } else {
-           console.log('No data found.');
-         }
-       });
-     });
-   }
+  function listGuildInfo(auth) {
+    const sheets = google.sheets({ version: 'v4', auth });
+    sheets.spreadsheets.values.get({
+      spreadsheetId: '1RW-alTry7R5sQ4WM7CfMDwItpXO9pYtBvy40IatCKpo',
+      range: 'All_IGN_Lili!H3:H250',
+    }, (err, res) => {
+      if (err) return console.log('The API returned an error: ' + err);
+      var rows = res.data.values;
+      if (rows.length) {
+        var rowString = rows.toString();
+        //var rowArray = rowString.split(",").join("\r\n")
+        //console.log(rowArray);
+        message.channel.send(rowString);
+      } else {
+        console.log('No data found.');
+      }
+    });
+  }
 
 
-}
+
+
+};

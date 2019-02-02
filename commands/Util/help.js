@@ -1,5 +1,5 @@
-const global = require('../global.js');
-const Global = global.Global;
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
 
 exports.run = (client, message, args) => {
 	//const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
@@ -24,10 +24,10 @@ exports.run = (client, message, args) => {
 				name: 'Available Commands (use ~ before the desired command)',
 				value: `
 __*For Everyone*__
-***personal*** : **Calculate stone required for guild personal** **from/to**
- *See ~personal(or ~p) help*
-***guildstone*** : **Calculate stone required for guild level** **from/to**
- *See ~guildstone(or ~g) help*
+***p*** : **Calculate stone required for guild personal** **from/to**
+ *See ~p help*
+***g*** : **Calculate stone required for guild level** **from/to**
+ *See ~g help*
 ***Guides*** : **Useful Sheets & Guides on IOU**
 ***Cat*** : **Random cat XD**
 ***Puppy*** : **Random puppy XDXD**

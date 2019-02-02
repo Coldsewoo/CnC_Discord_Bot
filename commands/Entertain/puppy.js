@@ -2,11 +2,11 @@ const {
 	get
 } = require('snekfetch');
 const Discord = require('discord.js');
-const global = require('../global.js')
-const Global = global.Global;
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
 
 exports.run = (client, message, args) => {
-	if (Global.cnc_spam.indexOf(message.channel.id) == -1) {
+	if (Global.cnc_spam.indexOf(message.channel.id) > -1) {
 		if (Global.testChannels.indexOf(message.channel.id) == -1) {
 			message.delete();
 			message.reply("Please use in spam channel :)")
@@ -23,12 +23,14 @@ exports.run = (client, message, args) => {
 		}
 	}
 	try {
-		get('https://aws.random.cat/meow').then(res => {
+		get('https://dog.ceo/api/breeds/image/random').then(res => {
+			const image = JSON.parse(res.text);
 			const embed = new Discord.RichEmbed()
-				.setImage(res.body.file);
+				.setImage(image.message);
 			return message.channel.send({
 				embed
 			});
+
 		});
 	} catch (err) {
 		return message.channel.send(err.stack);

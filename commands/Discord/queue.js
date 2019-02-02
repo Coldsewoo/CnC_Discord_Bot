@@ -1,6 +1,6 @@
 const guilds = {};
-const global = require('../global.js');
-const Global = global.Global;
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
 
 exports.run = (client, message, args) => {
 	const hasLeaderRole = message.member.roles.some(roles => {
@@ -162,13 +162,13 @@ exports.run = (client, message, args) => {
 
   ***List*** - Show current queue list
   ***Add*** - Add to the queue list
-  *ex) ~queue add YOUR_IGN*
+  *ex) ~queue add some_message*
   ***Insert*** - Insert into the queue list
-  *ex) ~queue insert number YOUR_IGN*
+  *ex) ~queue insert number some_message*
   ***IN*** - Flag yourself as being inside the guild
   ***Out*** - Delete your queue from the list
 
-  __*For Leaders*__
+  __*For ADMINS*__
 	***setIn*** - Flag specific queue number on list as IN
 	*ex) ~queue setIn 3*
   ***Delete*** - Delete specific queue number on list

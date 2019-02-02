@@ -1,6 +1,6 @@
-const global = require('../global.js');
-const Global = global.Global;
-const guildinfo = global.Guildinfo;
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
+const guildinfo = globalVar.Guildinfo;
 exports.run = (client, message, args) => {
 	if (Global.cnc_opened.indexOf(message.channel.id) > -1) {
 		if (Global.testChannels.indexOf(message.channel.id) == -1) {
@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
 			return;
 		}
 	}
-	const guildsheet = requireUncached('../json/guildsheet.json');
+	const guildsheet = requireUncached(__basedir + '/json/guildsheet.json');
 
 	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
 	// const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
@@ -53,7 +53,7 @@ exports.run = (client, message, args) => {
 **Always Online** - *AO, Alwaysonline*
 ex) ~info AO, ~info Alwaysonline
     `,
-				}, ],
+				},],
 
 				footer: {
 					icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
@@ -61,7 +61,7 @@ ex) ~info AO, ~info Alwaysonline
 
 				},
 			},
-		}).catch(function(err) {
+		}).catch(function (err) {
 			console.error(err);
 		});
 		return;
@@ -95,7 +95,7 @@ ex) ~info AO, ~info Alwaysonline
 			**Always Online** - *AO, Alwaysonline*
 			ex) ~info AO, ~info Alwaysonline
 			    `,
-						}, ],
+						},],
 
 						footer: {
 							icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
@@ -103,17 +103,17 @@ ex) ~info AO, ~info Alwaysonline
 
 						},
 					},
-				}).catch(function(err) {
+				}).catch(function (err) {
 					console.error(err);
 				});
 			} else
-			if (guildnameInput === 'cold' || guildnameInput === 'coldsewoo') {
-				message.channel.send(':heart:');
-				return;
-			} else {
-				message.channel.send('You must type correct guild name (See ~info help)');
-				return;
-			}
+				if (guildnameInput === 'cold' || guildnameInput === 'coldsewoo') {
+					message.channel.send(':heart:');
+					return;
+				} else {
+					message.channel.send('You must type correct guild name (See ~info help)');
+					return;
+				}
 		}
 	}
 
@@ -137,7 +137,7 @@ ex) ~info AO, ~info Alwaysonline
  Sac Tower    -    ${guildsheet[guildname][8]} \n Warehouse    -    ${guildsheet[guildname][9]}
  Altar        -    ${guildsheet[guildname][10]} \n Library      -    ${guildsheet[guildname][11]}
  Aquatic      -    ${guildsheet[guildname][12]} \n Space Aca.   -    ${guildsheet[guildname][13]} \`\`\`\`\`\`prolog\n  Total Stone - ${guildsheet[guildname][35]} \`\`\``,
-			}, ],
+			},],
 
 			footer: {
 				icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
@@ -145,7 +145,7 @@ ex) ~info AO, ~info Alwaysonline
 
 			},
 		},
-	}).catch(function(err) {
+	}).catch(function (err) {
 		console.error(err);
 	});
 

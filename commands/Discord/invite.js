@@ -1,6 +1,6 @@
 const queue = {};
-const global = require('../global.js');
-const Global = global.Global;
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
 
 exports.run = (client, message, args) => {
     message.delete();
@@ -8,18 +8,18 @@ exports.run = (client, message, args) => {
     if (message.channel.id == "540506186638688256") return;
 
     // Works only in the ao-push-channel
-    //if (message.channel.id != "511304632115527680") return;
+    if (message.channel.id != "511304632115527680" && !Global.testChannels.includes(message.channel.id)) return;
 
-    //for the test channels in my server (to be integrated with above)
-    if (!Global.testChannels.includes(message.channel.id)) return;
+    //for the test channels in my server (to be integrated with above line)
+    var IGN = args[0];
+    if (!IGN) return message.reply("your IGN?")
 
     if (!queue[queue] || queue[queue].queue == undefined) {
         queue[queue] = {
             queue: true
         }
         var timeout = 5000;
-        var IGN = args[0];
-        if (!IGN) return message.reply("your IGN?")
+
 
         // push message to the auto-invite channel
         const autoInviteChannelId = "540506186638688256";

@@ -2,8 +2,8 @@ const {
 	get
 } = require('snekfetch');
 const Discord = require('discord.js');
-const global = require('../global.js')
-const Global = global.Global;
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
 
 exports.run = (client, message, args) => {
 	if (Global.cnc_spam.indexOf(message.channel.id) == -1) {
@@ -23,14 +23,12 @@ exports.run = (client, message, args) => {
 		}
 	}
 	try {
-		get('https://dog.ceo/api/breeds/image/random').then(res => {
-			const image = JSON.parse(res.text);
+		get('https://aws.random.cat/meow').then(res => {
 			const embed = new Discord.RichEmbed()
-				.setImage(image.message);
+				.setImage(res.body.file);
 			return message.channel.send({
 				embed
 			});
-
 		});
 	} catch (err) {
 		return message.channel.send(err.stack);

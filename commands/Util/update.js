@@ -9,13 +9,12 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
-const global = require('../global.js')
-const Global = global.Global;
 
 
 exports.run = (client, message, args) => {
-  if (message.author.id != Global.adminId) return;
-
+  message.delete();
+  message.reply(`\`\`\`prolog
+  Now trying to Update information...\`\`\``);
   fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
@@ -76,15 +75,68 @@ exports.run = (client, message, args) => {
     const sheets = google.sheets({ version: 'v4', auth });
     sheets.spreadsheets.values.get({
       spreadsheetId: '1RW-alTry7R5sQ4WM7CfMDwItpXO9pYtBvy40IatCKpo',
-      range: 'All_IGN_Lili!H3:H',
+      range: 'Guildsheet.json!A1:AJ8',
     }, (err, res) => {
       if (err) return console.log('The API returned an error: ' + err);
       var rows = res.data.values;
       if (rows.length) {
-        var rowString = rows.toString();
-        //var rowArray = rowString.split(",").join("\r\n")
-        //console.log(rowArray);
-        message.channel.send(rowString);
+        if (rows[0][2] === 0 || rows[0][2] === '') return message.reply('ERROR! Please ~update once again.');
+        const clientDate = new Date();
+        const time = new Date(clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000) + 32400000);
+        const timeJP = time.toLocaleString('ja-JP');
+        const dateInfo =
+          [
+            time.getFullYear(),
+            parseInt(time.getMonth()) + 1,
+            time.getDate(),
+            time.getHours(),
+            time.getMinutes(),
+          ];
+				/* year == dateInfo[0];
+				 month == dateInfo[1];
+				 date == dateInfo[2];
+				 hours == dateInfo[3];
+				 minutes == dateInfo[4]; */
+
+        const result = dateInfo[2] % 10;
+        if (result === 1) {
+          dateInfo[2] += 'th';
+        }
+        else
+          if (result === 2) {
+            dateInfo[2] += 'nd';
+          }
+          else
+            if (result === 3) {
+              dateInfo[2] += 'rd';
+            }
+            else {
+              dateInfo[2] += 'th';
+            }
+        if (dateInfo[3] > 11) {
+          if (dateInfo[3] === 12) {
+            if (dateInfo[4] < 10) dateInfo[4] = '0' + dateInfo[4];
+            dateInfo[4] += 'PM';
+          }
+          else {
+            dateInfo[3] = dateInfo[3] - 12;
+            if (dateInfo[4] < 10) dateInfo[4] = '0' + dateInfo[4];
+            dateInfo[4] += 'PM';
+            if (dateInfo[3] < 10) dateInfo[3] = '0' + dateInfo[3];
+          }
+        }
+        else {
+          if (dateInfo[4] < 10) dateInfo[4] = '0' + dateInfo[4];
+          dateInfo[4] += 'AM';
+          if (dateInfo[3] < 10) dateInfo[3] = '0' + dateInfo[3];
+        }
+
+
+        rows.push(dateInfo);
+
+        fs.writeFileSync(path.resolve(__basedir, 'json', 'guildsheet.json'), JSON.stringify(rows, null, 2));
+        message.reply(`\`\`\`prolog
+  updated Guild Information on ${timeJP} GMT+09 (Japan Standard Time)\`\`\``);
       } else {
         console.log('No data found.');
       }

@@ -35,6 +35,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+commands/others/
 
 # TypeScript v1 declaration files
 typings/
@@ -67,8 +68,8 @@ token.json
 api_key.json
 package-lock.json
 package.json
+firebase-adminsdk.json
 
 
 #.js file
 commands/test.js
-commands/j.js

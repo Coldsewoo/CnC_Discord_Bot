@@ -1,6 +1,7 @@
-const global = require('../global.js');
-const Global = global.Global;
-const guildinfo = global.Guildinfo;
+const path = require('path');
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
+const guildinfo = globalVar.Guildinfo;
 
 exports.run = (client, message, args) => {
 	if (Global.cnc_opened.indexOf(message.channel.id) > -1) {
@@ -19,7 +20,7 @@ exports.run = (client, message, args) => {
 			return;
 		}
 	}
-	var guildsheet = requireUncached('../json/guildsheet.json');
+	const guildsheet = requireUncached(__basedir + '/json/guildsheet.json');
 	if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
 	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
 	//	const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
@@ -52,7 +53,7 @@ exports.run = (client, message, args) => {
 **Always Online** - *AO, Alwaysonline*
 ex) ~bonus AO, ~bonus Alwaysonline
     `,
-				}, ],
+				},],
 
 				footer: {
 					icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
@@ -60,7 +61,7 @@ ex) ~bonus AO, ~bonus Alwaysonline
 
 				},
 			},
-		}).catch(function(err) {
+		}).catch(function (err) {
 			console.error(err);
 		});
 		return;
@@ -93,7 +94,7 @@ ex) ~bonus AO, ~bonus Alwaysonline
 **Always Online** - *AO, Alwaysonline*
 ex) ~bonus AO, ~bonus Alwaysonline
     `,
-					}, ],
+					},],
 
 					footer: {
 						icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
@@ -101,7 +102,7 @@ ex) ~bonus AO, ~bonus Alwaysonline
 
 					},
 				},
-			}).catch(function(err) {
+			}).catch(function (err) {
 				console.error(err);
 			});
 		} else {
@@ -144,7 +145,7 @@ Challenge Dmg -  ${guildsheet[guildname][28]}
 ShipArena Dmg -  ${guildsheet[guildname][29]}
 Beast Dmg     -  ${guildsheet[guildname][30]}
 \`\`\``,
-				}, ],
+				},],
 
 				footer: {
 					icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
@@ -152,7 +153,7 @@ Beast Dmg     -  ${guildsheet[guildname][30]}
 
 				},
 			},
-		}).catch(function(err) {
+		}).catch(function (err) {
 			console.error(err);
 		});
 

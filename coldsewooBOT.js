@@ -1,12 +1,14 @@
 const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
+const path = require('path');
 const {
   get
 } = require('snekfetch');
+global.__basedir = __dirname
 const admin = require("firebase-admin");
 
-const serviceAccount = require("firebase-adminsdk.json");
+const serviceAccount = require("./firebase-adminsdk.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -31,18 +33,38 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.commands = new Enmap();
 
+//read commands dir and set each keyword as linked in command prop in client.commands
+client.commands = new Enmap();
 fs.readdir("./commands/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
-    if (!file.endsWith(".js")) return;
-    let props = require(`./commands/${file}`);
-    let commandName = file.split(".")[0];
-    console.log(`Attempting to load command ${commandName}`);
-    client.commands.set(commandName, props);
+    if (!fs.statSync("./commands/" + file).isDirectory()) {
+      if (!file.endsWith(".js")) {
+        return;
+      } else {
+        let props = require(`./commands/${file}`);
+        let commandName = file.split(".")[0];
+        console.log(`Attempting to load command ${commandName}`);
+        client.commands.set(commandName, props);
+      }
+    } else {
+      if (file == 'others') return;
+      fs.readdir(`./commands/${file}`, (err, innerFiles) => {
+        if (err) return console.error(err);
+
+        innerFiles.forEach(innerFile => {
+          if (!innerFile.endsWith(".js")) return;
+          let props = require(`./commands/${file}/${innerFile}`);
+          let commandName = innerFile.split(".")[0];
+          console.log(`Attempting to load command ${commandName}`);
+          client.commands.set(commandName, props);
+        })
+      })
+    }
   });
 });
+
 
 setInterval(function () {
   var facebookArray = new Array();

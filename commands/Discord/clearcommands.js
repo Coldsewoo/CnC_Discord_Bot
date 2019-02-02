@@ -1,5 +1,5 @@
-const global = require('../global.js')
-const Global = global.Global;
+const globalVar = require(__basedir + '/globalVar.js')
+const Global = globalVar.Global;
 
 exports.run = (client, message, args) => {
 	const hasAdminRole = message.member.roles.some(roles => {
@@ -21,7 +21,7 @@ exports.run = (client, message, args) => {
 					limit: fetchLimit
 				});
 				fetched.forEach(msg => {
-					if (msg.content.startsWith('!') || msg.content.startsWith('~') || msg.content.startsWith('.') || msg.author.bot) needDelete.push(msg);
+					if (msg.content.startsWith('!') || msg.content.startsWith('~') || msg.author.bot) needDelete.push(msg);
 				})
 				await message.channel.bulkDelete(needDelete);
 				clearedNum += needDelete.length;
