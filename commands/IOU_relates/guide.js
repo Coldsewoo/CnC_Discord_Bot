@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
 				{
 					name: 'IOU Complete Multicalc',
 					value: `
-            [Link to URL](https://docs.google.com/spreadsheets/d/1QGBm6KtcOZraqSkLWVuqTF16vUD7rrOvIpdh59bFLmg/edit) - Current Version : ${guildsheet[7][1]}
+            [Link to URL](https://bit.ly/Multicalc) - Current Version : ${guildsheet[7][1]}
             `,
 				},
 				{
