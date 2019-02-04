@@ -6,14 +6,27 @@ const {
   get
 } = require('snekfetch');
 global.__basedir = __dirname
+
+
+//firestore initialization
 const admin = require("firebase-admin");
-
 const serviceAccount = require("./firebase-adminsdk.json");
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://cnc-discord-bot.firebaseio.com",
+  });
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://cnc-discord-bot.firebaseio.com"
-});
+}
+const db = admin.firestore();
+if (!db.settings.length) {
+  const settings = { timestampsInSnapshots: true };
+  db.settings(settings);
+}
+
+
+
+
 
 
 const client = new Discord.Client();
@@ -107,3 +120,4 @@ setInterval(function () {
 }, 30 * 60 * 1000);
 
 client.login(config.token);
+module.exports = db;

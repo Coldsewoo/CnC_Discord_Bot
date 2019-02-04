@@ -1,0 +1,2976 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <link rel="icon" type="image/png" href="/faviMpva.png">
+    <title>공훈전자사료관</title>
+    <link rel="stylesheet" href="/comm/css/mpvaStyle.css" />
+    <link rel="stylesheet" type="text/css" href="/user/css/jquery-ui-1.11.min.css" />
+
+    <script type="text/javascript" src="/comm/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/user/js/jquery-ui-1.11.min.js"></script>
+    <script type="text/javascript" src="/comm/js/mpvaCommon.js"></script>
+
+    <!-- IndepMeritsDataDetailTree.jsp -->
+    <link rel="stylesheet" type="text/css" href="/user/css/dtree.css" />
+    <script type="text/javascript" src="/user/js/slide.js"></script>
+    <script type="text/javascript" src="/user/js/dtree.js"></script>
+    <script type="text/javascript" src="/js/egovframework/com/cmm/utl/EgovCmmUtl.js"></script>
+    <!--  -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            gnbMenu(8, 8); //현재 페이지 위치
+        });
+    </script>
+
+
+
+
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/comm/js/jquery.mousewheel-3.0.6.pack.js"></script>
+
+    <!-- Add fancyBox main JS and CSS files -->
+    <script type="text/javascript" src="/comm/js/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="/comm/js/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+    <!-- Add Button helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/comm/js/jquery.fancybox-buttons.css?v=1.0.5" />
+    <script type="text/javascript" src="/comm/js/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+    <!-- Add Thumbnail helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/comm/js/jquery.fancybox-thumbs.css?v=1.0.7" />
+    <script type="text/javascript" src="/comm/js/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <!-- Add Media helper (this is optional) -->
+    <script type="text/javascript" src="/comm/js/jquery.fancybox-media.js?v=1.0.6"></script>
+
+</head>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/js/egovframework/com/cmm/utl/webtoolkit.base64.js"></script>
+<style>
+    /* .bAccount td.textarea_td ul li{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 800px;} */
+/* .bAccount td.textarea_td ul li{width: 800px; word-break:break-all;} */
+.table-wrap {border-right:0px!important;}
+.bAccount td.textarea_td{width: 800px; word-break:break-all;}
+.margins10 {margin-top:10px;}
+.aVerticals div {width:100%; text-align:center;}
+.aVerticals div span {padding: 0 6px 0 0;}
+.aVerticals div span a {padding: 4px 0px 4px 6px; }
+/* .bAccount td.textarea_td ul li{width: 800px; word-break:break-all;} */
+/* .bAccount td.textarea_td p{width: 800px; } */
+</style>
+<script type="text/javascript">
+
+    function fnMemoAddForm(admNum) {
+        $.ajax({
+            type: "post",
+            async: false,
+            url: "/memoAddForm.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01",
+            dataType: "html",
+            data: {
+                histDataNum: admNum
+            },
+            success: function (data) {
+                $('#pop_form').html(data);
+            }
+        });
+        $('#pop_div').dialog({
+            bgiframe: true,
+            resizable: false,
+            modal: true,
+            title: '메모 등록',
+            height: 470,
+            width: 600
+        });
+    }
+
+    function fnMemoAdd() {
+        document.memoAddForm.memoDiv.value = "MPC00001";
+        var string = $("form[name=memoAddForm]").serialize();
+        // 제목, 내용은 필수
+        if (document.memoAddForm.title.value == null
+            || document.memoAddForm.title.value == "") {
+            alert("제목을 입력하십시오.");
+            document.memoAddForm.title.focus();
+            document.memoAddForm.title.select();
+            return;
+        } else if (document.memoAddForm.content.value == null
+            || document.memoAddForm.content.value == "") {
+            alert("내용을 입력하십시오.");
+            document.memoAddForm.content.focus();
+            document.memoAddForm.content.select();
+            return;
+        }
+        $.ajax({
+            type: "post",
+            async: false,
+            url: "/memoAdd.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01",
+            dataType: 'html',
+            data: string,
+            success: function (data) {
+                $('#pop_div').dialog('close');
+            }
+        });
+    }
+
+    function fnPopClose() {
+        $('#pop_div').dialog('close');
+    }
+
+    function fnContribuReportList(val) {
+        var menu = 20002;
+        if (val == "Merit") {
+            document.frm.action = "/user/ContribuMeritList.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01?goTocode=" + menu + "";
+        }
+        else {
+            document.frm.action = "/user/ContribuReportList.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01?goTocode=" + menu + "";
+        }
+        document.frm.submit();
+    }
+
+    function fnPrint(val) {
+        // 		var sw=screen.width;
+        // 		var sh=screen.height;
+        // 		var w=800;//팝업창 가로길이
+        // 		var h=600;//세로길이
+        // 		var xpos=(sw-w)/2; //화면에 띄울 위치
+        // 		var ypos=(sh-h)/2; //중앙에 띄웁니다.
+
+        // 		var pHeader="<html><head><meta http-equiv='X-UA-Compatible' content='IE=edge'><link rel='stylesheet' media='print' href='/comm/css/mpvaStyle.css' /><title>" + val + "</title></head><body>";
+        // 		var pgetContent = "";
+        // 		if(val == 'Merit'){
+        // 			pgetContent = $("#printDiv2").html() + "<br>";
+        // 		}else if(val == 'Report') {
+        // 			pgetContent = $("#printDiv").html() + "<br>";
+        // 		}
+        // 		//innerHTML을 이용하여 Div로 묶어준 부분을 가져옵니다.
+        // 		var pFooter="</body></html>";
+        // 		pContent=pHeader + pgetContent + pFooter;  
+        // 		var pWin=window.open("","print","width=" + w +",height="+ h +",top=" + ypos + ",left="+ xpos +",status=yes,scrollbars=yes"); //동적인 새창을 띄웁니다.
+        // 		pWin.document.open(); //팝업창 오픈
+        // 		pWin.document.write(pContent); //새롭게 만든 html소스를 씁니다.
+        // 		pWin.document.close(); //클로즈
+        // 		pWin.print(); //윈도우 인쇄 창 띄우고
+        // 		pWin.close(); //인쇄가 되던가 취소가 되면 팝업창을 닫습니다.
+
+        var initBody = document.body.innerHTML;
+
+        window.onbeforeprint = function () {
+            if (val == 'Merit') {
+                document.body.innerHTML = document.getElementById("printDiv2").innerHTML;
+            }
+            else {
+                document.body.innerHTML = document.getElementById("printDiv").innerHTML;
+            }
+        }
+        // 		window.onafterprint = function() {
+        // 			document.body.innerHTML = initBody;
+        // 		}
+
+        if (window.matchMedia) {
+            var mediaQueryList = window.matchMedia('print');
+            mediaQueryList.addListener(function (mql) {
+                if (mql.matches) {
+                    if (val == 'Merit') {
+                        //document.body.innerHTML = document.getElementById("printDiv2").innerHTML;
+                    }
+                    else {
+                        //document.body.innerHTML = document.getElementById("printDiv").innerHTML;
+                    }
+                }
+            });
+        }
+        window.print();
+        document.body.innerHTML = initBody;
+
+
+
+        // 		document.frm.action = "/user/ContribuReportDetail.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01?goTocode="+menu+"";
+        // 		document.frm.submit();
+    }
+
+    function utf8_decode(textVal, obj, encoding) {
+        if (encoding != undefined && encoding)
+            return $(obj).html(Base64.decode(textVal));
+        else
+            return $(obj).text(Base64.decode(textVal));
+    }
+    // 공적개요에 있는 버튼 클릭 시(원본, 국한문병기)
+    function clickAchivement(index) {
+        var title;
+
+        if (index == 0) {
+            $('#achivement_0').show();
+            $('#achivement_1').hide();
+
+            $('#btn_Achivement_0').attr("class", "btn_select");
+            $('#btn_Achivement_1').attr("class", "btn_normal");
+
+            title = '(원문)';
+        }
+        else {
+            $('#achivement_0').hide();
+            $('#achivement_1').show();
+
+            $('#btn_Achivement_0').attr("class", "btn_normal");
+            $('#btn_Achivement_1').attr("class", "btn_select");
+
+            title = '(한글병기)';
+        }
+
+        $('#titleAchivement').html(title);
+    }
+
+</script>
+
+<body>
+
+    <div id="wrap">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <link rel="stylesheet" href="/comm/css/mpvaStyle.css" />
+        <link rel="stylesheet" type="text/css" href="/user/css/jquery-ui-1.11.min.css" />
+
+        <script type="text/javascript" src="/comm/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="/user/js/jquery-ui-1.11.min.js"></script>
+        <script type="text/javascript" src="/comm/js/mpvaCommon.js"></script>
+
+        <!-- IndepMeritsDataDetailTree.jsp -->
+        <link rel="stylesheet" type="text/css" href="/user/css/dtree.css" />
+        <script type="text/javascript" src="/user/js/slide.js"></script>
+        <script type="text/javascript" src="/user/js/dtree.js"></script>
+        <!--  -->
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                gnbMenu(8, 8); //현재 페이지 위치
+            });
+        </script>
+
+        <!-- <script type="text/javascript" src="/user/js/fusioncharts/fusioncharts.js"></script> -->
+        <!-- <script type="text/javascript" src="/user/js/fusioncharts/themes/fusioncharts.theme.fint.js"></script> -->
+
+
+
+
+
+
+
+        <script type="text/javascript">
+            function goTopSearch() {
+                var searchKeyword = $('#searchalltxt').val();
+                //searchKeyword = trim(searchKeyword);
+                searchKeyword = $.trim(searchKeyword);
+                if (searchKeyword == "" || searchKeyword == null) {//검색어가 없을때
+                    alert("검색어를 입력하세요.");
+                    $('#searchalltxt').focus();
+                    return;
+                }
+                // 	$('#top_searchTerm').val(searchKeyword);
+                /* $('#order').val("WEIGHT");
+                $('#list_div').val("3");
+                $('#page').val("1");
+                $('#category').val("");
+                $('#groupName').val(""); */
+
+                //$("#TopSearchForm").submit();
+                // 	$("#TopSearchForm").attr({method:"post", action:"/user/CombineSearchList.do?goTocode=90001"}).submit();
+
+
+                $('#searchTerm').val(searchKeyword);
+                $("#TopSearchForm").attr({ method: "post", action: "/diquest/Search.do" }).submit();
+            }
+        </script>
+        <!-- 검색 Form -->
+        <!-- <form id="TopSearchForm" name="TopSearchForm"> -->
+        <!--  	<input type="hidden" name="kwd" id="top_searchTerm" value="" > -->
+        <!-- </form> -->
+        <form id="TopSearchForm" name="TopSearchForm">
+            <input type="hidden" name="searchTerm" id="searchTerm" value="">
+        </form>
+
+        <div id="skipNav">
+            <ul>
+                <li><a href="#gnb">주메뉴바로가기</a></li>
+                <li><a href="#container">본문바로가기</a></li>
+            </ul>
+        </div>
+
+
+        <div id="toparea">
+            <h1><a href="/user/index.do"><img src="/comm/img/logo.png" alt="공훈전자사료관" /></a></h1>
+
+            <div class="searchNew">
+                <div class="searchArea">
+                    <span>통합검색</span>
+                    <input type="text" id="searchalltxt" name="upside_query" onkeypress="if(event.keyCode==13){goTopSearch();return false;}"
+                        title="통합검색">
+                </div>
+                <div class="searchBtn">
+                    <a href="javascript:goTopSearch();" id="btn_topSearch" class="mainSch">검색</a>
+                </div>
+            </div>
+
+            <!-- <div class="allsearch">
+		<div class="formout">                        
+			<span>통합검색</span>
+			<input type="text" id="searchalltxt" name="upside_query" onkeypress="if(event.keyCode==13){goTopSearch();return false;}" title="통합검색">
+		</div>
+		<a href="javascript:goTopSearch();" id="btn_topSearch" class="mainSch">검색</a>         
+	</div> -->
+
+
+            <div class="topBanner">
+                <h3><strong>독립유공자의<br />후손</strong>을 찾습니다.</h3>
+                <a href="javascript:fn_redirectfunction('/user/RewardDisList.do?goTocode=20005');"><img src="/comm/img/topBannerBtn.png"
+                        alt="독립유공자 명단보기" /></a>
+            </div>
+        </div>
+
+        <div id="topmenu">
+            <div id="gnb">
+                <ul class="menu">
+
+
+
+
+                    <li class="depth1-menu1">
+                        <a href="#">포상업무현황</a>
+                        <ul>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/IndepMeritsRewardStat.do?goTocode=10001">독립유공자 포상 현황</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/HistDataAnlasStat.do?goTocode=10003">사료수집 현황</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <li class="depth1-menu1">
+                        <a href="#">독립유공자 정보</a>
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/ContribuReportList.do?goTocode=20001">독립유공자 공적조서</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/ContribuMeritList.do?goTocode=20002">독립유공자 공훈록</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/IndepCrusaderDetail.do?goTocode=20003">이달의 독립운동가</a></li>
+
+
+
+
+
+
+                            <li><a href="javascript:fn_redirectfunction('/user/RewardDisList.do?goTocode=20005')">독립유공자
+                                    후손찾기</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <li class="depth1-menu1">
+                        <a href="#">원문사료실</a>
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="javascript:fn_redirectfunction('/user/IndepMeritsDataList.do?hisCode=PV_GD&itemForm=FRM00002&itemGb=ITG00002&mnuNm=고등경찰요사')">원문사료
+                                    조회</a></li>
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/ChronologyList.do?goTocode=30002">독립운동사연표</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <li class="depth1-menu1">
+                        <a href="#">민원마당</a>
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="javascript:fn_redirectfunction('/user/NoticeList.do?goTocode=40001')">공지사항</a></li>
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/AwardProcGuide.do?goTocode=40002">포상절차안내</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/QnaList.do?goTocode=40003">질문하기</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/MyQuestionList.do?goTocode=40004">내질문보기</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/SatisfactionMainList.do?goTocode=40005">이용만족도 조사</a></li>
+
+
+
+
+
+
+                            <li><a href="javascript:fn_redirectfunction('/user/RefroomList.do?goTocode=40006')">자료실</a></li>
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/SurveyMainList.do?goTocode=40007">설문조사</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/ErrorReportList.do?goTocode=40008">오류신고</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <li class="depth1-menu1">
+                        <a href="#">공공데이터개방</a>
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/RewardOpenAPI.do?goTocode=50001">독립유공자 공적조서</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/ContribuMeritOpenAPI.do?goTocode=50002">독립유공자 공훈록</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/OverseaIndepHistDataOpenAPI.do?goTocode=50003">해외의 한국 독립운동 사료</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/IndepCrusaderOpenAPI.do?goTocode=50004">이달의독립운동가</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <li class="depth1-menu1">
+                        <a href="#">사료관 안내</a>
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/Privacy.do?goTocode=60002">개인정보처리방침</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/SiteMap.do?goTocode=60003">사이트맵</a></li>
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+
+            <a href="#allmenubox" class="allmenuopen">전체메뉴</a>
+            <div id="allmenubox">
+                <div class="menu">
+
+
+
+
+                    <div class="alllist1">
+                        <ul>
+
+
+
+
+
+
+
+                            <li><a href="/user/IndepMeritsRewardStat.do?goTocode=10001">독립유공자 포상 현황</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/HistDataAnlasStat.do?goTocode=10003">사료수집 현황</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="alllist1">
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/ContribuReportList.do?goTocode=20001">독립유공자 공적조서</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/ContribuMeritList.do?goTocode=20002">독립유공자 공훈록</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/IndepCrusaderDetail.do?goTocode=20003">이달의 독립운동가</a></li>
+
+
+
+
+
+                            <li><a href="javascript:fn_redirectfunction('/user/RewardDisList.do?goTocode=20005')">독립유공자
+                                    후손찾기</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="alllist1">
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="javascript:fn_redirectfunction('/user/IndepMeritsDataList.do?hisCode=PV_GD&itemForm=FRM00002&itemGb=ITG00002&mnuNm=고등경찰요사')">원문사료
+                                    조회</a></li>
+
+
+
+
+
+
+
+
+                            <li><a href="/user/ChronologyList.do?goTocode=30002">독립운동사연표</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="alllist1">
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="javascript:fn_redirectfunction('/user/NoticeList.do?goTocode=40001')">공지사항</a></li>
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/AwardProcGuide.do?goTocode=40002">포상절차안내</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/QnaList.do?goTocode=40003">질문하기</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/MyQuestionList.do?goTocode=40004">내질문보기</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/SatisfactionMainList.do?goTocode=40005">이용만족도 조사</a></li>
+
+
+
+
+
+                            <li><a href="javascript:fn_redirectfunction('/user/RefroomList.do?goTocode=40006')">자료실</a></li>
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/SurveyMainList.do?goTocode=40007">설문조사</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/ErrorReportList.do?goTocode=40008">오류신고</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="alllist1">
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/RewardOpenAPI.do?goTocode=50001">독립유공자 공적조서</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/ContribuMeritOpenAPI.do?goTocode=50002">독립유공자 공훈록</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/OverseaIndepHistDataOpenAPI.do?goTocode=50003">해외의 한국 독립운동 사료</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/IndepCrusaderOpenAPI.do?goTocode=50004">이달의독립운동가</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="alllist1">
+                        <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li><a href="/user/Privacy.do?goTocode=60002">개인정보처리방침</a></li>
+
+
+
+
+
+
+
+                            <li><a href="/user/SiteMap.do?goTocode=60003">사이트맵</a></li>
+
+
+
+
+
+
+
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="alllist7">
+                        <img src="/comm/img/allMenuBanner.png" alt="" />
+                    </div>
+                </div>
+                <a href="#allmenubox" class="close">전체메뉴 닫기</a>
+            </div>
+        </div>
+        <div id="subcon">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <link rel="stylesheet" href="/comm/css/mpvaStyle.css" />
+            <link rel="stylesheet" type="text/css" href="/user/css/jquery-ui-1.11.min.css" />
+
+            <script type="text/javascript" src="/comm/js/jquery-1.9.1.min.js"></script>
+            <script type="text/javascript" src="/user/js/jquery-ui-1.11.min.js"></script>
+            <script type="text/javascript" src="/comm/js/mpvaCommon.js"></script>
+
+            <!-- IndepMeritsDataDetailTree.jsp -->
+            <link rel="stylesheet" type="text/css" href="/user/css/dtree.css" />
+            <script type="text/javascript" src="/user/js/slide.js"></script>
+            <script type="text/javascript" src="/user/js/dtree.js"></script>
+            <!--  -->
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    gnbMenu(8, 8); //현재 페이지 위치
+                });
+            </script>
+
+            <!-- <script type="text/javascript" src="/user/js/fusioncharts/fusioncharts.js"></script> -->
+            <!-- <script type="text/javascript" src="/user/js/fusioncharts/themes/fusioncharts.theme.fint.js"></script> -->
+
+
+
+
+
+
+
+
+            <div id="subleft">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h2>독립유공자 정보</h2>
+
+
+
+
+
+
+
+
+
+
+                <div id="lnb">
+                    <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <li><a href="/user/ContribuReportList.do?goTocode=20001">독립유공자 공적조서</a></li>
+
+
+
+
+
+
+
+
+
+                        <li class="active"><a href="#">독립유공자 공훈록</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <li><a href="/user/IndepCrusaderDetail.do?goTocode=20003">이달의 독립운동가</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+                        <li><a href="javascript:fn_redirectfunction('/user/RewardDisList.do?goTocode=20005')">독립유공자
+                                후손찾기</a></li>
+
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <div id="subright">
+                <div class="reListSee">
+
+
+
+                    <h2>독립유공자 공훈록</h2>
+
+
+
+                    <ul id="subnavi">
+                        <li><a href="#;">HOME</a></li>
+                        <li><a href="#;">독립유공자 정보</a></li>
+
+
+
+                        <li><a href="#;"><strong>독립유공자 공훈록</strong></a></li>
+
+
+
+
+                    </ul>
+                </div>
+
+                <!--내용시작-->
+                <div id="subcontents">
+                    <div class="section">
+                        <div id="valList">
+                            <ul>
+                                <li></li>
+
+                            </ul>
+                        </div>
+                        <form name="frm" method="post">
+                            <input name="mngNo" id="mngNo" type="hidden" value="8108" />
+                            <input name="pageTitle" id="pageTitle" type="hidden" value="Merit" />
+                            <input name="pageIndex" type="hidden" value="1" />
+                            <input name="admNum" type="hidden" value="" />
+                            <input name="recommendHunkuk" type="hidden" value="" />
+                            <input name="workoutAffil" type="hidden" value="" />
+                            <input name="judgeYearS" type="hidden" value="" />
+                            <input name="judgeYearE" type="hidden" value="" />
+                            <input name="consonant" type="hidden" value="" />
+                            <input name="bookView" type="hidden" value="" />
+                            <input name="registerLargeDiv1" type="hidden" value="" />
+                            <input name="registerMidDiv1" type="hidden" value="" />
+                            <input name="nameKd" type="hidden" value="" />
+                            <input name="nameKo" type="hidden" value="" />
+                            <input name="diffName" type="hidden" value="" />
+                            <input name="occasion" type="hidden" value="" />
+                            <input name="serviveGbLargeDiv" type="hidden" value="" />
+                            <input name="serviveGbMidDiv" type="hidden" value="" />
+                            <input name="sex" type="hidden" value="" />
+                            <input name="birthday" type="hidden" value="" />
+                            <input name="lastday" type="hidden" value="" />
+                            <input name="address" type="hidden" value="" />
+                            <input name="achivement" type="hidden" value="" />
+                            <input name="sexnm" type="hidden" value="" />
+                            <input name="birthdaynm" type="hidden" value="" />
+                            <input name="deathdatenm" type="hidden" value="" />
+                            <input name="survTrun" type="hidden" value="" />
+                            <input name="nativeYn" type="hidden" value="" />
+                        </form>
+                    </div>
+                    <div class="section mtt20">
+                        <!--arrowShows-->
+                        <div class="tabWrap">
+                            <div id="arrowShows">
+                                <div id="image-slider">
+                                    <div id="picture-holder">
+                                        <ul class="tabs">
+                                            <li class="" style="display: none;"><a href="#tab1">공적조서</a></li>
+                                            <li class="active" style="display: block;"><a href="#tab2">공훈록</a></li>
+                                        </ul>
+                                        <div class="tab_container">
+                                            <div id="tab1" class="tab_content" style="display: none;">
+                                                <div class="sub_contents book">
+                                                    <div id="printDiv">
+                                                        <div class="section">
+                                                            <h3 class="titleServ">유공자정보</h3>
+                                                            <div class="table-wrap" style="position:relative;">
+                                                                <table class="bAccount">
+                                                                    <caption>유공자정보</caption>
+                                                                    <colgroup>
+                                                                        <col style="width: 110px;" />
+                                                                        <col style="width: 270px;" />
+                                                                        <col style="width: 110px;" />
+                                                                        <col style="width: 270px;" />
+                                                                        <col style="width: 220px;" />
+                                                                    </colgroup>
+                                                                    <tr>
+                                                                        <th>관리번호</th>
+                                                                        <td class="name" colspan="3">
+                                                                            8108
+                                                                        </td>
+                                                                        <td rowspan="6" class="nonePhotoBac">
+                                                                            <div class="imgNotiPhoto">
+                                                                                <div class="frame2018">
+                                                                                    <img src="/comm/img/frame2018.png"
+                                                                                        class="zImg" alt="액자프레임" />
+                                                                                </div>
+                                                                                <div class="frameContent2018">
+
+
+                                                                                    <img src="/comm/img/noneImg.png"
+                                                                                        alt="NO PHOTO" />
+                                                                                    <!-- <img src="/user/getIndepImage.do?imgFileName=noneImg.png" alt="NO PHOTO" /> -->
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>성명</th>
+                                                                        <td class="name">
+                                                                            <div id="namekoDiv" style="font-weight:700;">
+                                                                                <script type="text/javascript">utf8_decode('6rCA7J6s7Jew', '#namekoDiv', true);</script>
+                                                                            </div>
+                                                                        </td>
+                                                                        <th>한자</th>
+                                                                        <td>
+                                                                            賈在衍
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>이명</th>
+                                                                        <td>
+                                                                            없음
+                                                                        </td>
+                                                                        <th>성별</th>
+                                                                        <td>
+                                                                            남
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>생년월일</th>
+                                                                        <td>
+                                                                            <div id="birthdayenm">
+                                                                                <script type="text/javascript">utf8_decode('MTkyMy0wNC0wOA==', '#birthdayenm');</script>
+                                                                            </div>
+                                                                        </td>
+                                                                        <th>사망년월일</th>
+                                                                        <td>
+                                                                            <div id="deathdatenm">
+                                                                                <script type="text/javascript">utf8_decode('MTk0NS0wMy0yOQ==', '#deathdatenm');</script>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>본적</th>
+                                                                        <td colspan="3">
+                                                                            <span id="famp1">
+                                                                                <script type="text/javascript">utf8_decode('7Lap7LKt64Ko64+E', '#famp1');</script>
+                                                                            </span>
+                                                                            <span id="famp2">
+                                                                                <script type="text/javascript">utf8_decode('7ISc7IKw', '#famp2');</script>
+                                                                            </span>
+                                                                            <span id="famp3">
+                                                                                <script type="text/javascript">utf8_decode('55Ge5bGxIOadsemWgA==', '#famp3');</script>
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>주소</th>
+                                                                        <td colspan="3">
+                                                                            <div id="address">
+                                                                                <script type="text/javascript">utf8_decode('5Lqs55W/IOS7geW3nQ==', '#address', true);</script>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+
+                                                            <h3 class="titleServ">공적정보</h3>
+                                                            <div class="table-wrap">
+                                                                <table class="bAccount">
+                                                                    <caption>공적정보</caption>
+                                                                    <colgroup>
+                                                                        <col style="width: 12%;" />
+                                                                        <col style="width: 38%;" />
+                                                                        <col style="width: 12%;" />
+                                                                        <col style="width: 38%;" />
+                                                                    </colgroup>
+                                                                    <tr>
+                                                                        <th>운동계열</th>
+                                                                        <td colspan="3">
+                                                                            학생운동
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>포상년도</th>
+                                                                        <td>
+                                                                            1991
+                                                                        </td>
+                                                                        <th>훈격</th>
+                                                                        <td>
+                                                                            애족장
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="aVerticals">
+                                                                            <!--  커서 없는 클래스 class="disableCursor" -->
+                                                                            <div>
+                                                                                <span class="btn_select" id="btn_Achivement_0"><a
+                                                                                        style="cursor:default;" href="javascript:clickAchivement(0);">원문</a></span>
+
+                                                                            </div>
+                                                                        </th>
+                                                                        <th colspan="3">
+                                                                            공적개요 <small id="titleAchivement">(원문)</small>
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4" class="textarea_td">
+                                                                            <div id="achivement_0" style="display:block">
+
+                                                                            </div>
+
+                                                                            <div id="achivement_1" style="display:none">
+
+                                                                            </div>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- section : 공적조서 -->
+                                                    </div>
+
+                                                    <div class="sub_right_align margin_top_4">
+
+                                                        <span class="btn_modi"><a href="javascript:fnPrint('Report','독립유공자 공적조서');">인쇄</a></span>
+                                                        <span class="btn_normal"><a href="javascript:fnContribuReportList();">목록</a></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="tab2" class="tab_content" style="display: block;">
+
+                                                <div class="sub_contents book">
+                                                    <div id="printDiv2">
+                                                        <div class="section">
+                                                            <h3 class="titleServ">유공자정보</h3>
+                                                            <div class="table-wrap">
+                                                                <table class="bAccount">
+                                                                    <caption>유공자정보</caption>
+                                                                    <colgroup>
+                                                                        <col style="width: 110px;" />
+                                                                        <col style="width: 270px;" />
+                                                                        <col style="width: 110px;" />
+                                                                        <col style="width: 270px;" />
+                                                                        <col style="width: 220px;" />
+                                                                    </colgroup>
+                                                                    <tr>
+                                                                        <th>관리번호</th>
+                                                                        <td class="name" colspan="3">
+                                                                            8108
+                                                                        </td>
+                                                                        <td rowspan="6" class="nonePhotoBac">
+                                                                            <div class="imgNotiPhoto">
+                                                                                <div class="frame2018">
+                                                                                    <img src="/comm/img/frame2018.png"
+                                                                                        class="zImg" alt="액자프레임" />
+                                                                                </div>
+                                                                                <div class="frameContent2018">
+
+
+                                                                                    <img src="/comm/img/noneImg.png"
+                                                                                        alt="NO PHOTO" />
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>성명</th>
+                                                                        <td class="name">
+                                                                            <div id="namekoDiv2">
+                                                                                <script type="text/javascript">utf8_decode('6rCA7J6s7Jew', '#namekoDiv2');</script>
+                                                                            </div>
+                                                                        </td>
+                                                                        <th>한자</th>
+                                                                        <td>
+                                                                            賈在衍
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>이명</th>
+                                                                        <td>
+                                                                            없음
+                                                                        </td>
+                                                                        <th>성별</th>
+                                                                        <td>
+                                                                            남
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>생년월일</th>
+                                                                        <td>
+                                                                            <div id="birthdayenm2">
+                                                                                <script type="text/javascript">utf8_decode('MTkyMy0wNC0wOA==', '#birthdayenm2');</script>
+                                                                            </div>
+                                                                        </td>
+                                                                        <th>사망년월일</th>
+                                                                        <td>
+                                                                            <div id="deathdatenm2">
+                                                                                <script type="text/javascript">utf8_decode('MTk0NS0wMy0yOQ==', '#deathdatenm2');</script>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>본적</th>
+                                                                        <td colspan="3">
+                                                                            <span id="famp4">
+                                                                                <script type="text/javascript">utf8_decode('7Lap7LKt64Ko64+E', '#famp4');</script>
+                                                                            </span>
+                                                                            <span id="famp5">
+                                                                                <script type="text/javascript">utf8_decode('7ISc7IKw', '#famp5');</script>
+                                                                            </span>
+                                                                            <span id="famp6">
+                                                                                <script type="text/javascript">utf8_decode('55Ge5bGxIOadsemWgA==', '#famp6');</script>
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>주소</th>
+                                                                        <td colspan="3">
+                                                                            <div id="address2">
+                                                                                <script type="text/javascript">utf8_decode('5Lqs55W/IOS7geW3nQ==', '#address2');</script>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+
+                                                            <h3 class="titleServ">공적정보</h3>
+                                                            <div class="table-wrap">
+                                                                <table class="bAccount">
+                                                                    <caption>공적정보</caption>
+                                                                    <colgroup>
+                                                                        <col style="width: 12%;" />
+                                                                        <col style="width: 38%;" />
+                                                                        <col style="width: 12%;" />
+                                                                        <col style="width: 38%;" />
+                                                                    </colgroup>
+                                                                    <tr>
+                                                                        <th>운동계열</th>
+                                                                        <td>
+                                                                            학생운동
+                                                                        </td>
+                                                                        <th>수록정보</th>
+                                                                        <td>
+                                                                            독립유공자공훈록 8권(1990년 발간)
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>포상년도</th>
+
+                                                                        <td>
+                                                                            1991
+                                                                        </td>
+                                                                        <th>훈격</th>
+                                                                        <td>
+                                                                            애족장
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <th colspan="4">공훈록</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4" class="textarea_td">
+                                                                            <</p> <p id="bm_cont">인천상업학교 재학중 한국인 학생들에
+                                                                                대한 차별대우를 뼈저리게 느끼면서 한국인 학생끼리 비밀리에 친목회를
+                                                                                조직하고 고락을 함께 하기로 결의하였</p>
+                                                                                <p id="bm_cont">이들은 일본인 교장 야마모도의 억압에
+                                                                                    반대하면서, 학교에서 못하게 하는 졸업앨범을 제작하여 졸업
+                                                                                    후에도 항일운동을 계속하기로 굳게 약속하였다. 그런데 이 학교
+                                                                                    출신으로 일본 명치대에 진학한 송재필(宋在弼)이
+                                                                                    보성전문학교(普成專門學校)에 다니는 친구를 방문하여 학병
+                                                                                    반대운동을 전개하기로 결의하고, 각처에 편지로 연락하다가 충북
+                                                                                    영동서에 발각되었다. 이에 따라 친목회에 가입하였던 그를 비롯한
+                                                                                    고윤희·김여수·김형설·정태윤 등의 동기생들이 1944년 1월부터
+                                                                                    속속 영동서에 피체되었다. 이들은 소위 치안유지법 위반 혐의로
+                                                                                    대전검사국에 송치되었으며, 그는 1945년 3월 29일 일경의
+                                                                                    모진 고문과 옥고의 여독으로 대전형무소에서 옥사 순국하였다</p>
+                                                                                <p id="bm_cont">정부에서는 고인의 공훈을 기리어
+                                                                                    1991년에 건국훈장 애족장(1986년 대통령표창)을
+                                                                                    추서하였다.</p>
+                                                                                <div id="rdoc">
+                                                                                    <참고문헌>
+                                                                                </div>
+                                                                                <ul>
+                                                                                    <li>신분장지문조회회보서</li>
+                                                                                    <li>제적등본(1945. 3. 29 대전형무소에서 옥사)</li>
+                                                                                    <li>인고90년사(85. 12. 20) 189면</li>
+                                                                                </ul>
+                                                                        </td>
+                                                                    </tr>
+
+
+
+                                                                </table>
+                                                            </div>
+                                                            <!-- 공훈록에 미수록된 유공자인 경우 안내문구 -->
+
+                                                        </div>
+                                                        <!-- section : 공적조서 -->
+                                                    </div>
+
+                                                    <div class="sub_right_align margin_top_4">
+
+                                                        <span class="btn_modi"><a href="javascript:fnPrint('Merit', '독립유공자 공훈록');">인쇄</a></span>
+
+
+                                                        <span class="btn_normal"><a href="javascript:fnContribuReportList('Merit');">목록</a></span>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <script type="text/javascript">
+
+                        // SNS 공유하기
+                        var _pageTitle = 'Merit';
+                        var _mngNo = '8108';
+                        var _pageName = '독립유공자 공훈록 &gt; 가재연';
+                        _pageName = _pageName.replace("&gt;", ">");
+                        var _msg = "공훈전자사료관" + " > " + _pageName;
+                        var tmpUrl = $(location).attr('href');
+                        var tmp = tmpUrl.split("&");
+                        tmpUrl = tmp[0];
+                        if (_pageTitle != '') tmpUrl += "&pageTitle=" + _pageTitle;
+                        if (_mngNo != '') tmpUrl += "&mngNo=" + _mngNo;
+                        // SNS 공유하기
+                        function openSns(gu) {
+
+                            var href = "";
+                            var popAttr = "scrollbars=yes,resizable=yes,width=600,height=500,top=50,left=150";
+                            var urlMsg = encodeURIComponent(_msg);
+                            var _url = encodeURIComponent(tmpUrl);
+                            var mngno = '8108';
+                            var kind = "F";
+
+                            $.ajax({
+                                type: "post",
+                                async: false,
+                                url: "/user/urlshortener.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01",
+                                dataType: "html",
+                                data: { tmpUrl: tmpUrl },
+                                success: function (data) {
+                                    var regUrl = _url;
+                                    if (data != "FAIL") regUrl = data;
+
+                                    // 페이스북
+                                    if (gu == "facebook") {
+                                        kind = "F";
+                                        href = "https://www.facebook.com/sharer.php?title=" + urlMsg + "&u=" + regUrl;
+                                        // 트위터
+                                    } else if (gu == "twitter") {
+                                        kind = "T";
+                                        href = "http://twitter.com/intent/tweet?text=" + urlMsg + "&url=" + regUrl;
+                                    }
+                                    var win = window.open(href, gu, popAttr);
+                                    if (win) {
+                                        win.focus();
+                                    }
+                                    var goTocode = '20002';
+                                    $.ajax({
+                                        type: "post",
+                                        async: false,
+                                        url: "/user/snsLogReg.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01",
+                                        dataType: "html",
+                                        data: { kind: kind, mngNo: mngno, goTocode: goTocode, url: regUrl },
+                                        success: function (data) {
+                                        },
+                                        error: function (data) {
+                                        }
+                                    });
+                                }, error: function (data) {
+                                    alert("시스템 오류가 발생하였습니다. 관리자에게 문의해주십시오.");
+                                }
+                            });
+                        }
+
+                        function load() {
+                            gapi.client.setApiKey('99');
+                            gapi.client.load('urlshortener', 'v1', function () { });
+                        }
+                    </script>
+                    <script src="https://apis.google.com/js/client.js?onload=load"></script>
+                    <script>
+                        function fn_egov_insert_satisfactionList() {
+                            // 	수정할부분
+                            var dseq = 277;
+                            var pageTitle = "Merit";
+                            //	
+                            var mngno = '8108';
+                            if ($('input:radio[name=stsfdg]:checked').length == 0) {
+                                alert("선택된 만족도가 없습니다.");
+
+                            }
+
+                            var stsfdg = $('input:radio[name=stsfdg]:checked').val();
+                            //var stscont =$("textarea#sts_cont").val(); 
+                            $.ajax({
+                                type: "post",
+                                async: false,
+                                url: "/user/selectSatisfactionList.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01",
+                                dataType: "html",
+                                data: { stsfdg: stsfdg, dspseq: dseq, pageTitle: pageTitle, mngNo: mngno },
+                                success: function (data) {
+                                    alert("만족도 조사에 참여해주셔서 감사합니다.");
+                                },
+                                error: function (data) {
+                                    alert("시스템 오류가 발생하였습니다. 관리자에게 문의해주십시오.");
+                                }
+                            });
+                        }
+
+                    </script>
+
+                    <!--<div class="snsService">
+	<ul>
+		<li><a href="javascript:openSns('facebook')"><img src="/comm/img/facebook.png" alt="facebook" title="facebook"/></a></li>
+		<li class="second"><a href="javascript:openSns('twitter')"><img src="/comm/img/twitter.png" alt="twitter" title="twitter"/></a></li>
+		 <li><a href="javascript:openSns('http://mpva.tistory.com/')"><img src="/comm/img/tistory.png" alt="tistory" /></a></li>
+		<li class="second"><a href="javascript:openSns('http://blog.naver.com/mpvalove')"><img src="/comm/img/blog.png" alt="blog" /></a></li>
+		<li><a href="javascript:openSns('https://www.youtube.com/user/mpvakorea')"><img src="/comm/img/youtube.png" alt="youtube" /></a></li>
+		<li class="second"><a href="javascript:openSns('https://story.kakao.com/ch/mpva')"><img src="/comm/img/kakao.png" alt="kakaostory" /></a></li>
+	</ul>
+</div> -->
+
+                    <div id="tabmenu">
+                        <ul>
+                            <li class="on"><a onClick="show_leemocon(0);">만족도조사</a></li>
+                            <li><a onClick="show_leemocon(1);">오류신고</a></li>
+                        </ul>
+                    </div>
+                    <div id="tabcontent0" class="tabScare">
+                        <div class="clear"></div>
+                        <div class="survey_wrap">
+                            <div class="lbiSns">
+                                <ul>
+                                    <li><a href="javascript:openSns('facebook')"><img src="/comm/img/facebook.png" alt="facebook"
+                                                title="facebook" /></a></li>
+                                    <li class="second"><a href="javascript:openSns('twitter')"><img src="/comm/img/twitter.png"
+                                                alt="twitter" title="twitter" /></a></li>
+                                </ul>
+                            </div>
+                            <div class="survey">
+                                <div class="survey_tit">
+                                    <h4>이 페이지에서 제공하는 정보에 만족하셨습니까?</h4>
+                                    <p>현재 페이지의 만족도를 평가해 주세요. 의견을 수렴하여 빠른 시일 내에 반영하겠습니다.</p>
+                                    <div class="nonos">
+                                        <span class="btn_modi"><a href="/user/SurveyMainList.do?goTocode=40007">설문조사
+                                                바로가기</a></span>
+                                    </div>
+                                </div>
+
+                                <ul class="check_radio">
+                                    <li><input type="radio" id="stsfdg1" name="stsfdg" value="5" /><label for="stsfdg1">매우만족</label></li>
+                                    <li><input type="radio" id="stsfdg2" name="stsfdg" value="4" /><label for="stsfdg2">만족</label></li>
+                                    <li><input type="radio" id="stsfdg3" name="stsfdg" value="3" checked /><label for="stsfdg3">보통</label></li>
+                                    <li><input type="radio" id="stsfdg4" name="stsfdg" value="2" /><label for="stsfdg4">불만족</label></li>
+                                    <li><input type="radio" id="stsfdg5" name="stsfdg" value="1" /><label for="stsfdg5">매우불만족</label></li>
+                                </ul>
+
+                                <div class="nonosMsd">
+                                    <span class="btn_save"><a href="javascript:fn_egov_insert_satisfactionList()">만족도등록하기</a></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <script type="text/javascript" src="/js/egovframework/com/cmm/utl/webtoolkit.base64.js"></script>
+                    <script type="text/javascript">
+
+                        $(document).ready(function () {
+
+                            var title = $('#pageTitle').val();
+
+                            if (title == 'Merit' || title == 'Report') {
+                                $('#basicUl').hide();
+                                $('#excepUl').show();
+                            } else {
+                                $('#basicUl').show();
+                                $('#excepUl').hide();
+                            }
+
+                        });
+
+                        /* ********************************************************
+                         * 등록버튼 클릭 시 실행되는 함수
+                         ******************************************************** */
+                        function fn_registErrorReport() {
+                            // Validation Start
+                            if (!fn_validCheck('title', '오류제목')) return;
+                            if (!fn_validCheck('errorType', '오류유형')) return;
+                            if (!fn_validCheck('contentE', '오류내용')) return;
+
+                            // 이름 암호화
+                            //var orgName = $('#aplcnt').val();
+                            //if (orgName != "" || orgName != null) {
+                            //	var encodedName = Base64.encode(orgName);
+                            //	$('#encodedAplcnt').val(encodedName);
+                            //}
+
+                            // JQuery AJAX 실행
+
+                            wf_btn = "wf_submit";
+                            if (wf_flag == "off") {
+
+                                submitWebFilter('errorReportAddForm');
+                            } else {
+
+                                $.ajax({
+                                    url: '/user/insertErrorReport.do;jsessionid=BF2E07D320CE6CE6D2ED7427917B4375.rems01',
+                                    type: 'post',
+                                    async: false,
+                                    dataType: 'html',
+                                    data: $('#errorReportAddForm').serialize(),
+                                    success: function (data) {
+
+                                        wf_flag = "off";
+                                        alert("등록되었습니다.");
+                                        $("#errorReportAddForm #title").val("");
+                                        $("#errorReportAddForm #contentE").val("");
+                                        $("#errorReportAddForm #errorType").val("");
+                                    }
+                                });
+                            }
+                        }
+
+                        /* ********************************************************
+                         * 유효성 검사 실행 함수 
+                         ******************************************************** */
+                        function fn_validCheck(id, comment) {
+                            var retVal = true;
+                            var obj = $("#" + id);
+
+                            if (obj == null || obj.length <= 0 || $.trim(obj.val()) == "") {
+                                alert(comment + " 은(는) 필수 입력 값입니다.");
+                                obj.focus();
+                                retVal = false;
+                            }
+                            return retVal;
+                        }
+
+                        //오류신고 목록 팝업
+                        function popupOpen() {
+                            var popUrl = "/user/ErrorReportList.do?goTocode=40008";	//팝업창에 출력될 페이지 URL
+                            var popOption = "width=1240, height=650, resizable=yes, scrollbars=yes, status=yes;";
+                            window.open(popUrl, "", popOption);
+                        }	
+                    </script>
+
+                    <style>
+                        /* input[type="text"] {height:auto!important;  box-sizing:border-box;} */
+	table.bAccount td textarea.bListTxtArea98 {width:100%!important; box-sizing:border-box;}
+	.list-all li {letter-spacing:-1px;}
+	table.bAccount {border-left:1px solid #ddd; border-top:1px solid #ddd;}
+</style>
+
+                    <div id="tabcontent1" class="tabScare" style="display:none;">
+
+                        <ul class="list-all" id="basicUl">
+                            <li>본 사이트 자료 중 잘못된 정보를 발견하거나 사용 중 불편한 사항이 있을 경우 알려주십시오.</li>
+                            <li>이용자의 참여가 사이트 가치 향상에 큰 도움이 됩니다.</li>
+                            <li>하단의 '오류신고목록'을 이용하시면 신고 내용의 적용여부를 확인하실 수 있습니다.</li>
+                            <li>오류 신고 시, 개인정보 입력은 삼가하여 주시기 바랍니다.</li>
+                        </ul>
+
+                        <ul class="list-all" id="excepUl">
+                            <li>독립유공자 공적조서는 정부포상 결정당시의 ‘공적조서’를 공개하는 것을 원칙으로 하고 있으며,</li>
+                            <li>독립유공자 공훈록은 공적조서상 근거정보를 기본바탕으로 전문가의 원고집필을 통해 발간된 책을 온라인으로 제공하는 것입니다.</li>
+                            <li>따라서, ‘공적개요(공적조서)과 공적내용(공훈록)’은 원칙적으로 수정불가하며,</li>
+                            <li>다만, 온라인으로 제공되는 기본정보(성명, 생몰일자, 본적지)에 대한 사항은 ‘오류신고’를 통해 신청 가능합니다.</li>
+                            <li>하단의 '오류신고목록'을 이용하시면 신고 내용의 적용여부를 확인하실 수 있습니다.</li>
+                            <li>오류 신고 시, 개인정보 입력은 삼가하여 주시기 바랍니다.</li>
+                        </ul>
+
+                        <form name="errorReportAddForm" action="" id="errorReportAddForm" method="post">
+                            <input type="hidden" id="scrinName" name="scrinName" value="독립유공자 공훈록" />
+                            <input type="hidden" id="scrinLoc" name="scrinLoc" value="독립유공자 공훈록 > 가재연(관리번호:8108)" />
+                            <input type="hidden" id="encodedAplcnt" name="encodedAplcnt" value="" />
+                            <input type="hidden" id="hisCode" name="hisCode" value="null" />
+                            <input type="hidden" id="bookCode" name="bookCode" value="null" />
+                            <input type="hidden" id="itemCode" name="itemCode" value="null" />
+                            <input type="hidden" id="mngNo" name="mngNo" value="8108" />
+                            <input type="hidden" id="pageTitle" value="Merit" />
+
+                            <div class="table-wrap">
+                                <table class="bAccount">
+                                    <caption>오류신고</caption>
+                                    <colgroup>
+                                        <col width="21%" />
+                                        <col width="*" />
+                                    </colgroup>
+                                    <thead>
+
+                                        <tr>
+                                            <th>화면(사료)위치</th>
+                                            <td>독립유공자 공훈록 > 가재연(관리번호:8108)</td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="important">*</span>오류 제목</th>
+                                            <td><input type="text" name="title" id="title" style="width:100%;" title="오류제목" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="important">*</span>오류 유형</th>
+                                            <td>
+                                                <select name="errorType" id="errorType">
+                                                    <option value="">선택하세요.</option>
+                                                    <option value="1">오자·탈자</option>
+                                                    <option value="2">링크 오류</option>
+                                                    <option value="3">이미지 오류</option>
+                                                    <!-- <option value="4">내용 오류</option> -->
+                                                    <option value="5">기타</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="important">*</span>오류 내용</th>
+                                            <td>
+                                                <textarea class="bListTxtArea98" name="content" id="contentE"></textarea>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+					<th>신고자 이름</th>
+					<td><input type="text" class="name_s02p" name="aplcnt" id="aplcnt" /></td>					
+				</tr> -->
+                                    </thead>
+                                </table>
+
+                                <div class="btnAss">
+                                    <span class="btn_save"><a onclick="javascript:fn_registErrorReport();" id="wf_submit"
+                                            style="padding:1px 0px 8px 12px!important;">오류등록하기</a></span>
+                                    <span class="btn_basic">
+
+
+                                        <a href="/user/ErrorReportList.do?goTocode=40008" style="padding:1px 0px 8px 12px!important;">오류신고목록</a>
+
+
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                        <!--  웹필터 수정 -->
+
+                        <iframe id='webfilterSmsFrame' name='webfilterSmsFrame' width='0' title='web filter' src='/webfilter/html/webfilterBypass.html'
+                            height='0' frameborder='0' scrolling='no' noresize></iframe>
+                        <!--  웹필터 수정 -->
+                    </div>
+
+
+
+
+
+
+                    <!-- 	<div class="right"> -->
+                    <!-- 		<p>의견쓰기 <small>(※ 60자 이내로 입력하십시요.)</small></p> -->
+                    <!-- 		<ul> -->
+
+                    <!-- 		</ul> -->
+                    <!-- 	</div> -->
+
+
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#govSel").change(function () {
+                    var objTargetUrl = $(this).val();
+                    if (objTargetUrl == null || objTargetUrl == "") {
+                        return;
+                    }
+                    window.open(objTargetUrl, '', '');
+                });
+            });
+
+            $(document).ready(function () {
+                var navFooter = (function () {
+                    return {
+                        init: function () {
+                            var self = this;
+
+                            //이벤트설정
+                            $('.info-group .list > li > a').bind('focus mouseover', function (ev) {
+                                $('.info-group .list > li').removeClass('on');
+                                $(this).parent('li').addClass('on');
+                            });
+
+                            //마우스이벤트
+                            $(document).bind('mouseover.naviGnb', function (e) {
+                                if (!$(e.target).closest('#navFooterGroup').length) {
+                                    $('.info-group .list > li').removeClass('on');
+                                }
+                            });
+                        }
+                    };
+                }());
+
+                navFooter.init();
+            });
+        </script>
+
+        <div class="footerWrap lineTop">
+            <div class="footer">
+                <ul>
+                    <li><a href="/user/Privacy.do?goTocode=60002">개인정보처리방침</a></li>
+                    <li><a href="/user/SiteMap.do?goTocode=60003">사이트맵</a></li>
+                </ul>
+
+                <ul class="clear dnew10">
+                    <li>(30113) 세종특별자치시 도움 4로 9</li>
+                    <li>공훈전자사료관 전화번호 1577-0606</li>
+                    <li>팩스 044-202-5123</li>
+                </ul>
+
+                <p class="cpRight">Copyright(c) By Ministry of Patriots & Veterans Affairs All Rights Reserved.</p>
+
+                <div class="familySite">
+
+                    <div class="info-group" id="navFooterGroup">
+                        <ul class="list">
+                            <li>
+                                <a href="#" class="tit">유관기관 바로가기</a>
+                                <div class="info">
+                                    <ul>
+                                        <li><a href="http://www.mpva.go.kr/" target="_blank" title="새창">국가보훈처</a></li>
+                                        <li><a href="http://www.archives.go.kr/" target="_blank" title="새창">국가기록원</a></li>
+                                        <li><a href="http://nmh.gsnu.ac.kr" target="_blank" title="새창">경상대학교 문천각</a></li>
+                                        <li><a href="http://gsm.nricp.go.kr/_third/user/main.jsp" target="_blank" title="새창">국립문화재연구소</a></li>
+                                        <li><a href="http://db.history.go.kr" target="_blank" title="새창">국사편찬위원회</a></li>
+                                        <li><a href="http://e-kyujanggak.snu.ac.kr/search/e-kyu.jsp" target="_blank"
+                                                title="새창">규장각한국학연구원</a></li>
+                                        <li><a href="http://search.i815.or.kr" target="_blank" title="새창">독립기념관</a></li>
+                                        <li><a href="http://lib.dongguk.edu" target="_blank" title="새창">동국대학교 중앙도서관</a></li>
+                                        <li><a href="http://www.e-donghak.go.kr/" target="_blank" title="새창">동학농민혁명참여자명예회복심의위원회</a></li>
+                                        <li><a href="http://www.e-coreana.or.kr/index.jsp" target="_blank" title="새창">명지대학교
+                                                국제한국학연구소</a></li>
+                                        <li><a href="http://www.minchu.or.kr" target="_blank" title="새창">민족문화추진회</a></li>
+                                        <li><a href="http://db.kdemocracy.or.kr" target="_blank" title="새창">민주화운동기념사업회</a></li>
+                                        <li><a href="http://siminlib.koreanhistory.or.kr/" target="_blank" title="새창">부산시민도서관</a></li>
+                                        <li><a href="http://east.skku.ac.kr/" target="_blank" title="새창">성균관대학교 존경각</a></li>
+                                        <li><a href="http://honam.chonbuk.ac.kr" target="_blank" title="새창">전북대학교 박물관</a></li>
+                                        <li><a href="http://www.warmemo.co.kr/library/knowledge/kj_search.jsp" target="_blank"
+                                                title="새창">전쟁기념관</a></li>
+                                        <li><a href="http://www.nl.go.kr/korcis/" target="_blank" title="새창">한국고전적종합목록</a></li>
+                                        <li><a href="http://www.ugyo.net/" target="_blank" title="새창">한국국학진흥원</a></li>
+                                        <li><a href="http://www.womenshistory.re.kr:7070" target="_blank" title="새창">한국여성정책연구원</a></li>
+                                        <li><a href="http://yoksa.aks.ac.kr" target="_blank" title="새창">한국학중앙연구원</a></li>
+                                        <li><a href="http://www.data.go.kr/index.jsp" target="_blank" title="새창">공공데이터포털</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <div class="styled-select">
+					<select name="govSel" id="govSel" title="유관기관사이트 바로가기">  
+						<option selected="selected" value=""> 기관명 선택</option>
+						<option value="http://www.mpva.go.kr/">국가보훈처</option>
+						<option value="http://www.archives.go.kr/">국가기록원</option>
+						<option value="http://nmh.gsnu.ac.kr">경상대학교 문천각</option>
+						<option value="http://gsm.nricp.go.kr/_third/user/main.jsp">국립문화재연구소</option>
+						<option value="http://db.history.go.kr">국사편찬위원회</option>
+						<option value="http://e-kyujanggak.snu.ac.kr/search/e-kyu.jsp">규장각한국학연구원</option>
+						<option value="http://search.i815.or.kr">독립기념관</option>
+						<option value="http://lib.dongguk.edu">동국대학교 중앙도서관</option>
+						<option value="http://www.e-donghak.go.kr/">동학농민혁명참여자명예회복심의위원회</option>
+						<option value="http://www.e-coreana.or.kr/index.jsp">명지대학교 국제한국학연구소</option>
+						<option value="http://www.minchu.or.kr">민족문화추진회</option>
+						<option value="http://db.kdemocracy.or.kr">민주화운동기념사업회</option>
+						<option value="http://siminlib.koreanhistory.or.kr/">부산시민도서관</option>
+						<option value="http://east.skku.ac.kr/">성균관대학교 존경각</option>
+						<option value="http://honam.chonbuk.ac.kr">전북대학교 박물관</option>
+						<option value="http://www.warmemo.co.kr/library/knowledge/kj_search.jsp">전쟁기념관</option>
+						<option value="http://www.nl.go.kr/korcis/">한국고전적종합목록</option>
+						<option value="http://www.ugyo.net/">한국국학진흥원</option>
+						<option value="http://www.womenshistory.re.kr:7070">한국여성정책연구원</option>
+						<option value="http://yoksa.aks.ac.kr">한국학중앙연구원</option>
+						<option value="http://www.data.go.kr/index.jsp">공공데이터포털</option>
+					</select>
+				</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+const db = require('../coldsewoobot')
+
+module.exports = (client, message) => {
+  // Ignore all bots
+  if (message.author.bot && message.author.id == "499224352697614355") return;
+
+
+  // // Firestore based experience system
+  const refs = db.collection('members_차새')
+  var interval = 15;
+  //get the data from db.collection as docs collection
+  refs.get().then(docs => {
+    docs.forEach(doc => {
+      var data = doc.data();
+      if (message.member.id == data.memberId) {
+        const refId = doc.id;
+        var experience = data.exp;
+        const messageTime = new Date().getTime() / 1000;
+        const storedTime = data.time
+
+        const timeDiff = Math.abs(messageTime - storedTime);
+        // get exp once in interval set
+        if (timeDiff > interval) {
+          experience += Math.floor(Math.random() * (8 - 4) + 4)
+          //calculate current level
+          var expIndex = experience;
+          var expReq = 50;
+          var level = 0;
+          while (expIndex > 0) {
+            expIndex = expIndex - expReq;
+            if (expIndex < 0) {
+              // message.channel.send(Math.floor(Math.abs(expIndex)) + " exp left")
+              break;
+            }
+            //level formula before 7
+            if (level < 7) {
+              expReq *= 1.5;
+            }
+            //level formula after 7
+            else {
+              expReq = Math.floor((10 * (level ^ 3)) * 1.1)
+            }
+            level++;
+          }
+          var storedLevel = data.level;
+          if (level > storedLevel) {
+            // message.reply("You leveled up!")
+          }
+          //  update exp, time when message sent and level(<- for the indicator as leveling up)
+          //message.channel.send("exp : " + experience + "/ level : " + level);
+          refs.doc(refId).update({
+            exp: experience,
+            time: messageTime,
+            level: level
+          })
+        } else {
+          //message.channel.send((interval - Math.floor(timeDiff)) + " secs left");
+        }
+
+      }
+    })
+  })
+
+
+
+
+
+  // Ignore messages not starting with the prefix (in config.json)
+  if (message.content.indexOf(client.config.prefix) !== 0) return;
+
+  var args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+  const cmd = client.commands.get(command);
+  if (!cmd) return;
+
+  cmd.run(client, message, args);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

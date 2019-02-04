@@ -3,10 +3,18 @@ const path = require('path');
 const globalVar = require(__basedir + '/globalVar.js')
 const Global = globalVar.Global;
 const Path = __basedir + '/' + "commands"
+<<<<<<< HEAD
 
 exports.run = (client, message, args) => {
 	if (message.author.id != Global.adminId) return;
 	var commandNames = [];
+=======
+var commandNames = [];
+
+exports.run = (client, message, args) => {
+	if (message.author.id != Global.adminId) return;
+
+>>>>>>> 7086018b8260109c7ad2f3c8059712afa50ee6ba
 
 	readCmds().then((commandNames) => {
 		commandNames.sort()
