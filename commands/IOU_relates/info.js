@@ -1,92 +1,100 @@
+const db = require(__basedir + '/coldsewooBOT.js');
+const buildings = db.collection('buildings');
 const globalVar = require(__basedir + '/globalVar.js')
 const Global = globalVar.Global;
-const guildinfo = globalVar.Guildinfo;
+
 exports.run = (client, message, args) => {
-	if (Global.cnc_opened.indexOf(message.channel.id) > -1) {
-		if (Global.testChannels.indexOf(message.channel.id) == -1) {
-			message.delete();
-			message.reply("You cannot use this command in this channel")
-			setTimeout(() => {
-				message.channel.fetchMessages({
-					limit: 3
-				}).then(collected => {
-					collected.forEach(msg => {
-						if (msg.author.bot) msg.delete();
-					});
-				});
-			}, 3000);
-			return;
-		}
-	}
-	const guildsheet = requireUncached(__basedir + '/json/guildsheet.json');
+    var gBuilding = {};
+    buildings.get().then(async docs => {
+        await docs.forEach(doc => {
+            gBuilding[doc.id] = doc.data();
+        })
+        const messageTime = new Date().getTime() / 1000;
+        const storedTime = gBuilding["timeinfo"]["timestamp"]
+        const timeDiff = Math.abs(messageTime - storedTime)
+        return Promise.resolve(timeDiff);
+    }).then((timeDiff) => {
+        if (timeDiff > 3600 * 24 * 1000) return message.reply("Please ~update")
+        if (Global.cnc_opened.indexOf(message.channel.id) > -1) {
+            if (Global.testChannels.indexOf(message.channel.id) == -1) {
+                message.delete();
+                message.reply("You cannot use this command in this channel")
+                setTimeout(() => {
+                    message.channel.fetchMessages({
+                        limit: 3
+                    }).then(collected => {
+                        collected.forEach(msg => {
+                            if (msg.author.bot) msg.delete();
+                        });
+                    });
+                }, 3000);
+                return;
+            }
+        }
+        if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
+        let color;
+        for (let i = 0; i < 6; i++) {
+            if (message.member.roles.find(role => role.name === Global.guildRole[i])) {
+                color = Global.guildColor[i];
+            }
+        }
+        if (!color) color = Global.guildColor[6];
 
-	if (!message.member.roles.find(r => r.name === 'CnCmember')) return message.channel.send('You are not CnC member!');
-	// const guildcolor = ['14713377', '7382744', '951659', '9984690', '3407751', '16398164', '16312092'];
-	// let guildname = ['BR', 'CS', 'The Collectives', 'Imaginarium', 'Fresh Air', 'Always Online'];
-	let color;
-	for (let i = 0; i < 6; i++) {
-		if (message.member.roles.find(role => role.name === Global.guildRole[i])) {
-			color = Global.guildColor[i];
-		}
-	}
-	if (!color) color = Global.guildColor[6];
-	if (!guildsheet[8][2] || (guildsheet[8][1] == 11 && guildsheet[8][2] == 19)) return message.channel.send(' *Please* **~update** *first*');
 
+        if (!args[0]) {
+            message.channel.send({
+                embed: {
+                    color: `${color}`,
+                    author: {
+                        name: 'Info',
 
-	if (!args[0]) {
-		message.channel.send({
-			embed: {
-				color: `${color}`,
-				author: {
-					name: 'Info',
+                    },
+                    title: 'Shows Guild Level Information',
+                    fields: [{
+                        name: 'Available Contents (use ~ before the desired command)',
+                        value: `
+    **Burning Rage** - *BR, Burningrage*
+    **Coming Soon** - *CS, Comingsoon*
+    **The Collectives** - *TC, Thecollectives*
+    **Imaginarium** - *IM, Imaginarium*
+    **Fresh Air** - *FA, Freshair*
+    **Always Online** - *AO, Alwaysonline*
+    ex) ~info AO, ~info Alwaysonline
+        `,
+                    },],
 
-				},
-				title: 'Shows Guild Level Information',
-				fields: [{
-					name: 'Available Contents (use ~ before the desired command)',
-					value: `
-**Burning Rage** - *BR, Burningrage*
-**Coming Soon** - *CS, Comingsoon*
-**The Collectives** - *TC, Thecollectives*
-**Imaginarium** - *IM, Imaginarium*
-**Fresh Air** - *FA, Freshair*
-**Always Online** - *AO, Alwaysonline*
-ex) ~info AO, ~info Alwaysonline
-    `,
-				},],
+                    footer: {
+                        icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
+                        text: '\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)',
 
-				footer: {
-					icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-					text: '\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)',
+                    },
+                },
+            }).catch(function (err) {
+                console.error(err);
+            });
+            return;
+        }
 
-				},
-			},
-		}).catch(function (err) {
-			console.error(err);
-		});
-		return;
-	}
-	const guildnameInput = args.slice().shift().toLowerCase();
-	let guildname;
-	for (let i = 0; i < 6; i++) {
-		if (Global.guildnameList[i].indexOf(guildnameInput) >= 0) {
-			guildname = i;
-		}
-	}
-	if (guildname == undefined) {
-		{
-			if (guildnameInput === 'help') {
-				message.channel.send({
-					embed: {
-						color: `${color}`,
-						author: {
-							name: 'Info',
+        const guildnameInput = args.slice().shift().toLowerCase();
+        let guildname;
+        for (let i = 0; i < 6; i++) {
+            if (Global.guildnameList[i].indexOf(guildnameInput) >= 0) {
+                guildname = Global.guildnameAbbr[i];
+            }
+        }
+        if (!guildname) {
+            if (guildnameInput === 'help') {
+                message.channel.send({
+                    embed: {
+                        color: `${color}`,
+                        author: {
+                            name: 'Info',
 
-						},
-						title: 'Shows Guild Level Information',
-						fields: [{
-							name: 'Available Contents (use ~ before the desired command)',
-							value: `
+                        },
+                        title: 'Shows Guild Level Information',
+                        fields: [{
+                            name: 'Available Contents (use ~ before the desired command)',
+                            value: `
 			**Burning Rage** - *BR, Burningrage*
 			**Coming Soon** - *CS, Comingsoon*
 			**The Collectives** - *TC, Thecollectives*
@@ -95,62 +103,56 @@ ex) ~info AO, ~info Alwaysonline
 			**Always Online** - *AO, Alwaysonline*
 			ex) ~info AO, ~info Alwaysonline
 			    `,
-						},],
+                        },],
 
-						footer: {
-							icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-							text: '\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)',
+                        footer: {
+                            icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
+                            text: '\n\nIOU_BOT made by Coldsewoo (차가운새우#2410)',
 
-						},
-					},
-				}).catch(function (err) {
-					console.error(err);
-				});
-			} else
-				if (guildnameInput === 'cold' || guildnameInput === 'coldsewoo') {
-					message.channel.send(':heart:');
-					return;
-				} else {
-					message.channel.send('You must type correct guild name (See ~info help)');
-					return;
-				}
-		}
-	}
+                        },
+                    },
+                }).catch(function (err) {
+                    console.error(err);
+                });
+            } else
+                if (guildnameInput === 'cold' || guildnameInput === 'coldsewoo') {
+                    message.channel.send(':heart:');
+                    return;
+                } else {
+                    message.channel.send('You must type correct guild name (See ~info help)');
+                    return;
+                }
+        }
 
-	if (guildnameInput === 'help') {
-		return;
-	}
-	message.channel.send({
-		embed: {
-			color: `${guildinfo[0][guildname][0]['guild_color']}`,
-			author: {
-				name: 'Cows \'n\' Chaos',
 
-			},
-			title: `**${guildinfo[0][guildname][0]['guild_name']} guild information**`,
-			fields: [{
-				name: '**             Building                         Level**       ',
-				value: `\`\`\`css
- Guild Level  -    ${guildsheet[guildname][2]} \n Wishing Well -    ${guildsheet[guildname][3]}
- Stable       -    ${guildsheet[guildname][4]} \n Fortress     -    ${guildsheet[guildname][5]}
- Bank         -    ${guildsheet[guildname][6]} \n Sawmill      -    ${guildsheet[guildname][7]}
- Sac Tower    -    ${guildsheet[guildname][8]} \n Warehouse    -    ${guildsheet[guildname][9]}
- Altar        -    ${guildsheet[guildname][10]} \n Library      -    ${guildsheet[guildname][11]}
- Aquatic      -    ${guildsheet[guildname][12]} \n Space Aca.   -    ${guildsheet[guildname][13]} \`\`\`\`\`\`prolog\n  Total Stone - ${guildsheet[guildname][35]} \`\`\``,
-			},],
 
-			footer: {
-				icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
-				text: `Last updated on ${Global.monthEng[guildsheet[8][1]]} ${guildsheet[8][2]}, ${guildsheet[8][3]}:${guildsheet[8][4]} JST(GMT+9)`,
+        message.channel.send({
+            embed: {
+                color: `${gBuilding[guildname]["color"]}`,
+                author: {
+                    name: 'Cows \'n\' Chaos',
 
-			},
-		},
-	}).catch(function (err) {
-		console.error(err);
-	});
+                },
+                title: `**${gBuilding[guildname]['guildName']} Guild Information**`,
+                fields: [{
+                    name: '**             Building                         Level**       ',
+                    value: `\`\`\`css
+ Guild Level  -    ${gBuilding[guildname]["GL"]} \n Wishing Well -    ${gBuilding[guildname]["WW"]}
+ Stable       -    ${gBuilding[guildname]["Stable"]} \n Fortress     -    ${gBuilding[guildname]["Fortress"]}
+ Bank         -    ${gBuilding[guildname]["Bank"]} \n Sawmill      -    ${gBuilding[guildname]["Sawmill"]}
+ Sac Tower    -    ${gBuilding[guildname]["SacTower"]} \n Warehouse    -    ${gBuilding[guildname]["Warehouse"]}
+ Altar        -    ${gBuilding[guildname]["Altar"]} \n Library      -    ${gBuilding[guildname]["Library"]}
+ Aquatic      -    ${gBuilding[guildname]["Aqua"]} \n Space Aca.   -    ${gBuilding[guildname]["Academy"]} \`\`\`\`\`\`prolog\n  TotalStone - ${gBuilding[guildname]["ShortGuildStone"]} \`\`\``,
+                },],
 
-	function requireUncached(module) {
-		delete require.cache[require.resolve(module)];
-		return require(module);
-	}
-};
+                footer: {
+                    icon_url: 'https://i.postimg.cc/rmxgPCzB/2018-11-07-2-54-39.png',
+                    text: `Last updated on ${Global.monthEng[gBuilding["timeinfo"]["months"]]} ${gBuilding["timeinfo"]["days"]} ${gBuilding["timeinfo"]["years"]}, ${gBuilding["timeinfo"]["hour"]}:${gBuilding["timeinfo"]["mins"]} JST(GMT+9)`,
+
+                },
+            },
+        }).catch(function (err) {
+            console.error(err);
+        });
+    })
+}
