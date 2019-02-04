@@ -73,3 +73,7 @@ firebase-adminsdk.json
 
 #.js file
 commands/test.js
+memo.js
+
+#Procfile
+Procfile
