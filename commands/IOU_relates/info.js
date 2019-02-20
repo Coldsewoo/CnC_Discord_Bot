@@ -84,7 +84,7 @@ exports.run = (client, message, args) => {
         }
         if (!guildname) {
             if (guildnameInput === 'help') {
-                message.channel.send({
+                return message.channel.send({
                     embed: {
                         color: `${color}`,
                         author: {

@@ -39,7 +39,6 @@ exports.run = (client, message, args) => {
 						clearedNum = cleardNum - messageLimit;
 					}
 				}
-				return message.channel.send("Deleted " + clearedNum + " messages :wink:")
 			}
 		}
 		while (fetched.size >= 2 && messageNum < messageLimit);
