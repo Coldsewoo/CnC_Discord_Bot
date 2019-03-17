@@ -1,3 +1,26 @@
 {
-    "extends": "standard"
+    "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "airbnb-base",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+        "consistent-return": 0,
+        "max-len": 0,
+        "import/no-dynamic-require": 0,
+        "no-console": 0,
+        "prefer-destructuring": 0,
+        "no-undef": 0,
+        "no-inner-declarations": 0,
+        "no-use-before-define": 0,
+        "prefer-template": 0
+    }
 }
