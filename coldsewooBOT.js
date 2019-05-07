@@ -1,123 +1,135 @@
-const Discord = require("discord.js");
-const Enmap = require("enmap");
-const fs = require("fs");
-const path = require('path');
-const {
-  get
-} = require('snekfetch');
+const Discord = require('discord.js')
+const Enmap = require('enmap')
+const fs = require('fs')
+// const path = require('path')
+const fetch = require('node-fetch')
+const cheerio = require('cheerio')
+const facebookURL = 'https://www.facebook.com/pg/Idle-Online-Universe-IOU-RPG-320106674851481/posts/?ref=page_internal'
 global.__basedir = __dirname
 
-
-//firestore initialization
-const admin = require("firebase-admin");
-const serviceAccount = require("./firebase-adminsdk.json");
+// firestore initialization
+const admin = require('firebase-admin')
+const serviceAccount = require('./firebase-adminsdk.json')
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://cnc-discord-bot.firebaseio.com",
-  });
-
+    databaseURL: 'https://cnc-discord-bot.firebaseio.com'
+  })
 }
-const db = admin.firestore();
-if (!db.settings.length) {
-  const settings = { timestampsInSnapshots: true };
-  db.settings(settings);
+const db = admin.firestore()
+const settings = {
+  timestampsInSnapshots: true
 }
+db.settings(settings)
 
-
-
-
-
-
-const client = new Discord.Client();
-const config = require("./config.json");
-client.config = config;
+const client = new Discord.Client()
+const config = require('./config.json')
+client.config = config
 
 client.on('ready', () => {
-  client.user.setActivity('Use ~help for more info XD', { type: 'PLAYING' });
-});
+  client.user.setActivity('Use ~help for more info XD', {
+    type: 'PLAYING'
+  })
+})
 
-fs.readdir("./events/", (err, files) => {
-  if (err) return console.error(err);
+fs.readdir('./events/', (err, files) => {
+  if (err) return console.error(err)
   files.forEach(file => {
-    const event = require(`./events/${file}`);
-    let eventName = file.split(".")[0];
-    client.on(eventName, event.bind(null, client));
-  });
-});
+    const event = require(`./events/${file}`)
+    let eventName = file.split('.')[0]
+    client.on(eventName, event.bind(null, client))
+  })
+})
 
-
-//read commands dir and set each keyword as linked in command prop in client.commands
-client.commands = new Enmap();
-fs.readdir("./commands/", (err, files) => {
-  if (err) return console.error(err);
+// read commands dir and set each keyword as linked in command prop in client.commands
+client.commands = new Enmap()
+fs.readdir('./commands/', (err, files) => {
+  if (err) return console.error(err)
   files.forEach(file => {
-    if (!fs.statSync("./commands/" + file).isDirectory()) {
-      if (!file.endsWith(".js")) {
-        return;
+    if (!fs.statSync('./commands/' + file).isDirectory()) {
+      if (!file.endsWith('.js')) {
+
       } else {
-        let props = require(`./commands/${file}`);
-        let commandName = file.split(".")[0];
-        console.log(`Attempting to load command ${commandName}`);
-        client.commands.set(commandName, props);
+        let props = require(`./commands/${file}`)
+        let commandName = file.split('.')[0]
+        console.log(`Attempting to load command ${commandName}`)
+        client.commands.set(commandName, props)
       }
     } else {
-      if (file == 'others') return;
+      if (file === 'others') return
       fs.readdir(`./commands/${file}`, (err, innerFiles) => {
-        if (err) return console.error(err);
+        if (err) return console.error(err)
 
         innerFiles.forEach(innerFile => {
-          if (!innerFile.endsWith(".js")) return;
-          let props = require(`./commands/${file}/${innerFile}`);
-          let commandName = innerFile.split(".")[0];
-          console.log(`Attempting to load command ${commandName}`);
-          client.commands.set(commandName, props);
+          if (!innerFile.endsWith('.js')) return
+          let props = require(`./commands/${file}/${innerFile}`)
+          let commandName = innerFile.split('.')[0]
+          console.log(`Attempting to load command ${commandName}`)
+          client.commands.set(commandName, props)
         })
       })
     }
-  });
-});
-
+  })
+})
 
 setInterval(function () {
-  var facebookArray = new Array();
+  var facebookArray = []
   try {
-    get('https://www.facebook.com/pg/Idle-Online-Universe-IOU-RPG-320106674851481/posts/?ref=page_internal').then(res => {
-      var content = res.body.toString();
-      var codeFinder = "your codes"
-      var codeEndFinder = "Cheers,"
-      var codeIndex = content.indexOf(codeFinder);
-      var codeEndIndex = content.indexOf(codeEndFinder);
-      var codes = content.substring(codeIndex, codeEndIndex)
-      var br = "<br />"
-      var codesArray = codes.split(br);
-      for (let i = 1; i < 3; i++) {
-        codesArray[i] = codesArray[i].trim();
-        facebookArray.push(codesArray[i]);
-      }
-      return facebookArray;
-    }).then(facebookArray => {
-      var msgArray = new Array();
-      const channelId = "453517489561665536";
-      const codeChannel = client.channels.get(channelId)
-
-      codeChannel.fetchMessages({
-        limit: 1
-      }).then(collected => {
-        collected.forEach(msg => {
-          msgArray = msg.content.split(/\n/);
+    fetch(facebookURL)
+      .then(res => res.text())
+      .then(body => {
+        const $ = cheerio.load(body)
+        let $div = $("div[id='pagelet_timeline_main_column']")
+        $div.each((i, el) => {
+          var $el = $(el)
+          var textArr = $el
+            .find('p')
+            .first()
+            .text()
+          var result = textArr.split(/\s/)
+          const codesReg = /(c|C)odes\.{1,3}/
+          const cheersReg = /(c|C)heers,/
+          let firstIndex, lastIndex
+          for (const index in result) {
+            if (codesReg.test(result[index])) firstIndex = index
+            else if (cheersReg.test(result[index])) lastIndex = index
+            else continue
+          }
+          for (let i = parseInt(firstIndex) + 1; i < parseInt(lastIndex); i++) {
+            facebookArray.push(result[i])
+          }
         })
-        return Promise.resolve([facebookArray, msgArray])
-      }).then(([facebookArray, msgArray]) => {
-        if (!facebookArray.includes(msgArray[1])) {
-          codeChannel.send(facebookArray);
-        }
+        return facebookArray
       })
-    })
+      .then(facebookArray => {
+        var msgArray = []
+        const channelId = '453517489561665536'
+        const codeChannel = client.channels.get(channelId)
+        codeChannel
+          .fetchMessages({
+            limit: 3
+          })
+          .then(collected => {
+            collected.forEach(msg => {
+              let tempArr = msg.content.split(/\n/)
+              msgArray.push(...tempArr)
+            })
+            return Promise.resolve([facebookArray, msgArray])
+          })
+          .then(([facebookArray, msgArray]) => {
+            if (!msgArray.includes(facebookArray[0])) {
+              codeChannel.send(facebookArray)
+            }
+          })
+      })
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
-}, 30 * 60 * 1000);
+}, 30 * 60 * 1000)
 
-client.login(config.token);
-module.exports = db;
+client.on('UnhandledPromiseRejectionWarning', (err) => {
+  console.error(err)
+})
+
+client.login(config.token)
+module.exports = db
