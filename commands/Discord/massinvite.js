@@ -4,86 +4,92 @@ const globalVar = require(__basedir + '/globalVar.js')
 const Global = globalVar.Global;
 
 exports.run = (client, message, args) => {
-    var gBuilding = {};
-    buildings.get().then(async docs => {
-        await docs.forEach(doc => {
-            gBuilding[doc.id] = doc.data();
-        })
-        const messageTime = new Date().getTime() / 1000;
-        const storedTime = gBuilding["timeinfo"]["timestamp"]
-        const timeDiff = Math.abs(messageTime - storedTime)
-        return Promise.resolve(timeDiff);
-    }).then((timeDiff) => {
-        if (timeDiff > 3600 * 24 * 1000) return message.reply("Please ~update")
+	const gBuilding = {};
+	buildings.get().then(async docs => {
+		await docs.forEach(doc => {
+			gBuilding[doc.id] = doc.data();
+		});
+		const messageTime = new Date().getTime() / 1000;
+		const storedTime = gBuilding['timeinfo']['timestamp'];
+		const timeDiff = Math.abs(messageTime - storedTime);
+		return Promise.resolve(timeDiff);
+	}).then((timeDiff) => {
+		if (timeDiff > 3600 * 24) return message.reply('Please ~update');
 
-        if (!message.member.roles.find(role => role.name === 'Bot_controler') && !message.member.roles.find(role => role.name === 'Bot Controller')) return;
+		if (!message.member.roles.find(role => role.name === 'Bot_controler') && !message.member.roles.find(role => role.name === 'Bot Controller')) return;
 
-        message.delete();
-        message.channel.fetchPinnedMessages()
-            .then(collected => {
-                collected.forEach(msg => {
-                    if (msg.author.bot) msg.delete();
-                });
-            }).catch(console.error);
-        const brChannel = '<#491666791345684481>'; // 0
-        const aoChannel = '<#511304632115527680>'; // 5
-        const csChannel = '<#518820495878258710>'; // 1
+		message.delete();
+		message.channel.fetchPinnedMessages()
+			.then(collected => {
+				collected.forEach(msg => {
+					if (msg.author.bot) msg.delete();
+				});
+			}).catch(console.error);
+		const brChannel = '<#491666791345684481>'; // 0
+		const aoChannel = '<#585380244148715520>'; // 5
+		const csChannel = '<#518820495878258710>'; // 1
+		const tcChannel = '<#597052817093689344>'; // tc
 
-        const textChannelforBR = '<#419088680670461972>'; // test
-        const coldsewoobotChannelforAO = '<#508458634678763535>'; // test
-        const musicbotChannelforCS = '<#508626305365835787>'; // test
+		const textChannelforBR = '<#419088680670461972>'; // test
+		const coldsewoobotChannelforAO = '<#508458634678763535>'; // test
+		const musicbotChannelforCS = '<#508626305365835787>'; // test
 
-        var guildname;
-        if (message.channel == brChannel || message.channel == textChannelforBR) {
-            guildname = "BR";
-        }
-        else
-            if (message.channel == aoChannel || message.channel == coldsewoobotChannelforAO) {
-                guildname = "AO";
-            }
-            else
-                if (message.channel == csChannel || message.channel == musicbotChannelforCS) {
-                    guildname = "CS";
-                }
-                else { guildname = "TC"; }
+		let guildname;
+		if (message.channel == brChannel || message.channel == textChannelforBR) {
+			guildname = 'BR';
+		}
+		else
+		if (message.channel == aoChannel || message.channel == coldsewoobotChannelforAO) {
+			guildname = 'AO';
+		}
+		else
+		if (message.channel == csChannel || message.channel == musicbotChannelforCS) {
+			guildname = 'CS';
+		}
+		else
+		if (message.channel == tcChannel) {
+			guildname = 'TC';
+		}
+		else {
+			guildname = 'TC';
+		}
 
-        const massinviteDate = new Date();
-        const massinviteTime = new Date(massinviteDate.getTime() + (massinviteDate.getTimezoneOffset() * 60000) + 32400000);
-        const massinviteTimeJp = massinviteTime.toLocaleString('ja-JP');
-        const massinviteTimeSplit = massinviteTimeJp.split(' ');
-        const splitedDays = massinviteTimeSplit[0].split('-');
-        const splitedTime = massinviteTimeSplit[1].split(':');
-        const mon = Global.monthEng[splitedDays[1]];
-        let days = splitedDays[2];
-        const hours = splitedTime[0]
-        const minutes = splitedTime[1];
-        const amPm = splitedTime[2]
-        const result = days % 10;
-        if (result === 1) {
-            days += 'th';
-        }
-        else
-            if (result === 2) {
-                days += 'nd';
-            }
-            else
-                if (result === 3) {
-                    days += 'rd';
-                }
-                else {
-                    days += 'th';
-                }
+		const massinviteDate = new Date();
+		const massinviteTime = new Date(massinviteDate.getTime() + (massinviteDate.getTimezoneOffset() * 60000) + 32400000);
+		const massinviteTimeJp = massinviteTime.toLocaleString('ja-JP');
+		const massinviteTimeSplit = massinviteTimeJp.split(' ');
+		const splitedDays = massinviteTimeSplit[0].split('-');
+		const splitedTime = massinviteTimeSplit[1].split(':');
+		const mon = Global.monthEng[splitedDays[1]];
+		let days = splitedDays[2];
+		const hours = splitedTime[0];
+		const minutes = splitedTime[1];
+		const result = days % 10;
+		if (result === 1) {
+			days += 'th';
+		}
+		else
+		if (result === 2) {
+			days += 'nd';
+		}
+		else
+		if (result === 3) {
+			days += 'rd';
+		}
+		else {
+			days += 'th';
+		}
 
-        async function massinvites() {
-            await message.channel.send({
-                embed: {
-                    color: 16398164,
-                    author: {
-                        name: 'Cows \'n\' Chaos',
+		async function massinvites() {
+			await message.channel.send({
+				embed: {
+					color: 16398164,
+					author: {
+						name: 'Cows \'n\' Chaos',
 
-                    },
-                    title: `**  ${gBuilding[guildname]['guildName']} Guild**`,
-                    fields:
+					},
+					title: `**  ${gBuilding[guildname]['guildName']} Guild**`,
+					fields:
                         [
                             {
                                 name: '**  Mass Invite Updater**',

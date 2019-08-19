@@ -1,5 +1,5 @@
-const path = require('path')
-const fs = require('fs')
+const path = require('path');
+const fs = require('fs');
 
 exports.run = (client, message, args) => {
 	if (message.member.roles.find(role => role.name === 'Bot Controller')) {
@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
 				const props = require(`${innerPath}/${commandName}.js`);
 				client.commands.set(commandName, props);
 				message.reply(`The command ${commandName} has been reloaded`);
-			})
+			});
 	}
 	else {
 		message.reply('You do not have a permission to run this command.');
@@ -27,18 +27,19 @@ exports.run = (client, message, args) => {
 
 	function findPath(cmdName) {
 		return new Promise((resolve, reject) => {
-			var cmd = cmdName;
-			var cmdPath = path.resolve(__basedir, "commands");
-			var innerPath;
+			let cmd = cmdName;
+			let cmdPath = path.resolve(__basedir, 'commands');
+			let innerPath;
 			fs.readdir(cmdPath, (err, files) => {
 				if (err) console.log(err);
 				files.forEach(file => {
 					if (!fs.statSync(`${cmdPath}/${file}`).isDirectory()) {
 						if (file.startsWith(cmd)) {
-							innerPath = `${cmdPath}`
+							innerPath = `${cmdPath}`;
 							resolve(innerPath);
 						}
-					} else {
+					}
+ else {
 						fs.readdir(`${cmdPath}/${file}`, (err, innerFiles) => {
 							if (err) console.log(err);
 							innerFiles.forEach(innerFile => {
@@ -46,12 +47,12 @@ exports.run = (client, message, args) => {
 									innerPath = `${cmdPath}/${file}`;
 									resolve(innerPath);
 								}
-							})
-						})
+							});
+						});
 					}
-				})
-			})
-		})
+				});
+			});
+		});
 	}
 
 
