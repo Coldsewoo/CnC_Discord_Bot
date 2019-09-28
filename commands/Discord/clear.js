@@ -34,7 +34,7 @@ exports.run = (client, message, args) => {
 				}
 				return false;
 			});
-			Promise.all([message.channel.bulkDelete(needDelete), manualDelete(needManuallyDelete)])
+			Promise.all([message.channel.bulkDelete(needDelete), ...manualDelete(needManuallyDelete)])
 				.then(() => {
 					const needDeleteLength = needDelete.array().length;
 					const needManuallyDeleteLength = needManuallyDelete.array().length;
@@ -51,8 +51,7 @@ exports.run = (client, message, args) => {
 				});
 
 			function manualDelete(msgs) {
-				const Promises = msgs.map(messageDelete);
-				return Promise.all(Promises);
+				return msgs.map(messageDelete);
 				function messageDelete(msg) {
 					return msg.delete();
 				}
